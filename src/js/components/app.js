@@ -1,10 +1,16 @@
 import React from 'react';
-import { Styles, Tabs, Tab } from 'material-ui';
+import Mui from 'material-ui';
 import Dashboard from './dashboard.js';
 import Order from './order.js';
 import Store from './store.js';
 import Preference from './preference.js';
 import Logout from './logout.js';
+
+let {
+  Styles,
+  Tabs,
+  Tab
+} = Mui;
 
 let ThemeManager = new Styles.ThemeManager();
 

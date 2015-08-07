@@ -26,7 +26,7 @@ var defaultStatsOptions = {
   errorDetails: false
 };
 
-gulp.task('default', ['webpack', 'override', 'data']);
+gulp.task('default', ['webpack', 'override', 'images']);
 
 gulp.task('webpack', function(done) {
   webpack(webpackConfig, function(err, stats) {
@@ -43,8 +43,8 @@ gulp.task('override', function() {
     .pipe(gulp.dest(DEST));
 });
 
-gulp.task('data', function() {
-  return gulp.src('src/data/**/*.*', { base: 'src' })
+gulp.task('images', function() {
+  return gulp.src('src/images/**/*.*', { base: 'src' })
     .pipe(newer(DEST))
     .pipe(gulp.dest(DEST));
 });
