@@ -25,3 +25,5 @@ Rock with live-reload
 ```bash
 $ gulp server
 ```
+
+Open browser with http://localhost:8080/webpack-dev-server/index.html
