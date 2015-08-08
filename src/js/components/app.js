@@ -1,12 +1,12 @@
 import React from 'react';
 import Mui from 'material-ui';
 import Dashboard from './dashboard.js';
-import Order from './order.js';
 import Store from './store.js';
 import Preference from './preference.js';
 import Logout from './logout.js';
 
 let {
+  Paper,
   Styles,
   Tabs,
   Tab
@@ -35,15 +35,16 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Tabs onChange={this._onChange}> 
+        <Tabs> 
           <Tab label="Dashboard"> 
-            <Dashboard />
-          </Tab>
-          <Tab label="Order"> 
-            <Order />
+            <Paper zDepth={1}>
+              <Dashboard />
+            </Paper>
           </Tab>
           <Tab label="Store"> 
-            <Store />
+            <Paper zDepth={1}>
+              <Store />
+            </Paper>
           </Tab>
           <Tab label="Preference"> 
             <Preference />

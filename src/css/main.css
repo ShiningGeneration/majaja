@@ -1,12 +1,53 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500);
 
-.dashboard {
-  padding: 3% 0 0 0;
+.container {
+  width: 100%;
+  height: 100%;
   text-align: center;
 }
 
 .board {
   display: inline-block;
+  padding: 3% 0 0 0;
   text-align: left;
   margin: auto;
+}
+
+.store {
+  display: flex;
+  flex-flow: row;
+}
+
+.list {
+  width: 150px;
+}
+
+.store-page {
+  flex: 1;
+  position: relative;
+}
+
+.store-tool {
+  position: relative;
+  padding: 0 0 15px 0;
+}
+
+.label {
+  color: #e0e0e0;
+  padding: 8px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.searchbar {
+  padding: 8px;
+  letter-spacing: 2;
+}
+
+.search-list {
+  height: 100%;
 }
