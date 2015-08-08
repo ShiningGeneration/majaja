@@ -5,12 +5,9 @@ import Cake from 'material-ui/lib/svg-icons/social/cake';
 
 let {
   Avatar,
-  IconButton,
-  IconMenu,
   List,
   ListDivider,
   ListItem,
-  MenuItem,
   MoreVertIcon,
   Paper,
   Styles
