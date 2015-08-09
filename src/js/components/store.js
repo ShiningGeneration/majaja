@@ -1,17 +1,15 @@
 import React from 'react';
 import Mui from 'material-ui';
+import CreateStore from './create-store';
+import CreateOrder from './create-order';
 
 let {
   FlatButton,
-  List,
-  ListDivider,
-  ListItem,
   Paper,
   RaisedButton,
   Table,
   TextField
 } = Mui;
-
 
 export default class Store extends React.Component {
 
@@ -41,6 +39,22 @@ export default class Store extends React.Component {
       height: '65%',
       rowData: rowData
     };
+
+    this._handleCreateStore = this._handleCreateStore.bind(this);
+    this._handleCreateOrder = this._handleCreateOrder.bind(this);
+    this._handleAddFavorite = this._handleAddFavorite.bind(this);
+  }
+
+  _handleCreateStore() {
+    this.refs.createStore.show();
+  }
+
+  _handleCreateOrder() {
+    this.refs.createOrder.show();
+  }
+
+  _handleAddFavorite() {
+
   }
 
   render() {
@@ -64,38 +78,43 @@ export default class Store extends React.Component {
     return (
       <div className="container">
         <div className="store">
-          <div className="list">
-            <List>
-              <ListItem primaryText="瀏覽店家" />
-              <ListItem primaryText="新增店家" />
-              <ListItem primaryText="發起訂單" />
-              <ListItem primaryText="我的最愛" />
-            </List>
-          </div>
           <div className="store-page">
             <Paper zDepth={1}>
-              <div className="label">搜尋</div>
-              <div className="searchbar">
-                <TextField hintText="輸入店家名稱" />
-                <FlatButton secondary={true} label="Search"></FlatButton>
-              </div>
-              <br />
-              <Table
-                headerColumns={headerCols}
-                columnOrder={colOrder}
-                rowData={this.state.rowData}
-                height={this.state.height}
-                fixedHeader={this.state.fixedHeader}
-                fixedFooter={this.state.fixedFooter}
-                stripedRows={this.state.stripedRows}
-                showRowHover={this.state.showRowHover}
-                selectable={this.state.selectable}
-                multiSelectable={this.state.multiSelectable}
-                canSelectAll={this.state.canSelectAll}
-                deselectOnClickaway={this.state.deselectOnClickaway}
-                onRowSelection={this._onRowSelection} />
-              <div className="store-tool">
-                <RaisedButton label="加入我的最愛" secondary={true} />
+              <div className="content">
+                <div className="searchbar">
+                  <TextField hintText="輸入店家名稱" />
+                  <FlatButton secondary={true} label="Search"></FlatButton>
+                </div>
+                <br />
+                <Table
+                  headerColumns={headerCols}
+                  columnOrder={colOrder}
+                  rowData={this.state.rowData}
+                  height={this.state.height}
+                  fixedHeader={this.state.fixedHeader}
+                  fixedFooter={this.state.fixedFooter}
+                  stripedRows={this.state.stripedRows}
+                  showRowHover={this.state.showRowHover}
+                  selectable={this.state.selectable}
+                  multiSelectable={this.state.multiSelectable}
+                  canSelectAll={this.state.canSelectAll}
+                  deselectOnClickaway={this.state.deselectOnClickaway}
+                  onRowSelection={this._onRowSelection} />
+                <div className="store-tool">
+                  <RaisedButton
+                    label="新增店家"
+                    onTouchTap={this._handleCreateStore} />
+                  <RaisedButton
+                    label="新增訂單"
+                    secondary={true}
+                    onTouchTap={this._handleCreateOrder} />
+                  <RaisedButton
+                    label="加入我的最愛"
+                    secondary={true}
+                    onTouchTap={this._handleAddFavorite} />
+                  <CreateStore ref="createStore" />
+                  <CreateOrder ref="createOrder" />
+                </div>
               </div>
             </Paper>
           </div>

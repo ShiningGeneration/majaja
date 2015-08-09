@@ -2,7 +2,6 @@
 
 .container {
   width: 100%;
-  height: 100%;
   text-align: center;
 }
 
@@ -19,28 +18,34 @@
 }
 
 .list {
-  width: 150px;
+  width: 200px;
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 200;
 }
 
 .store-page {
   flex: 1;
-  position: relative;
 }
 
-.store-tool {
-  position: relative;
-  padding: 0 0 15px 0;
+.store-page .content {
+  padding: 20px;
+}
+
+.store-tool > * {
+  display: block;
+  margin: 0 2% 30px 2%;
 }
 
 .label {
-  color: #e0e0e0;
-  padding: 8px;
+  color: #4e4e56;
   margin-bottom: 0;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0;
   text-transform: uppercase;
   font-weight: 200;
+  padding: 10px 0 10px 0;
 }
 
 .searchbar {
@@ -48,6 +53,8 @@
   letter-spacing: 2;
 }
 
-.search-list {
-  height: 100%;
+.dialog {
+  width: 300px;
+  text-align: center;
+  margin: auto;
 }
