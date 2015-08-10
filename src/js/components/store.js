@@ -28,15 +28,6 @@ export default class Store extends React.Component {
     ];
 
     this.state = {
-      fixedHeader: true,
-      fixedFooter: true,
-      stripedRows: false,
-      showRowHover: false,
-      selectable: true,
-      multiSelectable: true,
-      canSelectAll: false,
-      deselectOnClickaway: true,
-      height: '65%',
       rowData: rowData
     };
 
@@ -90,15 +81,7 @@ export default class Store extends React.Component {
                   headerColumns={headerCols}
                   columnOrder={colOrder}
                   rowData={this.state.rowData}
-                  height={this.state.height}
-                  fixedHeader={this.state.fixedHeader}
-                  fixedFooter={this.state.fixedFooter}
-                  stripedRows={this.state.stripedRows}
-                  showRowHover={this.state.showRowHover}
-                  selectable={this.state.selectable}
-                  multiSelectable={this.state.multiSelectable}
-                  canSelectAll={this.state.canSelectAll}
-                  deselectOnClickaway={this.state.deselectOnClickaway}
+                  height={'65%'}
                   onRowSelection={this._onRowSelection} />
                 <div className="store-tool">
                   <RaisedButton
@@ -108,10 +91,6 @@ export default class Store extends React.Component {
                     label="新增訂單"
                     secondary={true}
                     onTouchTap={this._handleCreateOrder} />
-                  <RaisedButton
-                    label="加入我的最愛"
-                    secondary={true}
-                    onTouchTap={this._handleAddFavorite} />
                   <CreateStore ref="createStore" />
                   <CreateOrder ref="createOrder" />
                 </div>
