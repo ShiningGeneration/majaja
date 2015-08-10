@@ -28,12 +28,15 @@ export default class Store extends React.Component {
     ];
 
     this.state = {
-      rowData: rowData
+      orderDisable: true,
+      rowData: rowData,
+      selectedIndex: undefined
     };
 
     this._handleCreateStore = this._handleCreateStore.bind(this);
     this._handleCreateOrder = this._handleCreateOrder.bind(this);
     this._handleAddFavorite = this._handleAddFavorite.bind(this);
+    this._onRowSelection = this._onRowSelection.bind(this);
   }
 
   _handleCreateStore() {
@@ -46,6 +49,13 @@ export default class Store extends React.Component {
 
   _handleAddFavorite() {
 
+  }
+
+  _onRowSelection(selectedRows) {
+    this.setState({
+      orderDisable: !selectedRows.length,
+      selectedIndex: selectedRows[0]
+    });
   }
 
   render() {
@@ -65,6 +75,8 @@ export default class Store extends React.Component {
       }
     };
     let colOrder = ['name', 'brief', 'phone'];
+    let storeName = this.state.selectedIndex ?
+      this.state.rowData[this.state.selectedIndex].name.content : '';
 
     return (
       <div className="container">
@@ -82,17 +94,21 @@ export default class Store extends React.Component {
                   columnOrder={colOrder}
                   rowData={this.state.rowData}
                   height={'65%'}
+                  selectable={this.state.selectable}
+                  deselectOnClickaway={false}
                   onRowSelection={this._onRowSelection} />
                 <div className="store-tool">
                   <RaisedButton
                     label="新增店家"
                     onTouchTap={this._handleCreateStore} />
                   <RaisedButton
-                    label="新增訂單"
+                    label="開始訂購"
                     secondary={true}
+                    disabled={this.state.orderDisable}
                     onTouchTap={this._handleCreateOrder} />
                   <CreateStore ref="createStore" />
-                  <CreateOrder ref="createOrder" />
+                  <CreateOrder ref="createOrder"
+                    storeName={storeName}/>
                 </div>
               </div>
             </Paper>

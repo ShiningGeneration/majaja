@@ -76,8 +76,9 @@ export default class CreateStore extends React.Component {
               <TextField floatingLabelText="網址" /><br />
               <TextField style={{ 'text-align': 'left' }}
                 floatingLabelText="訂購說明"
-                multiLine={true} /><br />
-              <div className="">
+                multiLine={true} />
+              <br />
+              <div>
                 <div className="label">服務種類</div>
                 <Checkbox
                   style={styles.typesCheckbox}
@@ -110,6 +111,7 @@ export default class CreateStore extends React.Component {
                   value="snack"
                   label="小吃"/>
               </div>
+              <br />
               <div className="label">圖片上傳</div>
               <RaisedButton primary={true} label="選擇上傳圖片">
                 <input type="file" style={styles.imageInput}></input>

@@ -3,7 +3,10 @@ import Mui from 'material-ui';
 
 let {
   FlatButton,
+  DatePicker,
   Dialog,
+  TextField,
+  TimePicker
 } = Mui;
 
 export default class CreateOrder extends React.Component {
@@ -36,19 +39,25 @@ export default class CreateOrder extends React.Component {
         onTouchTap={this._handleCancel} />,
       <FlatButton
         key={2}
-        label="新增"
+        label="訂購"
         primary={true}
         onTouchTap={this._handleSubmit} />
     ];
 
     return (
       <div>
-        <Dialog title="新增訂單"
+        <Dialog title={`開始訂購 ${this.props.storeName}`}
           ref="createOrderDialog"
           actions={actions}
           autoDetectWindowHeight={true}
           autoScrollBodyContent={true}>
-            <div style={{height: '400px'}}></div>
+            <div className="dialog">
+              <DatePicker hintText="截止日期" mode="landscape"/>
+              <TimePicker hintText="截止時間" format="ampm" />
+              <TextField style={{ 'text-align': 'left' }}
+                floatingLabelText="公告事項"
+                multiLine={true} />
+            </div>
         </Dialog>
       </div>
     );
