@@ -34,7 +34,7 @@
 
 .store-tool > * {
   display: block;
-  margin: 0 2% 30px 2%;
+  margin: 2%;
 }
 
 .label {
@@ -55,6 +55,7 @@
 
 .dialog {
   width: 300px;
+  height: 800px;
   text-align: center;
   margin: auto;
 }

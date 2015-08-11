@@ -45,7 +45,7 @@ export default class CreateOrder extends React.Component {
     ];
 
     return (
-      <div>
+      <div className="container">
         <Dialog title={`開始訂購 ${this.props.storeName}`}
           ref="createOrderDialog"
           actions={actions}

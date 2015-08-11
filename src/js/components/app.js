@@ -35,21 +35,21 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Tabs> 
-          <Tab label="Dashboard"> 
+        <Tabs>
+          <Tab label="Dashboard">
             <Paper zDepth={1}>
               <Dashboard />
             </Paper>
           </Tab>
-          <Tab label="Store"> 
+          <Tab label="Store">
             <Paper zDepth={1}>
               <Store />
             </Paper>
           </Tab>
-          <Tab label="Preference"> 
+          <Tab label="Preference">
             <Preference />
           </Tab>
-          <Tab label="Logout"> 
+          <Tab label="Logout">
             <Logout />
           </Tab>
         </Tabs>
