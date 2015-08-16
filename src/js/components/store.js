@@ -1,15 +1,7 @@
 import React from 'react';
-import Mui from 'material-ui';
-import CreateStore from './create-store';
-import CreateOrder from './create-order';
+import Router from 'react-router';
 
-let {
-  FlatButton,
-  Paper,
-  RaisedButton,
-  Table,
-  TextField
-} = Mui;
+let { RouteHandler } = Router;
 
 export default class Store extends React.Component {
 
@@ -79,42 +71,56 @@ export default class Store extends React.Component {
       this.state.rowData[this.state.selectedIndex].name.content : '';
 
     return (
-      <div className="container">
-        <div className="store">
-          <div className="store-page">
-            <Paper zDepth={1}>
-              <div className="content">
-                <div className="searchbar">
-                  <TextField hintText="輸入店家名稱" />
-                  <FlatButton secondary={true} label="Search"></FlatButton>
-                </div>
-                <br />
-                <Table
-                  headerColumns={headerCols}
-                  columnOrder={colOrder}
-                  rowData={this.state.rowData}
-                  height={'65%'}
-                  selectable={this.state.selectable}
-                  deselectOnClickaway={false}
-                  onRowSelection={this._onRowSelection} />
-                <div className="store-tool">
-                  <RaisedButton
-                    label="新增店家"
-                    onTouchTap={this._handleCreateStore} />
-                  <RaisedButton
-                    label="開始訂購"
-                    secondary={true}
-                    disabled={this.state.orderDisable}
-                    onTouchTap={this._handleCreateOrder} />
-                  <CreateStore ref="createStore" />
-                  <CreateOrder ref="createOrder"
-                    storeName={storeName}/>
-                </div>
-              </div>
-            </Paper>
+      <div className="row">
+        <div className="col-md-4 col-md-offset-4">
+          <div className="input-group">
+            <input type="text" className="form-control" placeholder="請輸入店家名稱" />
+            <span className="input-group-btn">
+              <button className="btn btn-default" type="button">搜尋</button>
+            </span>
+          </div>
+        </div>
+        <div className="col-md-12 well-lg">
+          <div className="col-md-10 col-md-offset-1">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th>收藏</th>
+                  <th>店家</th>
+                  <th>簡介</th>
+                  <th>電話</th>
+                  <th>訂購</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <button type="button" className="btn btn-warning btn-sm">
+                      <span className="glyphicon glyphicon-star"
+                        aria-hidden="true">
+                      </span>
+                    </button>
+                  </td>
+                  <td>楊董燒肉便當店</td>
+                  <td>燒肉，雞腿王，排骨</td>
+                  <td>02-29060925</td>
+                  <td>
+                    <button type="button" className="btn btn-info btn-sm">
+                      <span className="glyphicon glyphicon-shopping-cart" 
+                        aria-hidden="true"
+                        data-toggle="modal"
+                        data-target="#create-order">
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <RouteHandler />
           </div>
         </div>
       </div>
+
     );
   }
 

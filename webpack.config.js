@@ -12,6 +12,10 @@ module.exports = {
         exclude: /node_modules/
       },
       {
+        test: /bootstrap\/dist\/js\//,
+        loader: 'imports?jQuery=jquery'
+      },
+      {
         test: /\.css$/,
         loader: 'style!css'
       },

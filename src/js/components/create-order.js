@@ -1,64 +1,38 @@
 import React from 'react';
-import Mui from 'material-ui';
-
-let {
-  FlatButton,
-  DatePicker,
-  Dialog,
-  TextField,
-  TimePicker
-} = Mui;
 
 export default class CreateOrder extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this._handleCancel = this._handleCancel.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this);
-  }
-
-  show() {
-    this.refs.createOrderDialog.show();
-  }
-
-  _handleCancel() {
-    this.refs.createOrderDialog.dismiss();
-  }
-
-  _handleSubmit() {
-
   }
 
   render() {
-    let actions = [
-      <FlatButton
-        key={1}
-        label="取消"
-        secondary={true}
-        onTouchTap={this._handleCancel} />,
-      <FlatButton
-        key={2}
-        label="訂購"
-        primary={true}
-        onTouchTap={this._handleSubmit} />
-    ];
-
     return (
-      <div className="container">
-        <Dialog title={`開始訂購 ${this.props.storeName}`}
-          ref="createOrderDialog"
-          actions={actions}
-          autoDetectWindowHeight={true}
-          autoScrollBodyContent={true}>
-            <div className="dialog">
-              <DatePicker hintText="截止日期" mode="landscape"/>
-              <TimePicker hintText="截止時間" format="ampm" />
-              <TextField style={{ 'text-align': 'left' }}
-                floatingLabelText="公告事項"
-                multiLine={true} />
+      <div className="modal fade" id="create-order" tabIndex={-1} role="dialog" aria-labelledby="createOrderLabel">
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              <h4 className="modal-title" id="exampleModalLabel">New message</h4>
             </div>
-        </Dialog>
+            <div className="modal-body">
+              <form>
+                <div className="form-group">
+                  <label htmlFor="recipient-name" className="control-label">Recipient:</label>
+                  <input type="text" className="form-control" id="recipient-name" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="message-text" className="control-label">Message:</label>
+                  <textarea className="form-control" id="message-text" />
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" className="btn btn-primary">Send message</button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

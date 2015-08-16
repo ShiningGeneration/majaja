@@ -1,16 +1,15 @@
 import 'babel-core/polyfill';
+import 'bootstrap/dist/js/bootstrap.js';
+import 'bootstrap/dist/css/bootstrap.css';
 import '../css/main.css';
 import React from 'react';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import App from './components/app.js';
+import Router from 'react-router';
+import AppRouter from './components/app-router';
 
-// Needed for onTouchTap
-// Can go away when react 1.0 release
-// Check this repo:
-// https://github.com/zilverline/react-tap-event-plugin
-injectTapEventPlugin();
-
-React.render(
-  <App />,
-  document.getElementById('root')
-);
+Router.create({
+  routes: AppRouter,
+  scrollBehavior: Router.ScrollToTopBehavior
+})
+.run(function(App) {
+  React.render(<App/>, document.getElementById('root'));
+});
