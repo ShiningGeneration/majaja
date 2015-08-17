@@ -50,6 +50,9 @@ export default class CreateOrder extends React.Component {
       },
       productFormat: {
         'height': '260px'
+      },
+      dialogTitle: {
+        'text-align': 'center'
       }
     };
     let productFormat =
@@ -69,7 +72,7 @@ export default class CreateOrder extends React.Component {
     return (
       <Modal show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
-          <Modal.Title>新增店家</Modal.Title>
+          <Modal.Title style={style.dialogTitle}>新增店家</Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
           <Panel header="基本資料">

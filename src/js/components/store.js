@@ -108,10 +108,10 @@ export default class Store extends React.Component {
               <thead>
                 <tr>
                   <th>收藏</th>
+                  <th>訂購</th>
                   <th>店家</th>
                   <th>簡介</th>
                   <th>電話</th>
-                  <th>訂購</th>
                 </tr>
               </thead>
               <tbody>
@@ -121,9 +121,6 @@ export default class Store extends React.Component {
                       <Glyphicon glyph="star-empty" />
                     </Button>
                   </td>
-                  <td>楊董燒肉便當店</td>
-                  <td>燒肉，雞腿王，排骨</td>
-                  <td>02-29060925</td>
                   <td>
                     <Button
                       bsSize="small"
@@ -132,6 +129,9 @@ export default class Store extends React.Component {
                         <Glyphicon glyph="shopping-cart" />
                     </Button>
                   </td>
+                  <td>楊董燒肉便當店</td>
+                  <td>燒肉，雞腿王，排骨</td>
+                  <td>02-29060925</td>
                 </tr>
                 <tr>
                   <td>
@@ -139,9 +139,6 @@ export default class Store extends React.Component {
                       <Glyphicon glyph="star" />
                     </Button>
                   </td>
-                  <td>太師傅便當專賣店</td>
-                  <td>營養便當</td>
-                  <td>07-3345252</td>
                   <td>
                     <Button
                       bsSize="small"
@@ -150,6 +147,9 @@ export default class Store extends React.Component {
                         <Glyphicon glyph="shopping-cart" />
                     </Button>
                   </td>
+                  <td>太師傅便當專賣店</td>
+                  <td>營養便當</td>
+                  <td>07-3345252</td>
                 </tr>
               </tbody>
             </Table>
