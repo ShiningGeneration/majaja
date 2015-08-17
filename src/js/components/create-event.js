@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
 import Input from 'react-bootstrap/lib/Input';
 import Label from 'react-bootstrap/lib/Label';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -100,9 +101,17 @@ export default class CreateEvent extends React.Component {
                 <Label bsStyle="success">自己</Label>
                 <Label bsStyle="info">公司-部門</Label>
               </div>
-              <Input type='text' />
-              <Input type='text' label='截止日期' placeholder='2020/13/1' />
-              <Input type='text' label='截止時間' placeholder='23:00' />
+              <Input type='text' placeholder='請輸入群組名稱' />
+              <Input type='text' label='截止日期' placeholder='yyyy/mm/dd' />
+              <Input type='text' label='截止時間' placeholder='hh:mm' />
+              <Row>
+                <Col md={6}>
+                  <Input type='text' label='數量截止' placeholder='10' />
+                </Col>
+                <Col md={6}>
+                <Input type='text' label='金額截止' placeholder='5000' />
+                </Col>
+              </Row>
               <Input type='textarea' label='公告事項' style={style.announce} />
             </Panel>
           </PanelGroup>
