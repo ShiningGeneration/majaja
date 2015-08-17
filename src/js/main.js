@@ -1,10 +1,7 @@
 import 'babel-core/polyfill';
-import 'bootstrap/dist/js/bootstrap.js';
-import 'bootstrap/dist/css/bootstrap.css';
-import '../css/main.css';
 import React from 'react';
 import Router from 'react-router';
-import AppRouter from './components/app-router';
+import AppRouter from './app-router';
 
 Router.create({
   routes: AppRouter,

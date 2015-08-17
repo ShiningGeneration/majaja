@@ -2,12 +2,12 @@ import React from 'react';
 import Router from 'react-router';
 import AppRouter from './app-router';
 
-import App from './app';
-import Dashboard from './dashboard';
-import Store from './store';
-import Preference from './preference';
-import CreateOrder from './create-order';
-import CreateStore from './create-store';
+import App from './components/app';
+import Dashboard from './components/dashboard';
+import Store from './components/store';
+import Preference from './components/preference';
+import CreateOrder from './components/create-order';
+import CreateStore from './components/create-store';
 
 let Route = Router.Route;
 let DefaultRoute = Router.DefaultRoute;

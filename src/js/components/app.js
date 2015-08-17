@@ -1,49 +1,38 @@
 import React from 'react';
-import Router from 'react-router';
+import RouteHandler from 'react-router/lib/components/RouteHandler';
+import 'bootstrap/dist/css/bootstrap.css';
 
-let { RouteHandler } = Router;
+import CollapsibleNav from 'react-bootstrap/lib/CollapsibleNav';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import Nav from 'react-bootstrap/lib/Nav';
+import NavItem from 'react-bootstrap/lib/NavItem';
+import MenuItem from 'react-bootstrap/lib/MenuItem';
 
 export default class App extends React.Component {
 
   render() {
+    let style = {
+      container: {
+        padding: '3%'
+      }
+    };
+
     return (
       <div>
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
+        <Navbar brand='Majaja' toggleNavKey={0}>
+          <CollapsibleNav eventKey={0}>
+            <Nav navbar>
+              <NavItem eventKey={1} href='#dashboard'>Dashboard</NavItem>
+              <NavItem eventKey={2} href='#store'>Store</NavItem>
+              <NavItem eventKey={3} href='#preference'>Preference</NavItem>
+            </Nav>
+            <Nav navbar right>
+              <NavItem eventKey={1} href='#logout'>Logout</NavItem>
+            </Nav>
+          </CollapsibleNav>
+        </Navbar>
 
-            <div className="navbar-header">
-              <button type="button"
-                className="navbar-toggle collapsed"
-                data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1"
-                aria-expanded="false">
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-                  <span className="icon-bar" />
-              </button>
-              <a className="navbar-brand" href="#">Majaja</a>
-            </div>
-
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav">
-                <li>
-                  <a href="#dashboard">Dashboard<span className="sr-only">(current)</span></a>
-                </li>
-                <li>
-                  <a href="#store">Store</a>
-                </li>
-                <li>
-                  <a href="#preference">Preference</a>
-                </li>
-              </ul>
-              <ul className="nav navbar-nav navbar-right">
-                <li><button type="button" className="btn btn-default navbar-btn">Logout</button></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        <div className="well-lg">
+        <div style={style.container}>
           <RouteHandler />
         </div>
       </div>
