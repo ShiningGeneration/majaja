@@ -1,6 +1,16 @@
 import React from 'react';
 import Router from 'react-router';
 
+import CreateOrder from './create-order';
+import CreateStore from './create-store';
+
+import Button from 'react-bootstrap/lib/Button';
+import Col from 'react-bootstrap/lib/Col';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon';
+import Input from 'react-bootstrap/lib/Input';
+import Row from 'react-bootstrap/lib/Row';
+import Table from 'react-bootstrap/lib/Table';
+
 let { RouteHandler } = Router;
 
 export default class Store extends React.Component {
@@ -31,12 +41,12 @@ export default class Store extends React.Component {
     this._onRowSelection = this._onRowSelection.bind(this);
   }
 
-  _handleCreateStore() {
-    this.refs.createStore.show();
+  _handleCreateOrder() {
+    this.refs.createOrder.open();
   }
 
-  _handleCreateOrder() {
-    this.refs.createOrder.show();
+  _handleCreateStore() {
+    this.refs.createStore.open();
   }
 
   _handleAddFavorite() {
@@ -70,19 +80,31 @@ export default class Store extends React.Component {
     let storeName = this.state.selectedIndex ?
       this.state.rowData[this.state.selectedIndex].name.content : '';
 
+    let searchButton =
+      <Button bsStyle='info' placeholder="請輸入店家名稱">搜尋</Button>;
+
+    let style = {
+      container: {
+        padding: '5% 0 5% 0'
+      },
+      table: {
+        margin: '2% 0 5% 0'
+      },
+      tableButton: {
+        border: '0',
+        solid: true,
+        transparent: true
+      }
+    };
+
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-          <div className="input-group">
-            <input type="text" className="form-control" placeholder="請輸入店家名稱" />
-            <span className="input-group-btn">
-              <button className="btn btn-default" type="button">搜尋</button>
-            </span>
-          </div>
-        </div>
-        <div className="col-md-12 well-lg">
-          <div className="col-md-10 col-md-offset-1">
-            <table className="table table-hover">
+      <Row>
+        <Col md={4} mdOffset={4}>
+          <Input type='text' buttonAfter={searchButton} />
+        </Col>
+        <div style={style.container}>
+          <Col md={10} mdOffset={1}>
+            <Table hover responsive style={style.table}>
               <thead>
                 <tr>
                   <th>收藏</th>
@@ -95,32 +117,57 @@ export default class Store extends React.Component {
               <tbody>
                 <tr>
                   <td>
-                    <button type="button" className="btn btn-warning btn-sm">
-                      <span className="glyphicon glyphicon-star"
-                        aria-hidden="true">
-                      </span>
-                    </button>
+                    <Button bsSize="small" style={style.tableButton}>
+                      <Glyphicon glyph="star-empty" />
+                    </Button>
                   </td>
                   <td>楊董燒肉便當店</td>
                   <td>燒肉，雞腿王，排骨</td>
                   <td>02-29060925</td>
                   <td>
-                    <button type="button" className="btn btn-info btn-sm">
-                      <span className="glyphicon glyphicon-shopping-cart" 
-                        aria-hidden="true"
-                        data-toggle="modal"
-                        data-target="#create-order">
-                      </span>
-                    </button>
+                    <Button
+                      bsSize="small"
+                      style={style.tableButton}
+                      onClick={this._handleCreateOrder}>
+                        <Glyphicon glyph="shopping-cart" />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Button bsSize="small" style={style.tableButton}>
+                      <Glyphicon glyph="star" />
+                    </Button>
+                  </td>
+                  <td>太師傅便當專賣店</td>
+                  <td>營養便當</td>
+                  <td>07-3345252</td>
+                  <td>
+                    <Button
+                      bsSize="small"
+                      style={style.tableButton}
+                      onClick={this._handleCreateOrder}>
+                        <Glyphicon glyph="shopping-cart" />
+                    </Button>
                   </td>
                 </tr>
               </tbody>
-            </table>
-            <RouteHandler />
-          </div>
+            </Table>
+            <Col md={2} mdOffset={5}>
+              <Button
+                block
+                bsStyle="info"
+                onClick={this._handleCreateStore}>
+                  新增店家
+              </Button>
+            </Col>
+          </Col>
         </div>
-      </div>
 
+        <CreateOrder ref="createOrder" />
+        <CreateStore ref="createStore" />
+
+      </Row>
     );
   }
 
