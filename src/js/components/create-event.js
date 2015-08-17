@@ -68,13 +68,16 @@ export default class CreateEvent extends React.Component {
           <PanelGroup defaultActiveKey='3' accordion>
             <Panel header="店家資訊" eventKey='1'>
               <Table hover>
+                <thead>
+                  <tr><th>項目</th><th>內容</th></tr>
+                </thead>
                 <tbody>
-                  <tr><th>店名</th><th>旺旺燒臘便當(安居街總店)</th></tr>
-                  <tr><th>簡介</th><th>高熱量便當</th></tr>
-                  <tr><th>電話</th><th>02-2736-9061</th></tr>
-                  <tr><th>地址</th><th>台北市和平東路三段安居街2號</th></tr>
-                  <tr><th>網址</th><th>無</th></tr>
-                  <tr><th>訂購說明</th><th>6個以上外送</th></tr>
+                  <tr><td>店名</td><td>旺旺燒臘便當(安居街總店)</td></tr>
+                  <tr><td>簡介</td><td>高熱量便當</td></tr>
+                  <tr><td>電話</td><td>02-2736-9061</td></tr>
+                  <tr><td>地址</td><td>台北市和平東路三段安居街2號</td></tr>
+                  <tr><td>網址</td><td>無</td></tr>
+                  <tr><td>訂購說明</td><td>6個以上外送</td></tr>
                 </tbody>
               </Table>
             </Panel>
