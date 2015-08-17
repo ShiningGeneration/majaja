@@ -3,12 +3,10 @@ import React from 'react';
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
-import Modal from 'react-bootstrap/lib/Modal';
 import Input from 'react-bootstrap/lib/Input';
+import Modal from 'react-bootstrap/lib/Modal';
 import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
-import Thumbnail from 'react-bootstrap/lib/Thumbnail';
-import Well from 'react-bootstrap/lib/Well';
 
 export default class CreateOrder extends React.Component {
 
@@ -43,16 +41,16 @@ export default class CreateOrder extends React.Component {
   render() {
     let style = {
       info: {
-        'padding': '3% 4% 3% 4%'
+        padding: '3% 4% 3% 4%'
       },
       detials: {
-        'height': '140px'
+        height: '140px'
       },
       productFormat: {
-        'height': '260px'
+        height: '260px'
       },
       dialogTitle: {
-        'text-align': 'center'
+        textAlign: 'center'
       }
     };
     let productFormat =

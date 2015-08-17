@@ -1,8 +1,4 @@
 import React from 'react';
-import Router from 'react-router';
-
-import CreateOrder from './create-order';
-import CreateStore from './create-store';
 
 import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
@@ -11,7 +7,8 @@ import Input from 'react-bootstrap/lib/Input';
 import Row from 'react-bootstrap/lib/Row';
 import Table from 'react-bootstrap/lib/Table';
 
-let { RouteHandler } = Router;
+import CreateEvent from './create-event';
+import CreateStore from './create-store';
 
 export default class Store extends React.Component {
 
@@ -30,19 +27,17 @@ export default class Store extends React.Component {
     ];
 
     this.state = {
-      orderDisable: true,
       rowData: rowData,
       selectedIndex: undefined
     };
 
     this._handleCreateStore = this._handleCreateStore.bind(this);
-    this._handleCreateOrder = this._handleCreateOrder.bind(this);
+    this._handleCreateEvent = this._handleCreateEvent.bind(this);
     this._handleAddFavorite = this._handleAddFavorite.bind(this);
-    this._onRowSelection = this._onRowSelection.bind(this);
   }
 
-  _handleCreateOrder() {
-    this.refs.createOrder.open();
+  _handleCreateEvent() {
+    this.refs.createEvent.open();
   }
 
   _handleCreateStore() {
@@ -53,35 +48,13 @@ export default class Store extends React.Component {
 
   }
 
-  _onRowSelection(selectedRows) {
-    this.setState({
-      orderDisable: !selectedRows.length,
-      selectedIndex: selectedRows[0]
-    });
-  }
-
   render() {
-    // Column configuration
-    let headerCols = {
-      name: {
-        content: '店家',
-        tooltip: '店家名稱 / 分店名稱'
-      },
-      brief: {
-        content: '簡介',
-        tooltip: '店家簡介 / 優惠訊息'
-      },
-      phone: {
-        content: '電話',
-        tooltip: '聯絡電話 / 店家手機'
-      }
-    };
-    let colOrder = ['name', 'brief', 'phone'];
     let storeName = this.state.selectedIndex ?
       this.state.rowData[this.state.selectedIndex].name.content : '';
 
-    let searchButton =
-      <Button bsStyle='info' placeholder="請輸入店家名稱">搜尋</Button>;
+    let searchButton = (
+      <Button bsStyle='info' placeholder="請輸入店家名稱">搜尋</Button>
+    );
 
     let style = {
       container: {
@@ -125,7 +98,7 @@ export default class Store extends React.Component {
                     <Button
                       bsSize="small"
                       style={style.tableButton}
-                      onClick={this._handleCreateOrder}>
+                      onClick={this._handleCreateEvent}>
                         <Glyphicon glyph="shopping-cart" />
                     </Button>
                   </td>
@@ -143,7 +116,7 @@ export default class Store extends React.Component {
                     <Button
                       bsSize="small"
                       style={style.tableButton}
-                      onClick={this._handleCreateOrder}>
+                      onClick={this._handleCreateEvent}>
                         <Glyphicon glyph="shopping-cart" />
                     </Button>
                   </td>
@@ -164,9 +137,8 @@ export default class Store extends React.Component {
           </Col>
         </div>
 
-        <CreateOrder ref="createOrder" />
+        <CreateEvent ref="createEvent" />
         <CreateStore ref="createStore" />
-
       </Row>
     );
   }

@@ -1,15 +1,15 @@
 import React from 'react';
 
 import Button from 'react-bootstrap/lib/Button';
-import Modal from 'react-bootstrap/lib/Modal';
 import Input from 'react-bootstrap/lib/Input';
 import Label from 'react-bootstrap/lib/Label';
+import Modal from 'react-bootstrap/lib/Modal';
 import Panel from 'react-bootstrap/lib/Panel';
 import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Row from 'react-bootstrap/lib/Row';
 import Table from 'react-bootstrap/lib/Table';
 
-export default class CreateOrder extends React.Component {
+export default class CreateEvent extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,19 +40,19 @@ export default class CreateOrder extends React.Component {
   }
 
   render() {
-    let orderName = '';
+    let storeName = '';
     let style = {
       info: {
-        'padding': '3% 4% 3% 4%'
+        padding: '3% 4% 3% 4%'
       },
       announce: {
-        'height': '100px'
+        height: '100px'
       },
       tags: {
-        'margin': '3px 0 10px 0'
+        margin: '3px 0 10px 0'
       },
       dialogTitle: {
-        'text-align': 'center'
+        textAlign: 'center'
       }
     };
 
@@ -60,7 +60,7 @@ export default class CreateOrder extends React.Component {
       <Modal show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>
-            發起訂購 {orderName}
+            發起訂購 {storeName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
