@@ -66,7 +66,7 @@ export default class CreateEvent extends React.Component {
         </Modal.Header>
         <Modal.Body style={style.info}>
           <PanelGroup defaultActiveKey='3' accordion>
-            <Panel header="店家資訊" eventKey='1'>
+            <Panel header='店家資訊' eventKey='1'>
               <Table hover>
                 <thead>
                   <tr><th>項目</th><th>內容</th></tr>
@@ -81,7 +81,7 @@ export default class CreateEvent extends React.Component {
                 </tbody>
               </Table>
             </Panel>
-            <Panel header="產品資訊" eventKey='2'>
+            <Panel header='產品資訊' eventKey='2'>
               <Table hover>
                 <thead>
                   <tr><th>產品</th><th>價格</th></tr>
@@ -96,13 +96,13 @@ export default class CreateEvent extends React.Component {
                 </tbody>
               </Table>
             </Panel>
-            <Panel header="訂購資料" eventKey='3'>
+            <Panel header='訂購資料' eventKey='3'>
               <label>發起人</label>
               <p>林小明</p>
               <label>發布群組</label>
               <div style={style.tags}>
-                <Label bsStyle="success">自己</Label>
-                <Label bsStyle="info">公司-部門</Label>
+                <Label bsStyle='success'>自己</Label>
+                <Label bsStyle='info'>公司-部門</Label>
               </div>
               <Input type='text' placeholder='請輸入群組名稱' />
               <Input type='text' label='截止日期' placeholder='yyyy/mm/dd' />
@@ -121,7 +121,7 @@ export default class CreateEvent extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.close}>取消</Button>
-          <Button bsStyle="info" onClick={this.submit}>送出</Button>
+          <Button bsStyle='info' onClick={this.submit}>送出</Button>
         </Modal.Footer>
       </Modal>
     );

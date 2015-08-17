@@ -35,8 +35,8 @@ export default class Dashboard extends React.Component {
             <Panel header={'已訂過的'} bsStyle='success'>
               <ListGroup fill>
                 <ListGroupItem
-                  href="#"
-                  header="08/06 (星期四) Mon. 丁媽 虱目魚店"
+                  href='#'
+                  header='08/06 (星期四) Mon. 丁媽 虱目魚店'
                   onClick={this._handleOrder}>
                     香煎魚肚飯<br />
                     數量：1 售價：$100
@@ -48,8 +48,8 @@ export default class Dashboard extends React.Component {
             <Panel header={'進行中的訂單'} bsStyle='info'>
               <ListGroup fill>
                 <ListGroupItem
-                  href="#"
-                  header="08/09 (星期一) Mon. 漢堡王"
+                  href='#'
+                  header='08/09 (星期一) Mon. 漢堡王'
                   onClick={this._handleOrder}>
                     中午供餐<br />
                     還有 33 小時 25 分鐘截止
@@ -61,8 +61,8 @@ export default class Dashboard extends React.Component {
             <Panel header={'推薦店家'} bsStyle='warning'>
               <ListGroup fill>
                 <ListGroupItem
-                  href="#"
-                  header="麥當勞 信義店"
+                  href='#'
+                  header='麥當勞 信義店'
                   onClick={this._handleCreateEvent}>
                     (02) 2641-1332<br />
                     24 小時內皆可訂購
@@ -72,8 +72,8 @@ export default class Dashboard extends React.Component {
           </Col>
         </Row>
 
-        <Order ref="order" />
-        <CreateEvent ref="createEvent" />
+        <Order ref='order' />
+        <CreateEvent ref='createEvent' />
       </Grid>
     );
   }

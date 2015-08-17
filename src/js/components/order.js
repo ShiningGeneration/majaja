@@ -68,7 +68,7 @@ export default class Order extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.close}>取消</Button>
-          <Button bsStyle="info" onClick={this.submit}>送出</Button>
+          <Button bsStyle='info' onClick={this.submit}>送出</Button>
         </Modal.Footer>
       </Modal>
     );

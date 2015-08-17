@@ -73,7 +73,7 @@ export default class CreateOrder extends React.Component {
           <Modal.Title style={style.dialogTitle}>新增店家</Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
-          <Panel header="基本資料">
+          <Panel header='基本資料'>
             <Input type='text' label='名稱' placeholder='店家名稱' />
             <Input type='text' label='簡介' placeholder='店家簡介' />
             <Input type='text' label='電話' placeholder='店家電話' />
@@ -83,7 +83,7 @@ export default class CreateOrder extends React.Component {
               style={style.detials} />
           </Panel>
           
-          <Panel header="產品資料">
+          <Panel header='產品資料'>
             <Row>
               <Col md={6}>
                 <Input type='textarea' label='產品' style={style.productFormat}/>
@@ -95,13 +95,13 @@ export default class CreateOrder extends React.Component {
             </Row>
           </Panel>
 
-          <Panel header="產品圖片上傳">
+          <Panel header='產品圖片上傳'>
             <Col xs={6} xsOffset={3} md={6} mdOffset={3}>
               <Input type='file'/>
             </Col>
           </Panel>
 
-          <Panel header="服務種類">
+          <Panel header='服務種類'>
             <Row>
               <Col md={2} xs={3}>
                 <Input type='checkbox' label='便當' />
@@ -159,7 +159,7 @@ export default class CreateOrder extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.close}>取消</Button>
-          <Button bsStyle="info" onClick={this.submit}>送出</Button>
+          <Button bsStyle='info' onClick={this.submit}>送出</Button>
         </Modal.Footer>
       </Modal>
     );

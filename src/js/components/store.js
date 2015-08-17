@@ -53,7 +53,7 @@ export default class Store extends React.Component {
       this.state.rowData[this.state.selectedIndex].name.content : '';
 
     let searchButton = (
-      <Button bsStyle='info' placeholder="請輸入店家名稱">搜尋</Button>
+      <Button bsStyle='info' placeholder='請輸入店家名稱'>搜尋</Button>
     );
 
     let style = {
@@ -90,16 +90,16 @@ export default class Store extends React.Component {
               <tbody>
                 <tr>
                   <td>
-                    <Button bsSize="small" style={style.tableButton}>
-                      <Glyphicon glyph="star-empty" />
+                    <Button bsSize='small' style={style.tableButton}>
+                      <Glyphicon glyph='star-empty' />
                     </Button>
                   </td>
                   <td>
                     <Button
-                      bsSize="small"
+                      bsSize='small'
                       style={style.tableButton}
                       onClick={this._handleCreateEvent}>
-                        <Glyphicon glyph="shopping-cart" />
+                        <Glyphicon glyph='shopping-cart' />
                     </Button>
                   </td>
                   <td>楊董燒肉便當店</td>
@@ -108,16 +108,16 @@ export default class Store extends React.Component {
                 </tr>
                 <tr>
                   <td>
-                    <Button bsSize="small" style={style.tableButton}>
-                      <Glyphicon glyph="star" />
+                    <Button bsSize='small' style={style.tableButton}>
+                      <Glyphicon glyph='star' />
                     </Button>
                   </td>
                   <td>
                     <Button
-                      bsSize="small"
+                      bsSize='small'
                       style={style.tableButton}
                       onClick={this._handleCreateEvent}>
-                        <Glyphicon glyph="shopping-cart" />
+                        <Glyphicon glyph='shopping-cart' />
                     </Button>
                   </td>
                   <td>太師傅便當專賣店</td>
@@ -129,7 +129,7 @@ export default class Store extends React.Component {
             <Col md={2} mdOffset={5}>
               <Button
                 block
-                bsStyle="info"
+                bsStyle='info'
                 onClick={this._handleCreateStore}>
                   新增店家
               </Button>
@@ -137,8 +137,8 @@ export default class Store extends React.Component {
           </Col>
         </div>
 
-        <CreateEvent ref="createEvent" />
-        <CreateStore ref="createStore" />
+        <CreateEvent ref='createEvent' />
+        <CreateStore ref='createStore' />
       </Row>
     );
   }

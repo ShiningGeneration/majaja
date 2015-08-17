@@ -11,10 +11,10 @@ let Route = Router.Route;
 let DefaultRoute = Router.DefaultRoute;
 
 export default (
-  <Route name="root" path="/" handler={App}>
+  <Route name='root' path='/' handler={App}>
     <DefaultRoute handler={Dashboard}/>
-    <Route name="dashboard" handler={Dashboard} />
-    <Route name="store" handler={Store} />
-    <Route name="preference" handler={Preference} />
+    <Route name='dashboard' handler={Dashboard} />
+    <Route name='store' handler={Store} />
+    <Route name='preference' handler={Preference} />
   </Route>
 );
