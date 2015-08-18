@@ -52,8 +52,8 @@ export default class Preference extends React.Component {
           <Row>
             <Col md={8} mdOffset={2}>
               <Panel header='個人資料' bsStyle='info'>
-                <Input type='text' label='名稱' value='林小明' />
-                <Input type='text' label='訂單顯示名稱' value='(12) 林小明' />
+                <Input type='text' label='名稱' defaultValue='林小明' />
+                <Input type='text' label='訂單顯示名稱' defaultValue='(12) 林小明' />
                 <Input type='text' label='公司' />
                 <Input type='text' label='地點' />
                 <Button
