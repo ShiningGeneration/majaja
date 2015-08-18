@@ -20,13 +20,15 @@ export default class CreateEvent extends React.Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      storeName: ''
     };
   }
 
-  open() {
+  open(store) {
     this.setState({
-      showModal: true
+      showModal: true,
+      storeName: store.name
     });
   }
 
@@ -41,7 +43,7 @@ export default class CreateEvent extends React.Component {
   }
 
   render() {
-    let storeName = '';
+    let storeName = this.state.storeName;
     let style = {
       info: {
         padding: '3% 4% 3% 4%'

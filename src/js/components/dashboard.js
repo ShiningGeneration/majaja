@@ -17,23 +17,13 @@ export default class Dashboard extends React.Component {
 
     this._handleOrder = this._handleOrder.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
-  }
 
-  _handleOrder() {
-    this.refs.order.open();
-  }
-
-  _handleCreateEvent() {
-    this.refs.createEvent.open();
-  }
-
-  render() {
     let ordereds = [
       {
         id: 1,
         title: '08/06 (星期四) Mon. 丁媽 虱目魚店',
         products: [
-          { name: '香煎魚肚', amount: 1, price: 100 }
+          { id: 1, name: '香煎魚肚', amount: 1, price: 100 }
         ]
       }
     ];
@@ -50,16 +40,35 @@ export default class Dashboard extends React.Component {
     let stores = [
       {
         id: 3,
-        title: '麥當勞 信義店',
+        name: '麥當勞 信義店',
         phone: '(02) 2641-1332',
         note: '24 小時內皆可訂購'
       }
     ];
 
-    let orderedItems = ordereds.map(item => {
+    this.state = {
+      ordereds: ordereds,
+      orderings: orderings,
+      stores: stores
+    };
+  }
+
+  _handleOrder() {
+    this.refs.order.open();
+  }
+
+  _handleCreateEvent(storeId) {
+    let store = this.state.stores.find(store => {
+      return store.id === storeId;
+    });
+    this.refs.createEvent.open(store);
+  }
+
+  render() {
+    let orderedItems = this.state.ordereds.map(item => {
       let products = item.products.map(product => {
         return (
-          <span>
+          <span key={product.id}>
             {product.name}
             <br />
             {`數量：${product.amount} 售價：${product.price}`}
@@ -69,6 +78,7 @@ export default class Dashboard extends React.Component {
 
       return (
         <ListGroupItem
+          key={item.id}
           header={item.title}
           onClick={this._handleOrder.bind(this, item.id)}>
             {products}
@@ -76,9 +86,10 @@ export default class Dashboard extends React.Component {
       );
     });
 
-    let orderingItems = orderings.map(item => {
+    let orderingItems = this.state.orderings.map(item => {
       return (
         <ListGroupItem
+          key={item.id}
           header={item.title}
           onClick={this._handleOrder.bind(this, item.id)}>
             <span>
@@ -90,10 +101,11 @@ export default class Dashboard extends React.Component {
       );
     });
 
-    let recommendStores = stores.map(store => {
+    let recommendStores = this.state.stores.map(store => {
       return (
         <ListGroupItem
-          header={store.title}
+          key={store.id}
+          header={store.name}
           onClick={this._handleCreateEvent.bind(this, store.id)}>
             <span>
               {store.phone}
