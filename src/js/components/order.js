@@ -9,6 +9,8 @@ import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Row from 'react-bootstrap/lib/Row';
 import Table from 'react-bootstrap/lib/Table';
 
+import MenuBlock from './menu-block';
+
 export default class Order extends React.Component {
 
   constructor(props) {
@@ -57,14 +59,14 @@ export default class Order extends React.Component {
     };
 
     return (
-      <Modal show={this.state.showModal} onHide={this.close}>
+      <Modal bsSize="large" show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>
             訂購 {orderName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
-          {/* TODO: Order product */}
+          <MenuBlock></MenuBlock>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.close}>取消</Button>
