@@ -66,7 +66,7 @@ export default class Order extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
-					<MenuBlock></MenuBlock>
+          <MenuBlock></MenuBlock>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.close}>取消</Button>
