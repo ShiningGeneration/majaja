@@ -28,6 +28,7 @@ export default class App extends React.Component {
             </Nav>
             <Nav navbar right>
               <NavItem eventKey={1} href='#logout'>Logout</NavItem>
+              <NavItem eventKey={2} href='#login'>Login</NavItem>
             </Nav>
           </CollapsibleNav>
         </Navbar>
