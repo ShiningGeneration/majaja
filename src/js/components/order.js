@@ -165,7 +165,7 @@ export default class Order extends React.Component {
           <td style={style.td}>
             <Button style={style.Button} bsStyle='primary' bsSize='small'>-</Button>
             <Col style={{width: "50%", float: "left"}}>
-              <Input type="number" bsSize="small"/>
+              <Input type="number" defaultValue="0" bsSize="small"/>
             </Col>
             <Button style={style.Button} bsStyle='primary' bsSize='small'>+</Button>
           </td>
