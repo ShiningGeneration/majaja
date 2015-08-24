@@ -56,88 +56,88 @@ export default class Order extends React.Component {
         'textAlign': 'center'
       },
       toolbar: {
-        display: "inline-block",
-        float: "right"
+        display: 'inline-block',
+        float: 'right'
       },
       input: {
-        float: "left",
-        display: "inline-block"
+        float: 'left',
+        display: 'inline-block'
       },
       listItem: {
-        overflow: "hidden"
+        overflow: 'hidden'
       }
     };
 
     var data = [{
-      name: "找好茶",
+      name: '找好茶',
       id: 0,
       content: [{
         id: 0,
-        name: "茉莉綠茶",
+        name: '茉莉綠茶',
         option: ['M'],
         price: [20]
       }, {
         id: 1,
-        name: "阿薩姆奶茶",
+        name: '阿薩姆奶茶',
         option: ['M', 'L'],
         price: [15, 20]
       }, {
         id: 2,
-        name: "四季春茶",
+        name: '四季春茶',
         option: ['M', 'L'],
         price: [15, 20]
     }]}, {
-      name: "找奶茶",
+      name: '找奶茶',
       id: 1,
       content: [{
         id: 0,
-        name: "奶茶",
+        name: '奶茶',
         option: ['M', 'L'],
         price: [30, 45]
       }, {
         id: 1,
-        name: "焦糖奶茶",
+        name: '焦糖奶茶',
         option: ['M', 'L'],
         price: [35, 50]
       }, {
         id: 2,
-        name: "紅茶拿鐵",
+        name: '紅茶拿鐵',
         option: ['M', 'L'],
         price: [40, 55]
     }]}, {
-      name: "找口感",
+      name: '找口感',
       id: 2,
       content: [{
         id: 0,
-        name: "珍珠紅茶",
+        name: '珍珠紅茶',
         option: ['M', 'L'],
         price: [25, 35]
       }, {
         id: 1,
-        name: "珍珠奶茶",
+        name: '珍珠奶茶',
         option: ['M', 'L'],
         price: [30, 45]
       }, {
         id: 2,
-        name: "波霸紅茶拿鐵",
+        name: '波霸紅茶拿鐵',
         option: ['M', 'L'],
         price: [40, 55]
     }]}, {
-      name: "找新鮮",
+      name: '找新鮮',
       id: 3,
       content: [{
         id: 0,
-        name: "檸檬汁",
+        name: '檸檬汁',
         option: ['M', 'L'],
         price: [40, 55]
       }, {
         id: 1,
-        name: "金桔檸檬",
+        name: '金桔檸檬',
         option: ['M', 'L'],
         price: [40, 55]
       }, {
         id: 2,
-        name: "8 冰茶",
+        name: '8 冰茶',
         option: ['M', 'L'],
         price: [30, 45]
     }]}];
@@ -145,16 +145,16 @@ export default class Order extends React.Component {
     let genMenuItem = function (item) {
       var style = {
         Button: {
-          margin: "0 5px",
-          float: "left"
+          margin: '0 5px',
+          float: 'left'
         },
         td: {
-          "vertical-align": "middle"
+          'vertical-align': 'middle'
         }
       };
 
-      if (item.name === "") {
-        style.td["border-top"] = "0";
+      if (item.name === '') {
+        style.td['border-top'] = '0';
       }
 
       return (
@@ -164,13 +164,13 @@ export default class Order extends React.Component {
           <td style={style.td}><h5>{item.price}</h5></td>
           <td style={style.td}>
             <Button style={style.Button} bsStyle='primary' bsSize='small'>-</Button>
-            <Col style={{width: "50%", float: "left"}}>
-              <Input type="number" defaultValue="0" bsSize="small"/>
+            <Col style={{width: '50%', float: 'left'}}>
+              <Input type='number' defaultValue='0' bsSize='small'/>
             </Col>
             <Button style={style.Button} bsStyle='primary' bsSize='small'>+</Button>
           </td>
           <td style={style.td}>
-            <Input type="text" placeholder="備註" />
+            <Input type='text' placeholder='備註' />
           </td>
         </tr>
       );
@@ -178,12 +178,12 @@ export default class Order extends React.Component {
 
     let menuResult = data.map(menu => {
       let content = menu.content;
-      let itemList = new Array();
+      let itemList = [];
 
       for (let i = 0; i < content.length; ++i) {
         for (let j = 0; j < content[i].option.length; ++j) {
           itemList.push({
-            name: !j ? content[i].name : "",
+            name: !j ? content[i].name : '',
             option: content[i].option[j],
             price: content[i].price[j]
           });
@@ -192,19 +192,19 @@ export default class Order extends React.Component {
         if (content[i].option.length == 0) {
           itemList.push({
             name: content[i].name,
-            option: "",
+            option: '',
             price: content[i].price[j]
           });
         }
       }
       return (
-        <Panel header={menu.name}>
+        <Panel key={menu.id} header={menu.name}>
           <Table fill responsive>
-            <col style={{width: "25%"}} />
-            <col style={{width: "15%"}} />
-            <col style={{width: "10%"}} />
-            <col style={{width: "25%"}} />
-            <col style={{width: "25%"}} />
+            <col style={{width: '25%'}} />
+            <col style={{width: '15%'}} />
+            <col style={{width: '10%'}} />
+            <col style={{width: '25%'}} />
+            <col style={{width: '25%'}} />
             <tbody>
               {itemList.map(genMenuItem)}
             </tbody>
@@ -214,7 +214,7 @@ export default class Order extends React.Component {
     });
 
     return (
-      <Modal bsSize="large" show={this.state.showModal} onHide={this.close}>
+      <Modal bsSize='large' show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>
             訂購 {orderName}
