@@ -20,21 +20,22 @@ export default class CreateEvent extends React.Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      showModal: false,
-      storeName: ''
+      open: false,
+      store: {},
+      products: []
     };
   }
 
   open(store) {
     this.setState({
-      showModal: true,
-      storeName: store.name
+      open: true,
+      store: store
     });
   }
 
   close() {
     this.setState({
-      showModal: false
+      open: false
     });
   }
 
@@ -42,8 +43,21 @@ export default class CreateEvent extends React.Component {
 
   }
 
+  _fetchProducts() {
+    fetch(`/api/products.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        products: res
+      });
+    });
+  }
+
+  componentDidMount() {
+    this._fetchProducts();
+  }
+
   render() {
-    let storeName = this.state.storeName;
     let style = {
       info: {
         padding: '3% 4% 3% 4%'
@@ -58,12 +72,18 @@ export default class CreateEvent extends React.Component {
         textAlign: 'center'
       }
     };
+    let store = this.state.store;
+    let products = this.state.products.map(product => {
+      return (
+        <tr><td>{product.name}</td><td>{product.price}</td></tr>
+      );
+    });
 
     return (
-      <Modal show={this.state.showModal} onHide={this.close}>
+      <Modal show={this.state.open} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>
-            發起訂購 {storeName}
+            發起訂購 {store.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>
@@ -74,12 +94,12 @@ export default class CreateEvent extends React.Component {
                   <tr><th>項目</th><th>內容</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>店名</td><td>旺旺燒臘便當(安居街總店)</td></tr>
-                  <tr><td>簡介</td><td>高熱量便當</td></tr>
-                  <tr><td>電話</td><td>02-2736-9061</td></tr>
-                  <tr><td>地址</td><td>台北市和平東路三段安居街2號</td></tr>
-                  <tr><td>網址</td><td>無</td></tr>
-                  <tr><td>訂購說明</td><td>6個以上外送</td></tr>
+                  <tr><td>店名</td><td>{store.name}</td></tr>
+                  <tr><td>簡介</td><td>{store.brief}</td></tr>
+                  <tr><td>電話</td><td>{store.phone}</td></tr>
+                  <tr><td>地址</td><td>{store.address}</td></tr>
+                  <tr><td>網址</td><td>{store.site}</td></tr>
+                  <tr><td>訂購說明</td><td>{store.comment}</td></tr>
                 </tbody>
               </Table>
             </Panel>
@@ -89,12 +109,7 @@ export default class CreateEvent extends React.Component {
                   <tr><th>產品</th><th>價格</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>焢肉飯</td><td>75</td></tr>
-                  <tr><td>燒肉飯</td><td>80</td></tr>
-                  <tr><td>油雞飯</td><td>80</td></tr>
-                  <tr><td>蜜汁香腸飯</td><td>80</td></tr>
-                  <tr><td>糖醋排骨飯</td><td>85</td></tr>
-                  <tr><td>燒鴨飯</td><td>90</td></tr>
+                  {products}
                 </tbody>
               </Table>
             </Panel>

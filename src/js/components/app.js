@@ -8,8 +8,6 @@ import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
-const SERVER_URL = 'http://localhost:8080';
-
 export default class App extends React.Component {
 
   render() {
@@ -36,7 +34,7 @@ export default class App extends React.Component {
         </Navbar>
 
         <div style={style.container}>
-          <RouteHandler url={SERVER_URL} />
+          <RouteHandler />
         </div>
       </div>
     );

@@ -26,7 +26,7 @@ export default class Store extends React.Component {
   }
 
   _fetchStores() {
-    fetch(`${this.props.url}/api/stores.json`).then(res => {
+    fetch(`/api/stores.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
