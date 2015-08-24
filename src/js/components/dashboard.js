@@ -18,39 +18,43 @@ export default class Dashboard extends React.Component {
     this._handleOrder = this._handleOrder.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
 
-    let ordereds = [
-      {
-        id: 1,
-        title: '08/06 (星期四) Mon. 丁媽 虱目魚店',
-        products: [
-          { id: 1, name: '香煎魚肚', amount: 1, price: 100 }
-        ]
-      }
-    ];
-
-    let orderings = [
-      {
-        id: 2,
-        title: '08/09 (星期一) Mon. 漢堡王',
-        content: '中午供餐',
-        remain: '還有 33 小時 25 分鐘截止'
-      }
-    ];
-
-    let stores = [
-      {
-        id: 3,
-        name: '麥當勞 信義店',
-        phone: '(02) 2641-1332',
-        note: '24 小時內皆可訂購'
-      }
-    ];
-
     this.state = {
-      ordereds: ordereds,
-      orderings: orderings,
-      stores: stores
+      ordereds: [],
+      orderings: [],
+      stores: []
     };
+
+    this.SERVER_URL = 'http://localhost:8080';
+  }
+
+  _fetchOrdereds() {
+    fetch(`${this.SERVER_URL}/api/ordereds.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        ordereds: res
+      });
+    });
+  }
+
+  _fetchOrderings() {
+    fetch(`${this.SERVER_URL}/api/orderings.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        orderings: res
+      });
+    });
+  }
+
+  _fetchStores() {
+    fetch(`${this.SERVER_URL}/api/stores.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        stores: res
+      });
+    });
   }
 
   _handleOrder() {
@@ -62,6 +66,12 @@ export default class Dashboard extends React.Component {
       return store.id === storeId;
     });
     this.refs.createEvent.open(store);
+  }
+
+  componentDidMount() {
+    this._fetchOrdereds();
+    this._fetchOrderings();
+    this._fetchStores();
   }
 
   render() {
