@@ -15,59 +15,24 @@ export default class Store extends React.Component {
   constructor(props) {
     super(props);
 
-    let stores = [
-      {
-        id: 1,
-        name: '楊董燒肉便當店',
-        brief: '燒肉，雞腿王，排骨',
-        phone: '02-29060925'
-      },
-      {
-        id: 2,
-        name: '太師傅便當專賣店(興中店)',
-        brief: '營養便當',
-        phone: '07-3345252'
-      },
-      {
-        id: 3,
-        name: '臺灣雞腿王-青海店',
-        brief: '主廚推薦：雞腿便當',
-        phone: '04-23140169'
-      },
-      {
-        id: 4,
-        name: '池上飯包',
-        brief: '滿200元外送',
-        phone: '04-6563616'
-      },
-      {
-        id: 5,
-        name: '呆妹の點心舖',
-        brief: '多種口味的點心酥/鳳梨酥/蛋黃酥',
-        phone: '02-22175266'
-      },
-      {
-        id: 6,
-        name: '富記港式茶餐廳(內科洲子店)',
-        brief: '便宜好吃',
-        phone: '02-87973006'
-      },
-      {
-        id: 7,
-        name: '一焗兩得',
-        brief: '400元外送',
-        phone: '02-86671107'
-      }
-    ];
-
     this.state = {
-      stores: stores,
+      stores: [],
       selectedIndex: undefined
     };
 
     this._handleCreateStore = this._handleCreateStore.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
     this._handleAddFavorite = this._handleAddFavorite.bind(this);
+  }
+
+  _fetchStores() {
+    fetch(`${this.props.url}/api/stores.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        stores: res
+      });
+    });
   }
 
   _handleCreateEvent(storeId) {
@@ -83,6 +48,10 @@ export default class Store extends React.Component {
 
   _handleAddFavorite() {
 
+  }
+
+  componentDidMount() {
+    this._fetchStores();
   }
 
   render() {

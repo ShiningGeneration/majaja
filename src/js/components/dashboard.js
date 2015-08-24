@@ -23,12 +23,10 @@ export default class Dashboard extends React.Component {
       orderings: [],
       stores: []
     };
-
-    this.SERVER_URL = 'http://localhost:8080';
   }
 
   _fetchOrdereds() {
-    fetch(`${this.SERVER_URL}/api/ordereds.json`).then(res => {
+    fetch(`${this.props.url}/api/ordereds.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
@@ -38,7 +36,7 @@ export default class Dashboard extends React.Component {
   }
 
   _fetchOrderings() {
-    fetch(`${this.SERVER_URL}/api/orderings.json`).then(res => {
+    fetch(`${this.props.url}/api/orderings.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
@@ -48,7 +46,7 @@ export default class Dashboard extends React.Component {
   }
 
   _fetchStores() {
-    fetch(`${this.SERVER_URL}/api/stores.json`).then(res => {
+    fetch(`${this.props.url}/api/my-stores.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
