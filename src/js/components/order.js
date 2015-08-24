@@ -20,19 +20,20 @@ export default class Order extends React.Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      showModal: false
+      open: false
     };
   }
 
-  open() {
+  open(order) {
     this.setState({
-      showModal: true
+      open: true,
+      order: order
     });
   }
 
   close() {
     this.setState({
-      showModal: false
+      open: false
     });
   }
 
@@ -214,10 +215,10 @@ export default class Order extends React.Component {
     });
 
     return (
-      <Modal bsSize='large' show={this.state.showModal} onHide={this.close}>
+      <Modal bsSize='large' show={this.state.open} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>
-            訂購 {orderName}
+            {orderName}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body style={style.info}>

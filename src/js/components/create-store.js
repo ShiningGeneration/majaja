@@ -18,19 +18,19 @@ export default class CreateOrder extends React.Component {
     this.submit = this.submit.bind(this);
 
     this.state = {
-      showModal: false
+      open: false
     };
   }
 
   open() {
     this.setState({
-      showModal: true
+      open: true
     });
   }
 
   close() {
     this.setState({
-      showModal: false
+      open: false
     });
   }
 
@@ -68,7 +68,7 @@ export default class CreateOrder extends React.Component {
 甜甜圈, 大 40, 小 30, img:13`;
 
     return (
-      <Modal show={this.state.showModal} onHide={this.close}>
+      <Modal show={this.state.open} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title style={style.dialogTitle}>新增店家</Modal.Title>
         </Modal.Header>

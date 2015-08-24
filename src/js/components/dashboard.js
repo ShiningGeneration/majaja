@@ -55,8 +55,8 @@ export default class Dashboard extends React.Component {
     });
   }
 
-  _handleOrder() {
-    this.refs.order.open();
+  _handleOrder(order) {
+    this.refs.order.open(order);
   }
 
   _handleCreateEvent(storeId) {
@@ -73,8 +73,8 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    let orderedItems = this.state.ordereds.map(item => {
-      let products = item.products.map(product => {
+    let ordereds = this.state.ordereds.map(order => {
+      let products = order.products.map(product => {
         return (
           <span key={product.id}>
             {product.name}
@@ -86,24 +86,24 @@ export default class Dashboard extends React.Component {
 
       return (
         <ListGroupItem
-          key={item.id}
-          header={item.title}
-          onClick={this._handleOrder.bind(this, item.id)}>
+          key={order.id}
+          header={order.title}
+          onClick={this._handleOrder.bind(this, order)}>
             {products}
         </ListGroupItem>
       );
     });
 
-    let orderingItems = this.state.orderings.map(item => {
+    let orderings = this.state.orderings.map(order => {
       return (
         <ListGroupItem
-          key={item.id}
-          header={item.title}
-          onClick={this._handleOrder.bind(this, item.id)}>
+          key={order.id}
+          header={order.title}
+          onClick={this._handleOrder.bind(this, order)}>
             <span>
-              {item.content}
+              {order.content}
               <br />
-              {item.remain}
+              {order.remain}
             </span>
         </ListGroupItem>
       );
@@ -130,14 +130,14 @@ export default class Dashboard extends React.Component {
           <Col md={4}>
             <Panel header={'已訂過的'} bsStyle='success'>
               <ListGroup fill>
-                {orderedItems}
+                {ordereds}
               </ListGroup>
             </Panel>
           </Col>
           <Col md={4}>
             <Panel header={'進行中的訂單'} bsStyle='info'>
               <ListGroup fill>
-                {orderingItems}
+                {orderings}
               </ListGroup>
             </Panel>
           </Col>
