@@ -89,12 +89,12 @@ export default class CreateEvent extends React.Component {
                   <tr><th>產品</th><th>價格</th></tr>
                 </thead>
                 <tbody>
-                  <tr><th>焢肉飯</th><th>75</th></tr>
-                  <tr><th>燒肉飯</th><th>80</th></tr>
-                  <tr><th>油雞飯</th><th>80</th></tr>
-                  <tr><th>蜜汁香腸飯</th><th>80</th></tr>
-                  <tr><th>糖醋排骨飯</th><th>85</th></tr>
-                  <tr><th>燒鴨飯</th><th>90</th></tr>
+                  <tr><td>焢肉飯</td><td>75</td></tr>
+                  <tr><td>燒肉飯</td><td>80</td></tr>
+                  <tr><td>油雞飯</td><td>80</td></tr>
+                  <tr><td>蜜汁香腸飯</td><td>80</td></tr>
+                  <tr><td>糖醋排骨飯</td><td>85</td></tr>
+                  <tr><td>燒鴨飯</td><td>90</td></tr>
                 </tbody>
               </Table>
             </Panel>
