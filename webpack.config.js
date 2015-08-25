@@ -1,3 +1,5 @@
+var webpack = require("webpack");
+
 module.exports = {
   entry: __dirname + '/src/js/main.js',
   output: {
@@ -20,5 +22,10 @@ module.exports = {
         loader: 'url'
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
+  ]
 }
