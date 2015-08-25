@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from 'react-bootstrap/lib/Button';
 import Col from 'react-bootstrap/lib/Col';
 import Grid from 'react-bootstrap/lib/Grid';
 import ListGroupItem from 'react-bootstrap/lib/ListGroupItem';
@@ -15,6 +16,7 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
+    this._handleOrderInfo = this._handleOrderInfo.bind(this);
     this._handleOrder = this._handleOrder.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
 
@@ -55,6 +57,10 @@ export default class Dashboard extends React.Component {
     });
   }
 
+  _handleOrderInfo(order) {
+
+  }
+
   _handleOrder(order) {
     this.refs.order.open(order);
   }
@@ -73,6 +79,16 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
+    let styles = {
+      orderBtn: {
+        float: 'right',
+        margin: '0 0 0 1rem'
+      },
+      orderBtnGroup: {
+        overflow: 'auto'
+      }
+    };
+
     let ordereds = this.state.ordereds.map(order => {
       let products = order.products.map(product => {
         return (
@@ -98,13 +114,34 @@ export default class Dashboard extends React.Component {
       return (
         <ListGroupItem
           key={order.id}
-          header={order.title}
-          onClick={this._handleOrder.bind(this, order)}>
-            <span>
+          header={order.title}>
+            <div>
               {order.content}
               <br />
               {order.remain}
-            </span>
+              <br />
+            </div>
+            <br />
+            <Row>
+              <Col md={6}>
+                <Button
+                  block
+                  bsSize='xsmall'
+                  bsStyle='info'
+                  onClick={this._handleOrderInfo.bind(this, order)}>
+                    訂單資訊
+                </Button>
+              </Col>
+              <Col md={6}>
+                <Button
+                  block
+                  bsSize='xsmall'
+                  bsStyle='warning'
+                  onClick={this._handleOrder.bind(this, order)}>
+                    我要訂
+                </Button>
+              </Col>
+            </Row>
         </ListGroupItem>
       );
     });
