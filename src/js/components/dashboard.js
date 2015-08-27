@@ -9,6 +9,7 @@ import Panel from 'react-bootstrap/lib/Panel';
 import Row from 'react-bootstrap/lib/Row';
 
 import Order from './order';
+import OrderDetails from './order-details';
 import CreateEvent from './create-event';
 
 export default class Dashboard extends React.Component {
@@ -16,8 +17,8 @@ export default class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
-    this._handleOrderInfo = this._handleOrderInfo.bind(this);
     this._handleOrder = this._handleOrder.bind(this);
+    this._handleOrderDetails = this._handleOrderDetails.bind(this)
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
 
     this.state = {
@@ -57,12 +58,12 @@ export default class Dashboard extends React.Component {
     });
   }
 
-  _handleOrderInfo(order) {
-
-  }
-
   _handleOrder(order) {
     this.refs.order.open(order);
+  }
+
+  _handleOrderDetails(order) {
+    this.refs.orderDetails.open(order);
   }
 
   _handleCreateEvent(storeId) {
@@ -128,7 +129,7 @@ export default class Dashboard extends React.Component {
                   block
                   bsSize='xsmall'
                   bsStyle='info'
-                  onClick={this._handleOrderInfo.bind(this, order)}>
+                  onClick={this._handleOrderDetails.bind(this, order)}>
                     訂單資訊
                 </Button>
               </Col>
@@ -188,6 +189,7 @@ export default class Dashboard extends React.Component {
         </Row>
 
         <Order ref='order' />
+        <OrderDetails ref='orderDetails' />
         <CreateEvent ref='createEvent' />
       </Grid>
     );
