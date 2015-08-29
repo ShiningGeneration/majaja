@@ -28252,15 +28252,15 @@
 
 	var _componentsDashboard2 = _interopRequireDefault(_componentsDashboard);
 
-	var _componentsStore = __webpack_require__(455);
+	var _componentsStore = __webpack_require__(457);
 
 	var _componentsStore2 = _interopRequireDefault(_componentsStore);
 
-	var _componentsPreference = __webpack_require__(457);
+	var _componentsPreference = __webpack_require__(459);
 
 	var _componentsPreference2 = _interopRequireDefault(_componentsPreference);
 
-	var _componentsLogin = __webpack_require__(458);
+	var _componentsLogin = __webpack_require__(460);
 
 	var _componentsLogin2 = _interopRequireDefault(_componentsLogin);
 
@@ -31399,7 +31399,7 @@
 /* 421 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -31419,35 +31419,43 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibCol = __webpack_require__(422);
+	var _reactBootstrapLibButton = __webpack_require__(423);
+
+	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
+
+	var _reactBootstrapLibCol = __webpack_require__(429);
 
 	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
 
-	var _reactBootstrapLibGrid = __webpack_require__(423);
+	var _reactBootstrapLibGrid = __webpack_require__(430);
 
 	var _reactBootstrapLibGrid2 = _interopRequireDefault(_reactBootstrapLibGrid);
 
-	var _reactBootstrapLibListGroupItem = __webpack_require__(424);
+	var _reactBootstrapLibListGroupItem = __webpack_require__(431);
 
 	var _reactBootstrapLibListGroupItem2 = _interopRequireDefault(_reactBootstrapLibListGroupItem);
 
-	var _reactBootstrapLibListGroup = __webpack_require__(425);
+	var _reactBootstrapLibListGroup = __webpack_require__(432);
 
 	var _reactBootstrapLibListGroup2 = _interopRequireDefault(_reactBootstrapLibListGroup);
 
-	var _reactBootstrapLibPanel = __webpack_require__(426);
+	var _reactBootstrapLibPanel = __webpack_require__(433);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
-	var _reactBootstrapLibRow = __webpack_require__(427);
+	var _reactBootstrapLibRow = __webpack_require__(434);
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
-	var _order = __webpack_require__(428);
+	var _order = __webpack_require__(435);
 
 	var _order2 = _interopRequireDefault(_order);
 
-	var _createEvent = __webpack_require__(454);
+	var _orderDetails = __webpack_require__(455);
+
+	var _orderDetails2 = _interopRequireDefault(_orderDetails);
+
+	var _createEvent = __webpack_require__(456);
 
 	var _createEvent2 = _interopRequireDefault(_createEvent);
 
@@ -31460,39 +31468,64 @@
 	    _get(Object.getPrototypeOf(Dashboard.prototype), 'constructor', this).call(this, props);
 
 	    this._handleOrder = this._handleOrder.bind(this);
+	    this._handleOrderDetails = this._handleOrderDetails.bind(this);
 	    this._handleCreateEvent = this._handleCreateEvent.bind(this);
 
-	    var ordereds = [{
-	      id: 1,
-	      title: '08/06 (星期四) Mon. 丁媽 虱目魚店',
-	      products: [{ id: 1, name: '香煎魚肚', amount: 1, price: 100 }]
-	    }];
-
-	    var orderings = [{
-	      id: 2,
-	      title: '08/09 (星期一) Mon. 漢堡王',
-	      content: '中午供餐',
-	      remain: '還有 33 小時 25 分鐘截止'
-	    }];
-
-	    var stores = [{
-	      id: 3,
-	      name: '麥當勞 信義店',
-	      phone: '(02) 2641-1332',
-	      note: '24 小時內皆可訂購'
-	    }];
-
 	    this.state = {
-	      ordereds: ordereds,
-	      orderings: orderings,
-	      stores: stores
+	      ordereds: [],
+	      orderings: [],
+	      stores: []
 	    };
 	  }
 
 	  _createClass(Dashboard, [{
+	    key: '_fetchOrdereds',
+	    value: function _fetchOrdereds() {
+	      var _this = this;
+
+	      fetch('/api/ordereds.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this.setState({
+	          ordereds: res
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_fetchOrderings',
+	    value: function _fetchOrderings() {
+	      var _this2 = this;
+
+	      fetch('/api/orderings.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this2.setState({
+	          orderings: res
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_fetchStores',
+	    value: function _fetchStores() {
+	      var _this3 = this;
+
+	      fetch('/api/my-stores.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this3.setState({
+	          stores: res
+	        });
+	      });
+	    }
+	  }, {
 	    key: '_handleOrder',
-	    value: function _handleOrder() {
-	      this.refs.order.open();
+	    value: function _handleOrder(order) {
+	      this.refs.order.open(order);
+	    }
+	  }, {
+	    key: '_handleOrderDetails',
+	    value: function _handleOrderDetails(order) {
+	      this.refs.orderDetails.open(order);
 	    }
 	  }, {
 	    key: '_handleCreateEvent',
@@ -31503,12 +31536,29 @@
 	      this.refs.createEvent.open(store);
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._fetchOrdereds();
+	      this._fetchOrderings();
+	      this._fetchStores();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this4 = this;
 
-	      var orderedItems = this.state.ordereds.map(function (item) {
-	        var products = item.products.map(function (product) {
+	      var styles = {
+	        orderBtn: {
+	          float: 'right',
+	          margin: '0 0 0 1rem'
+	        },
+	        orderBtnGroup: {
+	          overflow: 'auto'
+	        }
+	      };
+
+	      var ordereds = this.state.ordereds.map(function (order) {
+	        var products = order.products.map(function (product) {
 	          return _react2['default'].createElement(
 	            'span',
 	            { key: product.id },
@@ -31521,26 +31571,57 @@
 	        return _react2['default'].createElement(
 	          _reactBootstrapLibListGroupItem2['default'],
 	          {
-	            key: item.id,
-	            header: item.title,
-	            onClick: _this._handleOrder.bind(_this, item.id) },
+	            key: order.id,
+	            header: order.title,
+	            onClick: _this4._handleOrder.bind(_this4, order) },
 	          products
 	        );
 	      });
 
-	      var orderingItems = this.state.orderings.map(function (item) {
+	      var orderings = this.state.orderings.map(function (order) {
 	        return _react2['default'].createElement(
 	          _reactBootstrapLibListGroupItem2['default'],
 	          {
-	            key: item.id,
-	            header: item.title,
-	            onClick: _this._handleOrder.bind(_this, item.id) },
+	            key: order.id,
+	            header: order.title },
 	          _react2['default'].createElement(
-	            'span',
+	            'div',
 	            null,
-	            item.content,
+	            order.content,
 	            _react2['default'].createElement('br', null),
-	            item.remain
+	            order.remain,
+	            _react2['default'].createElement('br', null)
+	          ),
+	          _react2['default'].createElement('br', null),
+	          _react2['default'].createElement(
+	            _reactBootstrapLibRow2['default'],
+	            null,
+	            _react2['default'].createElement(
+	              _reactBootstrapLibCol2['default'],
+	              { md: 6 },
+	              _react2['default'].createElement(
+	                _reactBootstrapLibButton2['default'],
+	                {
+	                  block: true,
+	                  bsSize: 'xsmall',
+	                  bsStyle: 'info',
+	                  onClick: _this4._handleOrderDetails.bind(_this4, order) },
+	                '訂單資訊'
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              _reactBootstrapLibCol2['default'],
+	              { md: 6 },
+	              _react2['default'].createElement(
+	                _reactBootstrapLibButton2['default'],
+	                {
+	                  block: true,
+	                  bsSize: 'xsmall',
+	                  bsStyle: 'warning',
+	                  onClick: _this4._handleOrder.bind(_this4, order) },
+	                '我要訂'
+	              )
+	            )
 	          )
 	        );
 	      });
@@ -31551,7 +31632,7 @@
 	          {
 	            key: store.id,
 	            header: store.name,
-	            onClick: _this._handleCreateEvent.bind(_this, store.id) },
+	            onClick: _this4._handleCreateEvent.bind(_this4, store.id) },
 	          _react2['default'].createElement(
 	            'span',
 	            null,
@@ -31577,7 +31658,7 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibListGroup2['default'],
 	                { fill: true },
-	                orderedItems
+	                ordereds
 	              )
 	            )
 	          ),
@@ -31590,7 +31671,7 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibListGroup2['default'],
 	                { fill: true },
-	                orderingItems
+	                orderings
 	              )
 	            )
 	          ),
@@ -31609,6 +31690,7 @@
 	          )
 	        ),
 	        _react2['default'].createElement(_order2['default'], { ref: 'order' }),
+	        _react2['default'].createElement(_orderDetails2['default'], { ref: 'orderDetails' }),
 	        _react2['default'].createElement(_createEvent2['default'], { ref: 'createEvent' })
 	      );
 	    }
@@ -31619,223 +31701,350 @@
 
 	exports['default'] = Dashboard;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(422)))
 
 /***/ },
 /* 422 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {/*** IMPORTS FROM imports-loader ***/
+	(function() {
 
-	var _extends = __webpack_require__(403)['default'];
+	(function() {
+	  'use strict';
 
-	var _Object$keys = __webpack_require__(378)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _styleMaps = __webpack_require__(376);
-
-	var _styleMaps2 = _interopRequireDefault(_styleMaps);
-
-	var _utilsCustomPropTypes = __webpack_require__(377);
-
-	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-	var Col = _react2['default'].createClass({
-	  displayName: 'Col',
-
-	  propTypes: {
-	    /**
-	     * The number of columns you wish to span
-	     *
-	     * for Extra small devices Phones (<768px)
-	     *
-	     * class-prefix `col-xs-`
-	     */
-	    xs: _react2['default'].PropTypes.number,
-	    /**
-	     * The number of columns you wish to span
-	     *
-	     * for Small devices Tablets (≥768px)
-	     *
-	     * class-prefix `col-sm-`
-	     */
-	    sm: _react2['default'].PropTypes.number,
-	    /**
-	     * The number of columns you wish to span
-	     *
-	     * for Medium devices Desktops (≥992px)
-	     *
-	     * class-prefix `col-md-`
-	     */
-	    md: _react2['default'].PropTypes.number,
-	    /**
-	     * The number of columns you wish to span
-	     *
-	     * for Large devices Desktops (≥1200px)
-	     *
-	     * class-prefix `col-lg-`
-	     */
-	    lg: _react2['default'].PropTypes.number,
-	    /**
-	     * Move columns to the right
-	     *
-	     * for Extra small devices Phones
-	     *
-	     * class-prefix `col-xs-offset-`
-	     */
-	    xsOffset: _react2['default'].PropTypes.number,
-	    /**
-	     * Move columns to the right
-	     *
-	     * for Small devices Tablets
-	     *
-	     * class-prefix `col-sm-offset-`
-	     */
-	    smOffset: _react2['default'].PropTypes.number,
-	    /**
-	     * Move columns to the right
-	     *
-	     * for Medium devices Desktops
-	     *
-	     * class-prefix `col-md-offset-`
-	     */
-	    mdOffset: _react2['default'].PropTypes.number,
-	    /**
-	     * Move columns to the right
-	     *
-	     * for Large devices Desktops
-	     *
-	     * class-prefix `col-lg-offset-`
-	     */
-	    lgOffset: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the right
-	     *
-	     * for Extra small devices Phones
-	     *
-	     * class-prefix `col-xs-push-`
-	     */
-	    xsPush: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the right
-	     *
-	     * for Small devices Tablets
-	     *
-	     * class-prefix `col-sm-push-`
-	     */
-	    smPush: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the right
-	     *
-	     * for Medium devices Desktops
-	     *
-	     * class-prefix `col-md-push-`
-	     */
-	    mdPush: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the right
-	     *
-	     * for Large devices Desktops
-	     *
-	     * class-prefix `col-lg-push-`
-	     */
-	    lgPush: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the left
-	     *
-	     * for Extra small devices Phones
-	     *
-	     * class-prefix `col-xs-pull-`
-	     */
-	    xsPull: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the left
-	     *
-	     * for Small devices Tablets
-	     *
-	     * class-prefix `col-sm-pull-`
-	     */
-	    smPull: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the left
-	     *
-	     * for Medium devices Desktops
-	     *
-	     * class-prefix `col-md-pull-`
-	     */
-	    mdPull: _react2['default'].PropTypes.number,
-	    /**
-	     * Change the order of grid columns to the left
-	     *
-	     * for Large devices Desktops
-	     *
-	     * class-prefix `col-lg-pull-`
-	     */
-	    lgPull: _react2['default'].PropTypes.number,
-	    /**
-	     * You can use a custom element for this component
-	     */
-	    componentClass: _utilsCustomPropTypes2['default'].elementType
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      componentClass: 'div'
-	    };
-	  },
-
-	  render: function render() {
-	    var ComponentClass = this.props.componentClass;
-	    var classes = {};
-
-	    _Object$keys(_styleMaps2['default'].SIZES).forEach(function (key) {
-	      var size = _styleMaps2['default'].SIZES[key];
-	      var prop = size;
-	      var classPart = size + '-';
-
-	      if (this.props[prop]) {
-	        classes['col-' + classPart + this.props[prop]] = true;
-	      }
-
-	      prop = size + 'Offset';
-	      classPart = size + '-offset-';
-	      if (this.props[prop] >= 0) {
-	        classes['col-' + classPart + this.props[prop]] = true;
-	      }
-
-	      prop = size + 'Push';
-	      classPart = size + '-push-';
-	      if (this.props[prop] >= 0) {
-	        classes['col-' + classPart + this.props[prop]] = true;
-	      }
-
-	      prop = size + 'Pull';
-	      classPart = size + '-pull-';
-	      if (this.props[prop] >= 0) {
-	        classes['col-' + classPart + this.props[prop]] = true;
-	      }
-	    }, this);
-
-	    return _react2['default'].createElement(
-	      ComponentClass,
-	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-	      this.props.children
-	    );
+	  if (self.fetch) {
+	    return
 	  }
-	});
 
-	exports['default'] = Col;
-	module.exports = exports['default'];
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = name.toString();
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = value.toString();
+	    }
+	    return value
+	  }
+
+	  function Headers(headers) {
+	    this.map = {}
+
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var list = this.map[name]
+	    if (!list) {
+	      list = []
+	      this.map[name] = list
+	    }
+	    list.push(value)
+	  }
+
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+
+	  Headers.prototype.get = function(name) {
+	    var values = this.map[normalizeName(name)]
+	    return values ? values[0] : null
+	  }
+
+	  Headers.prototype.getAll = function(name) {
+	    return this.map[normalizeName(name)] || []
+	  }
+
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = [normalizeValue(value)]
+	  }
+
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    Object.getOwnPropertyNames(this.map).forEach(function(name) {
+	      this.map[name].forEach(function(value) {
+	        callback.call(thisArg, value, name, this)
+	      }, this)
+	    }, this)
+	  }
+
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    reader.readAsArrayBuffer(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    reader.readAsText(blob)
+	    return fileReaderReady(reader)
+	  }
+
+	  var support = {
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob();
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self
+	  }
+
+	  function Body() {
+	    this.bodyUsed = false
+
+
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (!body) {
+	        this._bodyText = ''
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+	    }
+
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+
+	      this.arrayBuffer = function() {
+	        return this.blob().then(readBlobAsArrayBuffer)
+	      }
+
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return readBlobAsText(this._bodyBlob)
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as text')
+	        } else {
+	          return Promise.resolve(this._bodyText)
+	        }
+	      }
+	    } else {
+	      this.text = function() {
+	        var rejected = consumed(this)
+	        return rejected ? rejected : Promise.resolve(this._bodyText)
+	      }
+	    }
+
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+
+	    return this
+	  }
+
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+
+	  function Request(url, options) {
+	    options = options || {}
+	    this.url = url
+
+	    this.credentials = options.credentials || 'omit'
+	    this.headers = new Headers(options.headers)
+	    this.method = normalizeMethod(options.method || 'GET')
+	    this.mode = options.mode || null
+	    this.referrer = null
+
+	    if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(options.body)
+	  }
+
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+
+	  function headers(xhr) {
+	    var head = new Headers()
+	    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
+	    pairs.forEach(function(header) {
+	      var split = header.trim().split(':')
+	      var key = split.shift().trim()
+	      var value = split.join(':').trim()
+	      head.append(key, value)
+	    })
+	    return head
+	  }
+
+	  Body.call(Request.prototype)
+
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+
+	    this._initBody(bodyInit)
+	    this.type = 'default'
+	    this.url = null
+	    this.status = options.status
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = options.statusText
+	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
+	    this.url = options.url || ''
+	  }
+
+	  Body.call(Response.prototype)
+
+	  self.Headers = Headers;
+	  self.Request = Request;
+	  self.Response = Response;
+
+	  self.fetch = function(input, init) {
+	    // TODO: Request constructor should accept input, init
+	    var request
+	    if (Request.prototype.isPrototypeOf(input) && !init) {
+	      request = input
+	    } else {
+	      request = new Request(input, init)
+	    }
+
+	    return new Promise(function(resolve, reject) {
+	      var xhr = new XMLHttpRequest()
+
+	      function responseURL() {
+	        if ('responseURL' in xhr) {
+	          return xhr.responseURL
+	        }
+
+	        // Avoid security warnings on getResponseHeader when not allowed by CORS
+	        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
+	          return xhr.getResponseHeader('X-Request-URL')
+	        }
+
+	        return;
+	      }
+
+	      xhr.onload = function() {
+	        var status = (xhr.status === 1223) ? 204 : xhr.status
+	        if (status < 100 || status > 599) {
+	          reject(new TypeError('Network request failed'))
+	          return
+	        }
+	        var options = {
+	          status: status,
+	          statusText: xhr.statusText,
+	          headers: headers(xhr),
+	          url: responseURL()
+	        }
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+	        resolve(new Response(body, options))
+	      }
+
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.open(request.method, request.url, true)
+
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})();
+
+
+	/*** EXPORTS FROM exports-loader ***/
+	module.exports = global.fetch}.call(global));
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 423 */
@@ -31857,934 +32066,6 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _utilsCustomPropTypes = __webpack_require__(377);
-
-	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-	var Grid = _react2['default'].createClass({
-	  displayName: 'Grid',
-
-	  propTypes: {
-	    /**
-	     * Turn any fixed-width grid layout into a full-width layout by this property.
-	     *
-	     * Adds `container-fluid` class.
-	     */
-	    fluid: _react2['default'].PropTypes.bool,
-	    /**
-	     * You can use a custom element for this component
-	     */
-	    componentClass: _utilsCustomPropTypes2['default'].elementType
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      componentClass: 'div',
-	      fluid: false
-	    };
-	  },
-
-	  render: function render() {
-	    var ComponentClass = this.props.componentClass;
-	    var className = this.props.fluid ? 'container-fluid' : 'container';
-
-	    return _react2['default'].createElement(
-	      ComponentClass,
-	      _extends({}, this.props, {
-	        className: _classnames2['default'](this.props.className, className) }),
-	      this.props.children
-	    );
-	  }
-	});
-
-	exports['default'] = Grid;
-	module.exports = exports['default'];
-
-/***/ },
-/* 424 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = __webpack_require__(403)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _BootstrapMixin = __webpack_require__(375);
-
-	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _SafeAnchor = __webpack_require__(419);
-
-	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-	var ListGroupItem = _react2['default'].createClass({
-	  displayName: 'ListGroupItem',
-
-	  mixins: [_BootstrapMixin2['default']],
-
-	  propTypes: {
-	    bsStyle: _react2['default'].PropTypes.oneOf(['danger', 'info', 'success', 'warning']),
-	    className: _react2['default'].PropTypes.string,
-	    active: _react2['default'].PropTypes.any,
-	    disabled: _react2['default'].PropTypes.any,
-	    header: _react2['default'].PropTypes.node,
-	    listItem: _react2['default'].PropTypes.bool,
-	    onClick: _react2['default'].PropTypes.func,
-	    eventKey: _react2['default'].PropTypes.any,
-	    href: _react2['default'].PropTypes.string,
-	    target: _react2['default'].PropTypes.string
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      bsClass: 'list-group-item',
-	      listItem: false
-	    };
-	  },
-
-	  render: function render() {
-	    var classes = this.getBsClassSet();
-
-	    classes.active = this.props.active;
-	    classes.disabled = this.props.disabled;
-
-	    if (this.props.href || this.props.onClick) {
-	      return this.renderAnchor(classes);
-	    } else if (this.props.listItem) {
-	      return this.renderLi(classes);
-	    } else {
-	      return this.renderSpan(classes);
-	    }
-	  },
-
-	  renderLi: function renderLi(classes) {
-	    return _react2['default'].createElement(
-	      'li',
-	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-	      this.props.header ? this.renderStructuredContent() : this.props.children
-	    );
-	  },
-
-	  renderAnchor: function renderAnchor(classes) {
-	    return _react2['default'].createElement(
-	      _SafeAnchor2['default'],
-	      _extends({}, this.props, {
-	        className: _classnames2['default'](this.props.className, classes)
-	      }),
-	      this.props.header ? this.renderStructuredContent() : this.props.children
-	    );
-	  },
-
-	  renderSpan: function renderSpan(classes) {
-	    return _react2['default'].createElement(
-	      'span',
-	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-	      this.props.header ? this.renderStructuredContent() : this.props.children
-	    );
-	  },
-
-	  renderStructuredContent: function renderStructuredContent() {
-	    var header = undefined;
-	    if (_react2['default'].isValidElement(this.props.header)) {
-	      header = _react.cloneElement(this.props.header, {
-	        key: 'header',
-	        className: _classnames2['default'](this.props.header.props.className, 'list-group-item-heading')
-	      });
-	    } else {
-	      header = _react2['default'].createElement(
-	        'h4',
-	        { key: 'header', className: 'list-group-item-heading' },
-	        this.props.header
-	      );
-	    }
-
-	    var content = _react2['default'].createElement(
-	      'p',
-	      { key: 'content', className: 'list-group-item-text' },
-	      this.props.children
-	    );
-
-	    return [header, content];
-	  }
-	});
-
-	exports['default'] = ListGroupItem;
-	module.exports = exports['default'];
-
-/***/ },
-/* 425 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _inherits = __webpack_require__(392)['default'];
-
-	var _classCallCheck = __webpack_require__(402)['default'];
-
-	var _extends = __webpack_require__(403)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _utilsValidComponentChildren = __webpack_require__(415);
-
-	var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-	var ListGroup = (function (_React$Component) {
-	  _inherits(ListGroup, _React$Component);
-
-	  function ListGroup() {
-	    _classCallCheck(this, ListGroup);
-
-	    _React$Component.apply(this, arguments);
-	  }
-
-	  ListGroup.prototype.render = function render() {
-	    var _this = this;
-
-	    var items = _utilsValidComponentChildren2['default'].map(this.props.children, function (item, index) {
-	      return _react.cloneElement(item, { key: item.key ? item.key : index });
-	    });
-
-	    var childrenAnchors = false;
-
-	    if (!this.props.children) {
-	      return this.renderDiv(items);
-	    } else {
-	      _react2['default'].Children.forEach(this.props.children, function (child) {
-	        if (_this.isAnchor(child.props)) {
-	          childrenAnchors = true;
-	        }
-	      });
-	    }
-
-	    if (childrenAnchors) {
-	      return this.renderDiv(items);
-	    } else {
-	      return this.renderUL(items);
-	    }
-	  };
-
-	  ListGroup.prototype.isAnchor = function isAnchor(props) {
-	    return props.href || props.onClick;
-	  };
-
-	  ListGroup.prototype.renderUL = function renderUL(items) {
-	    var listItems = _utilsValidComponentChildren2['default'].map(items, function (item, index) {
-	      return _react.cloneElement(item, { listItem: true });
-	    });
-
-	    return _react2['default'].createElement(
-	      'ul',
-	      _extends({}, this.props, {
-	        className: _classnames2['default'](this.props.className, 'list-group') }),
-	      listItems
-	    );
-	  };
-
-	  ListGroup.prototype.renderDiv = function renderDiv(items) {
-	    return _react2['default'].createElement(
-	      'div',
-	      _extends({}, this.props, {
-	        className: _classnames2['default'](this.props.className, 'list-group') }),
-	      items
-	    );
-	  };
-
-	  return ListGroup;
-	})(_react2['default'].Component);
-
-	ListGroup.propTypes = {
-	  className: _react2['default'].PropTypes.string,
-	  id: _react2['default'].PropTypes.string
-	};
-
-	exports['default'] = ListGroup;
-	module.exports = exports['default'];
-
-/***/ },
-/* 426 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = __webpack_require__(403)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _BootstrapMixin = __webpack_require__(375);
-
-	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-	var _Collapse = __webpack_require__(391);
-
-	var _Collapse2 = _interopRequireDefault(_Collapse);
-
-	var Panel = _react2['default'].createClass({
-	  displayName: 'Panel',
-
-	  mixins: [_BootstrapMixin2['default']],
-
-	  propTypes: {
-	    collapsible: _react2['default'].PropTypes.bool,
-	    onSelect: _react2['default'].PropTypes.func,
-	    header: _react2['default'].PropTypes.node,
-	    id: _react2['default'].PropTypes.string,
-	    footer: _react2['default'].PropTypes.node,
-	    defaultExpanded: _react2['default'].PropTypes.bool,
-	    expanded: _react2['default'].PropTypes.bool,
-	    eventKey: _react2['default'].PropTypes.any
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      bsClass: 'panel',
-	      bsStyle: 'default',
-	      defaultExpanded: false
-	    };
-	  },
-
-	  getInitialState: function getInitialState() {
-	    return {
-	      expanded: this.props.defaultExpanded
-	    };
-	  },
-
-	  handleSelect: function handleSelect(e) {
-	    e.selected = true;
-
-	    if (this.props.onSelect) {
-	      this.props.onSelect(e, this.props.eventKey);
-	    } else {
-	      e.preventDefault();
-	    }
-
-	    if (e.selected) {
-	      this.handleToggle();
-	    }
-	  },
-
-	  handleToggle: function handleToggle() {
-	    this.setState({ expanded: !this.state.expanded });
-	  },
-
-	  isExpanded: function isExpanded() {
-	    return this.props.expanded != null ? this.props.expanded : this.state.expanded;
-	  },
-
-	  render: function render() {
-	    return _react2['default'].createElement(
-	      'div',
-	      _extends({}, this.props, {
-	        className: _classnames2['default'](this.props.className, this.getBsClassSet()),
-	        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
-	      this.renderHeading(),
-	      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
-	      this.renderFooter()
-	    );
-	  },
-
-	  renderCollapsibleBody: function renderCollapsibleBody() {
-	    var collapseClass = this.prefixClass('collapse');
-
-	    return _react2['default'].createElement(
-	      _Collapse2['default'],
-	      { 'in': this.isExpanded() },
-	      _react2['default'].createElement(
-	        'div',
-	        {
-	          className: collapseClass,
-	          id: this.props.id,
-	          ref: 'panel' },
-	        this.renderBody()
-	      )
-	    );
-	  },
-
-	  renderBody: function renderBody() {
-	    var allChildren = this.props.children;
-	    var bodyElements = [];
-	    var panelBodyChildren = [];
-	    var bodyClass = this.prefixClass('body');
-
-	    function getProps() {
-	      return { key: bodyElements.length };
-	    }
-
-	    function addPanelChild(child) {
-	      bodyElements.push(_react.cloneElement(child, getProps()));
-	    }
-
-	    function addPanelBody(children) {
-	      bodyElements.push(_react2['default'].createElement(
-	        'div',
-	        _extends({ className: bodyClass }, getProps()),
-	        children
-	      ));
-	    }
-
-	    function maybeRenderPanelBody() {
-	      if (panelBodyChildren.length === 0) {
-	        return;
-	      }
-
-	      addPanelBody(panelBodyChildren);
-	      panelBodyChildren = [];
-	    }
-
-	    // Handle edge cases where we should not iterate through children.
-	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
-	      if (this.shouldRenderFill(allChildren)) {
-	        addPanelChild(allChildren);
-	      } else {
-	        addPanelBody(allChildren);
-	      }
-	    } else {
-
-	      allChildren.forEach((function (child) {
-	        if (this.shouldRenderFill(child)) {
-	          maybeRenderPanelBody();
-
-	          // Separately add the filled element.
-	          addPanelChild(child);
-	        } else {
-	          panelBodyChildren.push(child);
-	        }
-	      }).bind(this));
-
-	      maybeRenderPanelBody();
-	    }
-
-	    return bodyElements;
-	  },
-
-	  shouldRenderFill: function shouldRenderFill(child) {
-	    return _react2['default'].isValidElement(child) && child.props.fill != null;
-	  },
-
-	  renderHeading: function renderHeading() {
-	    var header = this.props.header;
-
-	    if (!header) {
-	      return null;
-	    }
-
-	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
-	      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
-	    } else {
-	      var className = _classnames2['default'](this.prefixClass('title'), header.props.className);
-
-	      if (this.props.collapsible) {
-	        header = _react.cloneElement(header, {
-	          className: className,
-	          children: this.renderAnchor(header.props.children)
-	        });
-	      } else {
-	        header = _react.cloneElement(header, { className: className });
-	      }
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: this.prefixClass('heading') },
-	      header
-	    );
-	  },
-
-	  renderAnchor: function renderAnchor(header) {
-	    return _react2['default'].createElement(
-	      'a',
-	      {
-	        href: '#' + (this.props.id || ''),
-	        'aria-controls': this.props.collapsible ? this.props.id : null,
-	        className: this.isExpanded() ? null : 'collapsed',
-	        'aria-expanded': this.isExpanded(),
-	        onClick: this.handleSelect },
-	      header
-	    );
-	  },
-
-	  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
-	    return _react2['default'].createElement(
-	      'h4',
-	      { className: this.prefixClass('title') },
-	      this.renderAnchor(header)
-	    );
-	  },
-
-	  renderFooter: function renderFooter() {
-	    if (!this.props.footer) {
-	      return null;
-	    }
-
-	    return _react2['default'].createElement(
-	      'div',
-	      { className: this.prefixClass('footer') },
-	      this.props.footer
-	    );
-	  }
-	});
-
-	exports['default'] = Panel;
-	module.exports = exports['default'];
-
-/***/ },
-/* 427 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = __webpack_require__(403)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _utilsCustomPropTypes = __webpack_require__(377);
-
-	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-	var Row = _react2['default'].createClass({
-	  displayName: 'Row',
-
-	  propTypes: {
-	    /**
-	     * You can use a custom element for this component
-	     */
-	    componentClass: _utilsCustomPropTypes2['default'].elementType
-	  },
-
-	  getDefaultProps: function getDefaultProps() {
-	    return {
-	      componentClass: 'div'
-	    };
-	  },
-
-	  render: function render() {
-	    var ComponentClass = this.props.componentClass;
-
-	    return _react2['default'].createElement(
-	      ComponentClass,
-	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'row') }),
-	      this.props.children
-	    );
-	  }
-	});
-
-	exports['default'] = Row;
-	module.exports = exports['default'];
-
-/***/ },
-/* 428 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, '__esModule', {
-	  value: true
-	});
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactBootstrapLibButton = __webpack_require__(429);
-
-	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
-
-	var _reactBootstrapLibCol = __webpack_require__(422);
-
-	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
-
-	var _reactBootstrapLibInput = __webpack_require__(435);
-
-	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
-
-	var _reactBootstrapLibLabel = __webpack_require__(440);
-
-	var _reactBootstrapLibLabel2 = _interopRequireDefault(_reactBootstrapLibLabel);
-
-	var _reactBootstrapLibModal = __webpack_require__(441);
-
-	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
-
-	var _reactBootstrapLibPanel = __webpack_require__(426);
-
-	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
-
-	var _reactBootstrapLibPanelGroup = __webpack_require__(452);
-
-	var _reactBootstrapLibPanelGroup2 = _interopRequireDefault(_reactBootstrapLibPanelGroup);
-
-	var _reactBootstrapLibRow = __webpack_require__(427);
-
-	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
-
-	var _reactBootstrapLibTable = __webpack_require__(453);
-
-	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
-
-	var Order = (function (_React$Component) {
-	  _inherits(Order, _React$Component);
-
-	  function Order(props) {
-	    _classCallCheck(this, Order);
-
-	    _get(Object.getPrototypeOf(Order.prototype), 'constructor', this).call(this, props);
-
-	    this.open = this.open.bind(this);
-	    this.close = this.close.bind(this);
-	    this.submit = this.submit.bind(this);
-
-	    this.state = {
-	      showModal: false
-	    };
-	  }
-
-	  _createClass(Order, [{
-	    key: 'open',
-	    value: function open() {
-	      this.setState({
-	        showModal: true
-	      });
-	    }
-	  }, {
-	    key: 'close',
-	    value: function close() {
-	      this.setState({
-	        showModal: false
-	      });
-	    }
-	  }, {
-	    key: 'submit',
-	    value: function submit() {}
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var orderName = '';
-	      var style = {
-	        info: {
-	          'padding': '3% 4% 3% 4%'
-	        },
-	        announce: {
-	          'height': '100px'
-	        },
-	        tags: {
-	          'margin': '3px 0 10px 0'
-	        },
-	        dialogTitle: {
-	          'textAlign': 'center'
-	        },
-	        toolbar: {
-	          display: "inline-block",
-	          float: "right"
-	        },
-	        input: {
-	          float: "left",
-	          display: "inline-block"
-	        },
-	        listItem: {
-	          overflow: "hidden"
-	        }
-	      };
-
-	      var data = [{
-	        name: "找好茶",
-	        id: 0,
-	        content: [{
-	          id: 0,
-	          name: "茉莉綠茶",
-	          option: ['M'],
-	          price: [20]
-	        }, {
-	          id: 1,
-	          name: "阿薩姆奶茶",
-	          option: ['M', 'L'],
-	          price: [15, 20]
-	        }, {
-	          id: 2,
-	          name: "四季春茶",
-	          option: ['M', 'L'],
-	          price: [15, 20]
-	        }] }, {
-	        name: "找奶茶",
-	        id: 1,
-	        content: [{
-	          id: 0,
-	          name: "奶茶",
-	          option: ['M', 'L'],
-	          price: [30, 45]
-	        }, {
-	          id: 1,
-	          name: "焦糖奶茶",
-	          option: ['M', 'L'],
-	          price: [35, 50]
-	        }, {
-	          id: 2,
-	          name: "紅茶拿鐵",
-	          option: ['M', 'L'],
-	          price: [40, 55]
-	        }] }, {
-	        name: "找口感",
-	        id: 2,
-	        content: [{
-	          id: 0,
-	          name: "珍珠紅茶",
-	          option: ['M', 'L'],
-	          price: [25, 35]
-	        }, {
-	          id: 1,
-	          name: "珍珠奶茶",
-	          option: ['M', 'L'],
-	          price: [30, 45]
-	        }, {
-	          id: 2,
-	          name: "波霸紅茶拿鐵",
-	          option: ['M', 'L'],
-	          price: [40, 55]
-	        }] }, {
-	        name: "找新鮮",
-	        id: 3,
-	        content: [{
-	          id: 0,
-	          name: "檸檬汁",
-	          option: ['M', 'L'],
-	          price: [40, 55]
-	        }, {
-	          id: 1,
-	          name: "金桔檸檬",
-	          option: ['M', 'L'],
-	          price: [40, 55]
-	        }, {
-	          id: 2,
-	          name: "8 冰茶",
-	          option: ['M', 'L'],
-	          price: [30, 45]
-	        }] }];
-
-	      var genMenuItem = function genMenuItem(item) {
-	        var style = {
-	          Button: {
-	            margin: "0 5px",
-	            float: "left"
-	          },
-	          td: {
-	            "vertical-align": "middle"
-	          }
-	        };
-
-	        if (item.name === "") {
-	          style.td["border-top"] = "0";
-	        }
-
-	        return _react2['default'].createElement(
-	          'tr',
-	          null,
-	          _react2['default'].createElement(
-	            'td',
-	            { style: style.td },
-	            _react2['default'].createElement(
-	              'h4',
-	              null,
-	              item.name
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'td',
-	            { style: style.td },
-	            _react2['default'].createElement(
-	              'h5',
-	              null,
-	              item.option
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'td',
-	            { style: style.td },
-	            _react2['default'].createElement(
-	              'h5',
-	              null,
-	              item.price
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'td',
-	            { style: style.td },
-	            _react2['default'].createElement(
-	              _reactBootstrapLibButton2['default'],
-	              { style: style.Button, bsStyle: 'primary', bsSize: 'small' },
-	              '-'
-	            ),
-	            _react2['default'].createElement(
-	              _reactBootstrapLibCol2['default'],
-	              { style: { width: "50%", float: "left" } },
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'number', defaultValue: '0', bsSize: 'small' })
-	            ),
-	            _react2['default'].createElement(
-	              _reactBootstrapLibButton2['default'],
-	              { style: style.Button, bsStyle: 'primary', bsSize: 'small' },
-	              '+'
-	            )
-	          ),
-	          _react2['default'].createElement(
-	            'td',
-	            { style: style.td },
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', placeholder: '備註' })
-	          )
-	        );
-	      };
-
-	      var menuResult = data.map(function (menu) {
-	        var content = menu.content;
-	        var itemList = new Array();
-
-	        for (var i = 0; i < content.length; ++i) {
-	          for (var _j = 0; _j < content[i].option.length; ++_j) {
-	            itemList.push({
-	              name: !_j ? content[i].name : "",
-	              option: content[i].option[_j],
-	              price: content[i].price[_j]
-	            });
-	          }
-
-	          if (content[i].option.length == 0) {
-	            itemList.push({
-	              name: content[i].name,
-	              option: "",
-	              price: content[i].price[j]
-	            });
-	          }
-	        }
-	        return _react2['default'].createElement(
-	          _reactBootstrapLibPanel2['default'],
-	          { header: menu.name },
-	          _react2['default'].createElement(
-	            _reactBootstrapLibTable2['default'],
-	            { fill: true, responsive: true },
-	            _react2['default'].createElement('col', { style: { width: "25%" } }),
-	            _react2['default'].createElement('col', { style: { width: "15%" } }),
-	            _react2['default'].createElement('col', { style: { width: "10%" } }),
-	            _react2['default'].createElement('col', { style: { width: "25%" } }),
-	            _react2['default'].createElement('col', { style: { width: "25%" } }),
-	            _react2['default'].createElement(
-	              'tbody',
-	              null,
-	              itemList.map(genMenuItem)
-	            )
-	          )
-	        );
-	      });
-
-	      return _react2['default'].createElement(
-	        _reactBootstrapLibModal2['default'],
-	        { bsSize: 'large', show: this.state.showModal, onHide: this.close },
-	        _react2['default'].createElement(
-	          _reactBootstrapLibModal2['default'].Header,
-	          { closeButton: true },
-	          _react2['default'].createElement(
-	            _reactBootstrapLibModal2['default'].Title,
-	            { style: style.dialogTitle },
-	            '訂購 ',
-	            orderName
-	          )
-	        ),
-	        _react2['default'].createElement(
-	          _reactBootstrapLibModal2['default'].Body,
-	          { style: style.info },
-	          menuResult
-	        ),
-	        _react2['default'].createElement(
-	          _reactBootstrapLibModal2['default'].Footer,
-	          null,
-	          _react2['default'].createElement(
-	            _reactBootstrapLibButton2['default'],
-	            { onClick: this.close },
-	            '取消'
-	          ),
-	          _react2['default'].createElement(
-	            _reactBootstrapLibButton2['default'],
-	            { bsStyle: 'info', onClick: this.submit },
-	            '送出'
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Order;
-	})(_react2['default'].Component);
-
-	exports['default'] = Order;
-	module.exports = exports['default'];
-
-/***/ },
-/* 429 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = __webpack_require__(403)['default'];
-
-	var _interopRequireDefault = __webpack_require__(374)['default'];
-
-	exports.__esModule = true;
-
-	var _react = __webpack_require__(168);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _classnames = __webpack_require__(412);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
 	var _BootstrapMixin = __webpack_require__(375);
 
 	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
@@ -32793,7 +32074,7 @@
 
 	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
 
-	var _ButtonInput = __webpack_require__(430);
+	var _ButtonInput = __webpack_require__(424);
 
 	var _ButtonInput2 = _interopRequireDefault(_ButtonInput);
 
@@ -32896,7 +32177,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 430 */
+/* 424 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32917,19 +32198,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Button = __webpack_require__(429);
+	var _Button = __webpack_require__(423);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _FormGroup = __webpack_require__(431);
+	var _FormGroup = __webpack_require__(425);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _InputBase2 = __webpack_require__(432);
+	var _InputBase2 = __webpack_require__(426);
 
 	var _InputBase3 = _interopRequireDefault(_InputBase2);
 
-	var _utilsChildrenValueInputValidation = __webpack_require__(434);
+	var _utilsChildrenValueInputValidation = __webpack_require__(428);
 
 	var _utilsChildrenValueInputValidation2 = _interopRequireDefault(_utilsChildrenValueInputValidation);
 
@@ -32990,7 +32271,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 431 */
+/* 425 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33064,7 +32345,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 432 */
+/* 426 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33087,11 +32368,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _FormGroup = __webpack_require__(431);
+	var _FormGroup = __webpack_require__(425);
 
 	var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-	var _Glyphicon = __webpack_require__(433);
+	var _Glyphicon = __webpack_require__(427);
 
 	var _Glyphicon2 = _interopRequireDefault(_Glyphicon);
 
@@ -33332,7 +32613,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 433 */
+/* 427 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33395,7 +32676,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 434 */
+/* 428 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33426,7 +32707,1079 @@
 	module.exports = exports['default'];
 
 /***/ },
+/* 429 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _Object$keys = __webpack_require__(378)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _styleMaps = __webpack_require__(376);
+
+	var _styleMaps2 = _interopRequireDefault(_styleMaps);
+
+	var _utilsCustomPropTypes = __webpack_require__(377);
+
+	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
+
+	var Col = _react2['default'].createClass({
+	  displayName: 'Col',
+
+	  propTypes: {
+	    /**
+	     * The number of columns you wish to span
+	     *
+	     * for Extra small devices Phones (<768px)
+	     *
+	     * class-prefix `col-xs-`
+	     */
+	    xs: _react2['default'].PropTypes.number,
+	    /**
+	     * The number of columns you wish to span
+	     *
+	     * for Small devices Tablets (≥768px)
+	     *
+	     * class-prefix `col-sm-`
+	     */
+	    sm: _react2['default'].PropTypes.number,
+	    /**
+	     * The number of columns you wish to span
+	     *
+	     * for Medium devices Desktops (≥992px)
+	     *
+	     * class-prefix `col-md-`
+	     */
+	    md: _react2['default'].PropTypes.number,
+	    /**
+	     * The number of columns you wish to span
+	     *
+	     * for Large devices Desktops (≥1200px)
+	     *
+	     * class-prefix `col-lg-`
+	     */
+	    lg: _react2['default'].PropTypes.number,
+	    /**
+	     * Move columns to the right
+	     *
+	     * for Extra small devices Phones
+	     *
+	     * class-prefix `col-xs-offset-`
+	     */
+	    xsOffset: _react2['default'].PropTypes.number,
+	    /**
+	     * Move columns to the right
+	     *
+	     * for Small devices Tablets
+	     *
+	     * class-prefix `col-sm-offset-`
+	     */
+	    smOffset: _react2['default'].PropTypes.number,
+	    /**
+	     * Move columns to the right
+	     *
+	     * for Medium devices Desktops
+	     *
+	     * class-prefix `col-md-offset-`
+	     */
+	    mdOffset: _react2['default'].PropTypes.number,
+	    /**
+	     * Move columns to the right
+	     *
+	     * for Large devices Desktops
+	     *
+	     * class-prefix `col-lg-offset-`
+	     */
+	    lgOffset: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the right
+	     *
+	     * for Extra small devices Phones
+	     *
+	     * class-prefix `col-xs-push-`
+	     */
+	    xsPush: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the right
+	     *
+	     * for Small devices Tablets
+	     *
+	     * class-prefix `col-sm-push-`
+	     */
+	    smPush: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the right
+	     *
+	     * for Medium devices Desktops
+	     *
+	     * class-prefix `col-md-push-`
+	     */
+	    mdPush: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the right
+	     *
+	     * for Large devices Desktops
+	     *
+	     * class-prefix `col-lg-push-`
+	     */
+	    lgPush: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the left
+	     *
+	     * for Extra small devices Phones
+	     *
+	     * class-prefix `col-xs-pull-`
+	     */
+	    xsPull: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the left
+	     *
+	     * for Small devices Tablets
+	     *
+	     * class-prefix `col-sm-pull-`
+	     */
+	    smPull: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the left
+	     *
+	     * for Medium devices Desktops
+	     *
+	     * class-prefix `col-md-pull-`
+	     */
+	    mdPull: _react2['default'].PropTypes.number,
+	    /**
+	     * Change the order of grid columns to the left
+	     *
+	     * for Large devices Desktops
+	     *
+	     * class-prefix `col-lg-pull-`
+	     */
+	    lgPull: _react2['default'].PropTypes.number,
+	    /**
+	     * You can use a custom element for this component
+	     */
+	    componentClass: _utilsCustomPropTypes2['default'].elementType
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      componentClass: 'div'
+	    };
+	  },
+
+	  render: function render() {
+	    var ComponentClass = this.props.componentClass;
+	    var classes = {};
+
+	    _Object$keys(_styleMaps2['default'].SIZES).forEach(function (key) {
+	      var size = _styleMaps2['default'].SIZES[key];
+	      var prop = size;
+	      var classPart = size + '-';
+
+	      if (this.props[prop]) {
+	        classes['col-' + classPart + this.props[prop]] = true;
+	      }
+
+	      prop = size + 'Offset';
+	      classPart = size + '-offset-';
+	      if (this.props[prop] >= 0) {
+	        classes['col-' + classPart + this.props[prop]] = true;
+	      }
+
+	      prop = size + 'Push';
+	      classPart = size + '-push-';
+	      if (this.props[prop] >= 0) {
+	        classes['col-' + classPart + this.props[prop]] = true;
+	      }
+
+	      prop = size + 'Pull';
+	      classPart = size + '-pull-';
+	      if (this.props[prop] >= 0) {
+	        classes['col-' + classPart + this.props[prop]] = true;
+	      }
+	    }, this);
+
+	    return _react2['default'].createElement(
+	      ComponentClass,
+	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
+	      this.props.children
+	    );
+	  }
+	});
+
+	exports['default'] = Col;
+	module.exports = exports['default'];
+
+/***/ },
+/* 430 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _utilsCustomPropTypes = __webpack_require__(377);
+
+	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
+
+	var Grid = _react2['default'].createClass({
+	  displayName: 'Grid',
+
+	  propTypes: {
+	    /**
+	     * Turn any fixed-width grid layout into a full-width layout by this property.
+	     *
+	     * Adds `container-fluid` class.
+	     */
+	    fluid: _react2['default'].PropTypes.bool,
+	    /**
+	     * You can use a custom element for this component
+	     */
+	    componentClass: _utilsCustomPropTypes2['default'].elementType
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      componentClass: 'div',
+	      fluid: false
+	    };
+	  },
+
+	  render: function render() {
+	    var ComponentClass = this.props.componentClass;
+	    var className = this.props.fluid ? 'container-fluid' : 'container';
+
+	    return _react2['default'].createElement(
+	      ComponentClass,
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, className) }),
+	      this.props.children
+	    );
+	  }
+	});
+
+	exports['default'] = Grid;
+	module.exports = exports['default'];
+
+/***/ },
+/* 431 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _BootstrapMixin = __webpack_require__(375);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _SafeAnchor = __webpack_require__(419);
+
+	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
+
+	var ListGroupItem = _react2['default'].createClass({
+	  displayName: 'ListGroupItem',
+
+	  mixins: [_BootstrapMixin2['default']],
+
+	  propTypes: {
+	    bsStyle: _react2['default'].PropTypes.oneOf(['danger', 'info', 'success', 'warning']),
+	    className: _react2['default'].PropTypes.string,
+	    active: _react2['default'].PropTypes.any,
+	    disabled: _react2['default'].PropTypes.any,
+	    header: _react2['default'].PropTypes.node,
+	    listItem: _react2['default'].PropTypes.bool,
+	    onClick: _react2['default'].PropTypes.func,
+	    eventKey: _react2['default'].PropTypes.any,
+	    href: _react2['default'].PropTypes.string,
+	    target: _react2['default'].PropTypes.string
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      bsClass: 'list-group-item',
+	      listItem: false
+	    };
+	  },
+
+	  render: function render() {
+	    var classes = this.getBsClassSet();
+
+	    classes.active = this.props.active;
+	    classes.disabled = this.props.disabled;
+
+	    if (this.props.href || this.props.onClick) {
+	      return this.renderAnchor(classes);
+	    } else if (this.props.listItem) {
+	      return this.renderLi(classes);
+	    } else {
+	      return this.renderSpan(classes);
+	    }
+	  },
+
+	  renderLi: function renderLi(classes) {
+	    return _react2['default'].createElement(
+	      'li',
+	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
+	      this.props.header ? this.renderStructuredContent() : this.props.children
+	    );
+	  },
+
+	  renderAnchor: function renderAnchor(classes) {
+	    return _react2['default'].createElement(
+	      _SafeAnchor2['default'],
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, classes)
+	      }),
+	      this.props.header ? this.renderStructuredContent() : this.props.children
+	    );
+	  },
+
+	  renderSpan: function renderSpan(classes) {
+	    return _react2['default'].createElement(
+	      'span',
+	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
+	      this.props.header ? this.renderStructuredContent() : this.props.children
+	    );
+	  },
+
+	  renderStructuredContent: function renderStructuredContent() {
+	    var header = undefined;
+	    if (_react2['default'].isValidElement(this.props.header)) {
+	      header = _react.cloneElement(this.props.header, {
+	        key: 'header',
+	        className: _classnames2['default'](this.props.header.props.className, 'list-group-item-heading')
+	      });
+	    } else {
+	      header = _react2['default'].createElement(
+	        'h4',
+	        { key: 'header', className: 'list-group-item-heading' },
+	        this.props.header
+	      );
+	    }
+
+	    var content = _react2['default'].createElement(
+	      'p',
+	      { key: 'content', className: 'list-group-item-text' },
+	      this.props.children
+	    );
+
+	    return [header, content];
+	  }
+	});
+
+	exports['default'] = ListGroupItem;
+	module.exports = exports['default'];
+
+/***/ },
+/* 432 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _inherits = __webpack_require__(392)['default'];
+
+	var _classCallCheck = __webpack_require__(402)['default'];
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _utilsValidComponentChildren = __webpack_require__(415);
+
+	var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
+
+	var ListGroup = (function (_React$Component) {
+	  _inherits(ListGroup, _React$Component);
+
+	  function ListGroup() {
+	    _classCallCheck(this, ListGroup);
+
+	    _React$Component.apply(this, arguments);
+	  }
+
+	  ListGroup.prototype.render = function render() {
+	    var _this = this;
+
+	    var items = _utilsValidComponentChildren2['default'].map(this.props.children, function (item, index) {
+	      return _react.cloneElement(item, { key: item.key ? item.key : index });
+	    });
+
+	    var childrenAnchors = false;
+
+	    if (!this.props.children) {
+	      return this.renderDiv(items);
+	    } else {
+	      _react2['default'].Children.forEach(this.props.children, function (child) {
+	        if (_this.isAnchor(child.props)) {
+	          childrenAnchors = true;
+	        }
+	      });
+	    }
+
+	    if (childrenAnchors) {
+	      return this.renderDiv(items);
+	    } else {
+	      return this.renderUL(items);
+	    }
+	  };
+
+	  ListGroup.prototype.isAnchor = function isAnchor(props) {
+	    return props.href || props.onClick;
+	  };
+
+	  ListGroup.prototype.renderUL = function renderUL(items) {
+	    var listItems = _utilsValidComponentChildren2['default'].map(items, function (item, index) {
+	      return _react.cloneElement(item, { listItem: true });
+	    });
+
+	    return _react2['default'].createElement(
+	      'ul',
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, 'list-group') }),
+	      listItems
+	    );
+	  };
+
+	  ListGroup.prototype.renderDiv = function renderDiv(items) {
+	    return _react2['default'].createElement(
+	      'div',
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, 'list-group') }),
+	      items
+	    );
+	  };
+
+	  return ListGroup;
+	})(_react2['default'].Component);
+
+	ListGroup.propTypes = {
+	  className: _react2['default'].PropTypes.string,
+	  id: _react2['default'].PropTypes.string
+	};
+
+	exports['default'] = ListGroup;
+	module.exports = exports['default'];
+
+/***/ },
+/* 433 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _BootstrapMixin = __webpack_require__(375);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _Collapse = __webpack_require__(391);
+
+	var _Collapse2 = _interopRequireDefault(_Collapse);
+
+	var Panel = _react2['default'].createClass({
+	  displayName: 'Panel',
+
+	  mixins: [_BootstrapMixin2['default']],
+
+	  propTypes: {
+	    collapsible: _react2['default'].PropTypes.bool,
+	    onSelect: _react2['default'].PropTypes.func,
+	    header: _react2['default'].PropTypes.node,
+	    id: _react2['default'].PropTypes.string,
+	    footer: _react2['default'].PropTypes.node,
+	    defaultExpanded: _react2['default'].PropTypes.bool,
+	    expanded: _react2['default'].PropTypes.bool,
+	    eventKey: _react2['default'].PropTypes.any
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      bsClass: 'panel',
+	      bsStyle: 'default',
+	      defaultExpanded: false
+	    };
+	  },
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      expanded: this.props.defaultExpanded
+	    };
+	  },
+
+	  handleSelect: function handleSelect(e) {
+	    e.selected = true;
+
+	    if (this.props.onSelect) {
+	      this.props.onSelect(e, this.props.eventKey);
+	    } else {
+	      e.preventDefault();
+	    }
+
+	    if (e.selected) {
+	      this.handleToggle();
+	    }
+	  },
+
+	  handleToggle: function handleToggle() {
+	    this.setState({ expanded: !this.state.expanded });
+	  },
+
+	  isExpanded: function isExpanded() {
+	    return this.props.expanded != null ? this.props.expanded : this.state.expanded;
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, this.getBsClassSet()),
+	        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
+	      this.renderHeading(),
+	      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
+	      this.renderFooter()
+	    );
+	  },
+
+	  renderCollapsibleBody: function renderCollapsibleBody() {
+	    var collapseClass = this.prefixClass('collapse');
+
+	    return _react2['default'].createElement(
+	      _Collapse2['default'],
+	      { 'in': this.isExpanded() },
+	      _react2['default'].createElement(
+	        'div',
+	        {
+	          className: collapseClass,
+	          id: this.props.id,
+	          ref: 'panel' },
+	        this.renderBody()
+	      )
+	    );
+	  },
+
+	  renderBody: function renderBody() {
+	    var allChildren = this.props.children;
+	    var bodyElements = [];
+	    var panelBodyChildren = [];
+	    var bodyClass = this.prefixClass('body');
+
+	    function getProps() {
+	      return { key: bodyElements.length };
+	    }
+
+	    function addPanelChild(child) {
+	      bodyElements.push(_react.cloneElement(child, getProps()));
+	    }
+
+	    function addPanelBody(children) {
+	      bodyElements.push(_react2['default'].createElement(
+	        'div',
+	        _extends({ className: bodyClass }, getProps()),
+	        children
+	      ));
+	    }
+
+	    function maybeRenderPanelBody() {
+	      if (panelBodyChildren.length === 0) {
+	        return;
+	      }
+
+	      addPanelBody(panelBodyChildren);
+	      panelBodyChildren = [];
+	    }
+
+	    // Handle edge cases where we should not iterate through children.
+	    if (!Array.isArray(allChildren) || allChildren.length === 0) {
+	      if (this.shouldRenderFill(allChildren)) {
+	        addPanelChild(allChildren);
+	      } else {
+	        addPanelBody(allChildren);
+	      }
+	    } else {
+
+	      allChildren.forEach((function (child) {
+	        if (this.shouldRenderFill(child)) {
+	          maybeRenderPanelBody();
+
+	          // Separately add the filled element.
+	          addPanelChild(child);
+	        } else {
+	          panelBodyChildren.push(child);
+	        }
+	      }).bind(this));
+
+	      maybeRenderPanelBody();
+	    }
+
+	    return bodyElements;
+	  },
+
+	  shouldRenderFill: function shouldRenderFill(child) {
+	    return _react2['default'].isValidElement(child) && child.props.fill != null;
+	  },
+
+	  renderHeading: function renderHeading() {
+	    var header = this.props.header;
+
+	    if (!header) {
+	      return null;
+	    }
+
+	    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
+	      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
+	    } else {
+	      var className = _classnames2['default'](this.prefixClass('title'), header.props.className);
+
+	      if (this.props.collapsible) {
+	        header = _react.cloneElement(header, {
+	          className: className,
+	          children: this.renderAnchor(header.props.children)
+	        });
+	      } else {
+	        header = _react.cloneElement(header, { className: className });
+	      }
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('heading') },
+	      header
+	    );
+	  },
+
+	  renderAnchor: function renderAnchor(header) {
+	    return _react2['default'].createElement(
+	      'a',
+	      {
+	        href: '#' + (this.props.id || ''),
+	        'aria-controls': this.props.collapsible ? this.props.id : null,
+	        className: this.isExpanded() ? null : 'collapsed',
+	        'aria-expanded': this.isExpanded(),
+	        onClick: this.handleSelect },
+	      header
+	    );
+	  },
+
+	  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
+	    return _react2['default'].createElement(
+	      'h4',
+	      { className: this.prefixClass('title') },
+	      this.renderAnchor(header)
+	    );
+	  },
+
+	  renderFooter: function renderFooter() {
+	    if (!this.props.footer) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      'div',
+	      { className: this.prefixClass('footer') },
+	      this.props.footer
+	    );
+	  }
+	});
+
+	exports['default'] = Panel;
+	module.exports = exports['default'];
+
+/***/ },
+/* 434 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(403)['default'];
+
+	var _interopRequireDefault = __webpack_require__(374)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(412);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _utilsCustomPropTypes = __webpack_require__(377);
+
+	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
+
+	var Row = _react2['default'].createClass({
+	  displayName: 'Row',
+
+	  propTypes: {
+	    /**
+	     * You can use a custom element for this component
+	     */
+	    componentClass: _utilsCustomPropTypes2['default'].elementType
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      componentClass: 'div'
+	    };
+	  },
+
+	  render: function render() {
+	    var ComponentClass = this.props.componentClass;
+
+	    return _react2['default'].createElement(
+	      ComponentClass,
+	      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'row') }),
+	      this.props.children
+	    );
+	  }
+	});
+
+	exports['default'] = Row;
+	module.exports = exports['default'];
+
+/***/ },
 /* 435 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrapLibButton = __webpack_require__(423);
+
+	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
+
+	var _reactBootstrapLibCol = __webpack_require__(429);
+
+	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
+
+	var _reactBootstrapLibInput = __webpack_require__(436);
+
+	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
+
+	var _reactBootstrapLibLabel = __webpack_require__(441);
+
+	var _reactBootstrapLibLabel2 = _interopRequireDefault(_reactBootstrapLibLabel);
+
+	var _reactBootstrapLibModal = __webpack_require__(442);
+
+	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
+
+	var _reactBootstrapLibPanel = __webpack_require__(433);
+
+	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
+
+	var _reactBootstrapLibPanelGroup = __webpack_require__(453);
+
+	var _reactBootstrapLibPanelGroup2 = _interopRequireDefault(_reactBootstrapLibPanelGroup);
+
+	var _reactBootstrapLibRow = __webpack_require__(434);
+
+	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
+
+	var _reactBootstrapLibTable = __webpack_require__(454);
+
+	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
+
+	var Order = (function (_React$Component) {
+	  _inherits(Order, _React$Component);
+
+	  function Order(props) {
+	    _classCallCheck(this, Order);
+
+	    _get(Object.getPrototypeOf(Order.prototype), 'constructor', this).call(this, props);
+
+	    this.open = this.open.bind(this);
+	    this.close = this.close.bind(this);
+	    this.submit = this.submit.bind(this);
+	    this._fetchProducts = this._fetchProducts.bind(this);
+
+	    this.state = {
+	      open: false,
+	      order: {},
+	      products: []
+	    };
+	  }
+
+	  _createClass(Order, [{
+	    key: 'open',
+	    value: function open(order) {
+	      this.setState({
+	        open: true,
+	        order: order
+	      });
+	    }
+	  }, {
+	    key: 'close',
+	    value: function close() {
+	      this.setState({
+	        open: false
+	      });
+	    }
+	  }, {
+	    key: 'submit',
+	    value: function submit() {}
+	  }, {
+	    key: '_fetchProducts',
+	    value: function _fetchProducts() {
+	      var _this = this;
+
+	      fetch('/api/products2.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this.setState({
+	          products: res
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._fetchProducts();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var style = {
+	        info: {
+	          'padding': '3% 4% 3% 4%'
+	        },
+	        announce: {
+	          'height': '100px'
+	        },
+	        tags: {
+	          'margin': '3px 0 10px 0'
+	        },
+	        dialogTitle: {
+	          'textAlign': 'center'
+	        },
+	        toolbar: {
+	          display: 'inline-block',
+	          float: 'right'
+	        },
+	        input: {
+	          float: 'left',
+	          display: 'inline-block'
+	        },
+	        listItem: {
+	          overflow: 'hidden'
+	        }
+	      };
+
+	      var categories = {};
+	      this.state.products.forEach(function (product) {
+	        categories[product.category] = categories[product.category] || [];
+	        categories[product.category].push(product);
+	      });
+
+	      var panels = [];
+	      for (var key in categories) {
+	        var products = categories[key];
+	        var panelItems = products.map(function (product) {
+	          return _react2['default'].createElement(
+	            'tr',
+	            { key: product.id },
+	            _react2['default'].createElement(
+	              'td',
+	              null,
+	              product.name
+	            ),
+	            _react2['default'].createElement(
+	              'td',
+	              null,
+	              product.price
+	            ),
+	            _react2['default'].createElement(
+	              'td',
+	              null,
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                type: 'text',
+	                style: { textAlign: 'center' },
+	                bsSize: 'small',
+	                defaultValue: '0',
+	                buttonBefore: _react2['default'].createElement(
+	                  _reactBootstrapLibButton2['default'],
+	                  null,
+	                  '-'
+	                ),
+	                buttonAfter: _react2['default'].createElement(
+	                  _reactBootstrapLibButton2['default'],
+	                  null,
+	                  '+'
+	                ) })
+	            ),
+	            _react2['default'].createElement(
+	              'td',
+	              null,
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', bsSize: 'small', placeholder: '備註' })
+	            )
+	          );
+	        });
+
+	        panels.push(_react2['default'].createElement(
+	          _reactBootstrapLibPanel2['default'],
+	          { key: products[0].category, header: products[0].category },
+	          _react2['default'].createElement(
+	            _reactBootstrapLibTable2['default'],
+	            { fill: true, responsive: true },
+	            _react2['default'].createElement(
+	              'thead',
+	              null,
+	              _react2['default'].createElement(
+	                'tr',
+	                null,
+	                _react2['default'].createElement(
+	                  'th',
+	                  { style: { width: '40%' } },
+	                  '名稱'
+	                ),
+	                _react2['default'].createElement(
+	                  'th',
+	                  { style: { width: '15%' } },
+	                  '價錢'
+	                ),
+	                _react2['default'].createElement(
+	                  'th',
+	                  { style: { width: '15%' } },
+	                  '數量'
+	                ),
+	                _react2['default'].createElement(
+	                  'th',
+	                  { style: { width: '30%' } },
+	                  '備註說明'
+	                )
+	              )
+	            ),
+	            _react2['default'].createElement(
+	              'tbody',
+	              null,
+	              panelItems
+	            )
+	          )
+	        ));
+	      }
+
+	      return _react2['default'].createElement(
+	        _reactBootstrapLibModal2['default'],
+	        { bsSize: 'large', show: this.state.open, onHide: this.close },
+	        _react2['default'].createElement(
+	          _reactBootstrapLibModal2['default'].Header,
+	          { closeButton: true },
+	          _react2['default'].createElement(
+	            _reactBootstrapLibModal2['default'].Title,
+	            { style: style.dialogTitle },
+	            this.state.order.storeName
+	          )
+	        ),
+	        _react2['default'].createElement(
+	          _reactBootstrapLibModal2['default'].Body,
+	          { style: style.info },
+	          panels
+	        ),
+	        _react2['default'].createElement(
+	          _reactBootstrapLibModal2['default'].Footer,
+	          null,
+	          _react2['default'].createElement(
+	            _reactBootstrapLibButton2['default'],
+	            { onClick: this.close },
+	            '取消'
+	          ),
+	          _react2['default'].createElement(
+	            _reactBootstrapLibButton2['default'],
+	            { bsStyle: 'info', onClick: this.submit },
+	            '送出'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Order;
+	})(_react2['default'].Component);
+
+	exports['default'] = Order;
+	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(422)))
+
+/***/ },
+/* 436 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33437,7 +33790,7 @@
 
 	var _interopRequireDefault = __webpack_require__(374)['default'];
 
-	var _interopRequireWildcard = __webpack_require__(436)['default'];
+	var _interopRequireWildcard = __webpack_require__(437)['default'];
 
 	exports.__esModule = true;
 
@@ -33445,15 +33798,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _InputBase2 = __webpack_require__(432);
+	var _InputBase2 = __webpack_require__(426);
 
 	var _InputBase3 = _interopRequireDefault(_InputBase2);
 
-	var _FormControls = __webpack_require__(437);
+	var _FormControls = __webpack_require__(438);
 
 	var FormControls = _interopRequireWildcard(_FormControls);
 
-	var _utilsDeprecationWarning = __webpack_require__(439);
+	var _utilsDeprecationWarning = __webpack_require__(440);
 
 	var _utilsDeprecationWarning2 = _interopRequireDefault(_utilsDeprecationWarning);
 
@@ -33486,7 +33839,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 436 */
+/* 437 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -33511,7 +33864,7 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 437 */
+/* 438 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33520,14 +33873,14 @@
 
 	exports.__esModule = true;
 
-	var _Static2 = __webpack_require__(438);
+	var _Static2 = __webpack_require__(439);
 
 	var _Static3 = _interopRequireDefault(_Static2);
 
 	exports.Static = _Static3['default'];
 
 /***/ },
-/* 438 */
+/* 439 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33550,11 +33903,11 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
-	var _InputBase2 = __webpack_require__(432);
+	var _InputBase2 = __webpack_require__(426);
 
 	var _InputBase3 = _interopRequireDefault(_InputBase2);
 
-	var _utilsChildrenValueInputValidation = __webpack_require__(434);
+	var _utilsChildrenValueInputValidation = __webpack_require__(428);
 
 	var _utilsChildrenValueInputValidation2 = _interopRequireDefault(_utilsChildrenValueInputValidation);
 
@@ -33595,7 +33948,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 439 */
+/* 440 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33630,7 +33983,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 440 */
+/* 441 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -33680,7 +34033,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 441 */
+/* 442 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*eslint-disable react/prop-types */
@@ -33690,7 +34043,7 @@
 
 	var _objectWithoutProperties = __webpack_require__(410)['default'];
 
-	var _Object$isFrozen = __webpack_require__(442)['default'];
+	var _Object$isFrozen = __webpack_require__(443)['default'];
 
 	var _Object$keys = __webpack_require__(378)['default'];
 
@@ -33710,7 +34063,7 @@
 
 	var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
 
-	var _utilsEventListener = __webpack_require__(444);
+	var _utilsEventListener = __webpack_require__(445);
 
 	var _utilsEventListener2 = _interopRequireDefault(_utilsEventListener);
 
@@ -33722,31 +34075,31 @@
 
 	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
 
-	var _Portal = __webpack_require__(445);
+	var _Portal = __webpack_require__(446);
 
 	var _Portal2 = _interopRequireDefault(_Portal);
 
-	var _Fade = __webpack_require__(446);
+	var _Fade = __webpack_require__(447);
 
 	var _Fade2 = _interopRequireDefault(_Fade);
 
-	var _ModalDialog = __webpack_require__(447);
+	var _ModalDialog = __webpack_require__(448);
 
 	var _ModalDialog2 = _interopRequireDefault(_ModalDialog);
 
-	var _ModalBody = __webpack_require__(448);
+	var _ModalBody = __webpack_require__(449);
 
 	var _ModalBody2 = _interopRequireDefault(_ModalBody);
 
-	var _ModalHeader = __webpack_require__(449);
+	var _ModalHeader = __webpack_require__(450);
 
 	var _ModalHeader2 = _interopRequireDefault(_ModalHeader);
 
-	var _ModalTitle = __webpack_require__(450);
+	var _ModalTitle = __webpack_require__(451);
 
 	var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
 
-	var _ModalFooter = __webpack_require__(451);
+	var _ModalFooter = __webpack_require__(452);
 
 	var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
 
@@ -34216,20 +34569,20 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 442 */
+/* 443 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(443), __esModule: true };
+	module.exports = { "default": __webpack_require__(444), __esModule: true };
 
 /***/ },
-/* 443 */
+/* 444 */
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(380);
 	module.exports = __webpack_require__(382).Object.isFrozen;
 
 /***/ },
-/* 444 */
+/* 445 */
 /***/ function(module, exports) {
 
 	/**
@@ -34292,7 +34645,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 445 */
+/* 446 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34401,7 +34754,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 446 */
+/* 447 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34512,7 +34865,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 447 */
+/* 448 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*eslint-disable react/prop-types */
@@ -34598,7 +34951,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 448 */
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34657,7 +35010,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 449 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34750,7 +35103,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 450 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34809,7 +35162,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 451 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -34868,7 +35221,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 452 */
+/* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint react/prop-types: [2, {ignore: "bsStyle"}] */
@@ -34982,7 +35335,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 453 */
+/* 454 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35048,7 +35401,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 454 */
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35071,39 +35424,193 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibCol = __webpack_require__(422);
+	var _reactBootstrapLibCol = __webpack_require__(429);
 
 	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _reactBootstrapLibLabel = __webpack_require__(440);
+	var _reactBootstrapLibLabel = __webpack_require__(441);
 
 	var _reactBootstrapLibLabel2 = _interopRequireDefault(_reactBootstrapLibLabel);
 
-	var _reactBootstrapLibModal = __webpack_require__(441);
+	var _reactBootstrapLibModal = __webpack_require__(442);
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactBootstrapLibPanel = __webpack_require__(426);
+	var _reactBootstrapLibPanel = __webpack_require__(433);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
-	var _reactBootstrapLibPanelGroup = __webpack_require__(452);
+	var _reactBootstrapLibPanelGroup = __webpack_require__(453);
 
 	var _reactBootstrapLibPanelGroup2 = _interopRequireDefault(_reactBootstrapLibPanelGroup);
 
-	var _reactBootstrapLibRow = __webpack_require__(427);
+	var _reactBootstrapLibRow = __webpack_require__(434);
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
-	var _reactBootstrapLibTable = __webpack_require__(453);
+	var _reactBootstrapLibTable = __webpack_require__(454);
+
+	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
+
+	var OrderDetails = (function (_React$Component) {
+	  _inherits(OrderDetails, _React$Component);
+
+	  function OrderDetails(props) {
+	    _classCallCheck(this, OrderDetails);
+
+	    _get(Object.getPrototypeOf(OrderDetails.prototype), 'constructor', this).call(this, props);
+
+	    this.open = this.open.bind(this);
+	    this.close = this.close.bind(this);
+	    this.submit = this.submit.bind(this);
+
+	    this.state = {
+	      open: false
+	    };
+	  }
+
+	  _createClass(OrderDetails, [{
+	    key: 'open',
+	    value: function open(order) {
+	      this.setState({
+	        open: true
+	      });
+	    }
+	  }, {
+	    key: 'close',
+	    value: function close() {
+	      this.setState({
+	        open: false
+	      });
+	    }
+	  }, {
+	    key: 'submit',
+	    value: function submit() {}
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var style = {
+	        info: {
+	          'padding': '3% 4% 3% 4%'
+	        },
+	        announce: {
+	          'height': '100px'
+	        },
+	        tags: {
+	          'margin': '3px 0 10px 0'
+	        },
+	        dialogTitle: {
+	          'textAlign': 'center'
+	        },
+	        toolbar: {
+	          display: 'inline-block',
+	          float: 'right'
+	        },
+	        input: {
+	          float: 'left',
+	          display: 'inline-block'
+	        },
+	        listItem: {
+	          overflow: 'hidden'
+	        }
+	      };
+
+	      return _react2['default'].createElement(
+	        _reactBootstrapLibModal2['default'],
+	        { bsSize: 'large', show: this.state.open, onHide: this.close },
+	        _react2['default'].createElement(
+	          _reactBootstrapLibModal2['default'].Header,
+	          { closeButton: true },
+	          _react2['default'].createElement(_reactBootstrapLibModal2['default'].Title, { style: style.dialogTitle })
+	        ),
+	        _react2['default'].createElement(_reactBootstrapLibModal2['default'].Body, { style: style.info }),
+	        _react2['default'].createElement(
+	          _reactBootstrapLibModal2['default'].Footer,
+	          null,
+	          _react2['default'].createElement(
+	            _reactBootstrapLibButton2['default'],
+	            { onClick: this.close },
+	            '好'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return OrderDetails;
+	})(_react2['default'].Component);
+
+	exports['default'] = OrderDetails;
+	module.exports = exports['default'];
+
+/***/ },
+/* 456 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactBootstrapLibButton = __webpack_require__(423);
+
+	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
+
+	var _reactBootstrapLibCol = __webpack_require__(429);
+
+	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
+
+	var _reactBootstrapLibInput = __webpack_require__(436);
+
+	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
+
+	var _reactBootstrapLibLabel = __webpack_require__(441);
+
+	var _reactBootstrapLibLabel2 = _interopRequireDefault(_reactBootstrapLibLabel);
+
+	var _reactBootstrapLibModal = __webpack_require__(442);
+
+	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
+
+	var _reactBootstrapLibPanel = __webpack_require__(433);
+
+	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
+
+	var _reactBootstrapLibPanelGroup = __webpack_require__(453);
+
+	var _reactBootstrapLibPanelGroup2 = _interopRequireDefault(_reactBootstrapLibPanelGroup);
+
+	var _reactBootstrapLibRow = __webpack_require__(434);
+
+	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
+
+	var _reactBootstrapLibTable = __webpack_require__(454);
 
 	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
 
@@ -35120,8 +35627,9 @@
 	    this.submit = this.submit.bind(this);
 
 	    this.state = {
-	      showModal: false,
-	      storeName: ''
+	      open: false,
+	      store: {},
+	      products: []
 	    };
 	  }
 
@@ -35129,24 +35637,41 @@
 	    key: 'open',
 	    value: function open(store) {
 	      this.setState({
-	        showModal: true,
-	        storeName: store.name
+	        open: true,
+	        store: store
 	      });
 	    }
 	  }, {
 	    key: 'close',
 	    value: function close() {
 	      this.setState({
-	        showModal: false
+	        open: false
 	      });
 	    }
 	  }, {
 	    key: 'submit',
 	    value: function submit() {}
 	  }, {
+	    key: '_fetchProducts',
+	    value: function _fetchProducts() {
+	      var _this = this;
+
+	      fetch('/api/products.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this.setState({
+	          products: res
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._fetchProducts();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var storeName = this.state.storeName;
 	      var style = {
 	        info: {
 	          padding: '3% 4% 3% 4%'
@@ -35161,10 +35686,27 @@
 	          textAlign: 'center'
 	        }
 	      };
+	      var store = this.state.store;
+	      var products = this.state.products.map(function (product) {
+	        return _react2['default'].createElement(
+	          'tr',
+	          null,
+	          _react2['default'].createElement(
+	            'td',
+	            null,
+	            product.name
+	          ),
+	          _react2['default'].createElement(
+	            'td',
+	            null,
+	            product.price
+	          )
+	        );
+	      });
 
 	      return _react2['default'].createElement(
 	        _reactBootstrapLibModal2['default'],
-	        { show: this.state.showModal, onHide: this.close },
+	        { show: this.state.open, onHide: this.close },
 	        _react2['default'].createElement(
 	          _reactBootstrapLibModal2['default'].Header,
 	          { closeButton: true },
@@ -35172,7 +35714,7 @@
 	            _reactBootstrapLibModal2['default'].Title,
 	            { style: style.dialogTitle },
 	            '發起訂購 ',
-	            storeName
+	            store.name
 	          )
 	        ),
 	        _react2['default'].createElement(
@@ -35219,7 +35761,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '旺旺燒臘便當(安居街總店)'
+	                      store.name
 	                    )
 	                  ),
 	                  _react2['default'].createElement(
@@ -35233,7 +35775,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '高熱量便當'
+	                      store.brief
 	                    )
 	                  ),
 	                  _react2['default'].createElement(
@@ -35247,7 +35789,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '02-2736-9061'
+	                      store.phone
 	                    )
 	                  ),
 	                  _react2['default'].createElement(
@@ -35261,7 +35803,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '台北市和平東路三段安居街2號'
+	                      store.address
 	                    )
 	                  ),
 	                  _react2['default'].createElement(
@@ -35275,7 +35817,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '無'
+	                      store.site
 	                    )
 	                  ),
 	                  _react2['default'].createElement(
@@ -35289,7 +35831,7 @@
 	                    _react2['default'].createElement(
 	                      'td',
 	                      null,
-	                      '6個以上外送'
+	                      store.comment
 	                    )
 	                  )
 	                )
@@ -35322,90 +35864,7 @@
 	                _react2['default'].createElement(
 	                  'tbody',
 	                  null,
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '焢肉飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '75'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '燒肉飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '80'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '油雞飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '80'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '蜜汁香腸飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '80'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '糖醋排骨飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '85'
-	                    )
-	                  ),
-	                  _react2['default'].createElement(
-	                    'tr',
-	                    null,
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '燒鴨飯'
-	                    ),
-	                    _react2['default'].createElement(
-	                      'th',
-	                      null,
-	                      '90'
-	                    )
-	                  )
+	                  products
 	                )
 	              )
 	            ),
@@ -35485,12 +35944,13 @@
 
 	exports['default'] = CreateEvent;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(422)))
 
 /***/ },
-/* 455 */
+/* 457 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -35510,35 +35970,35 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibCol = __webpack_require__(422);
+	var _reactBootstrapLibCol = __webpack_require__(429);
 
 	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
 
-	var _reactBootstrapLibGlyphicon = __webpack_require__(433);
+	var _reactBootstrapLibGlyphicon = __webpack_require__(427);
 
 	var _reactBootstrapLibGlyphicon2 = _interopRequireDefault(_reactBootstrapLibGlyphicon);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _reactBootstrapLibRow = __webpack_require__(427);
+	var _reactBootstrapLibRow = __webpack_require__(434);
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
-	var _reactBootstrapLibTable = __webpack_require__(453);
+	var _reactBootstrapLibTable = __webpack_require__(454);
 
 	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
 
-	var _createEvent = __webpack_require__(454);
+	var _createEvent = __webpack_require__(456);
 
 	var _createEvent2 = _interopRequireDefault(_createEvent);
 
-	var _createStore = __webpack_require__(456);
+	var _createStore = __webpack_require__(458);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -35550,45 +36010,8 @@
 
 	    _get(Object.getPrototypeOf(Store.prototype), 'constructor', this).call(this, props);
 
-	    var stores = [{
-	      id: 1,
-	      name: '楊董燒肉便當店',
-	      brief: '燒肉，雞腿王，排骨',
-	      phone: '02-29060925'
-	    }, {
-	      id: 2,
-	      name: '太師傅便當專賣店(興中店)',
-	      brief: '營養便當',
-	      phone: '07-3345252'
-	    }, {
-	      id: 3,
-	      name: '臺灣雞腿王-青海店',
-	      brief: '主廚推薦：雞腿便當',
-	      phone: '04-23140169'
-	    }, {
-	      id: 4,
-	      name: '池上飯包',
-	      brief: '滿200元外送',
-	      phone: '04-6563616'
-	    }, {
-	      id: 5,
-	      name: '呆妹の點心舖',
-	      brief: '多種口味的點心酥/鳳梨酥/蛋黃酥',
-	      phone: '02-22175266'
-	    }, {
-	      id: 6,
-	      name: '富記港式茶餐廳(內科洲子店)',
-	      brief: '便宜好吃',
-	      phone: '02-87973006'
-	    }, {
-	      id: 7,
-	      name: '一焗兩得',
-	      brief: '400元外送',
-	      phone: '02-86671107'
-	    }];
-
 	    this.state = {
-	      stores: stores,
+	      stores: [],
 	      selectedIndex: undefined
 	    };
 
@@ -35598,6 +36021,19 @@
 	  }
 
 	  _createClass(Store, [{
+	    key: '_fetchStores',
+	    value: function _fetchStores() {
+	      var _this = this;
+
+	      fetch('/api/stores.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this.setState({
+	          stores: res
+	        });
+	      });
+	    }
+	  }, {
 	    key: '_handleCreateEvent',
 	    value: function _handleCreateEvent(storeId) {
 	      var store = this.state.stores.find(function (store) {
@@ -35614,9 +36050,14 @@
 	    key: '_handleAddFavorite',
 	    value: function _handleAddFavorite() {}
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this._fetchStores();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
 
 	      var style = {
 	        container: {
@@ -35653,7 +36094,7 @@
 	              {
 	                bsSize: 'small',
 	                style: style.tableButton,
-	                onClick: _this._handleCreateEvent.bind(_this, store.id) },
+	                onClick: _this2._handleCreateEvent.bind(_this2, store.id) },
 	              _react2['default'].createElement(_reactBootstrapLibGlyphicon2['default'], { glyph: 'shopping-cart' })
 	            )
 	          ),
@@ -35760,9 +36201,10 @@
 
 	exports['default'] = Store;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(422)))
 
 /***/ },
-/* 456 */
+/* 458 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35785,31 +36227,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibCol = __webpack_require__(422);
+	var _reactBootstrapLibCol = __webpack_require__(429);
 
 	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
 
-	var _reactBootstrapLibGlyphicon = __webpack_require__(433);
+	var _reactBootstrapLibGlyphicon = __webpack_require__(427);
 
 	var _reactBootstrapLibGlyphicon2 = _interopRequireDefault(_reactBootstrapLibGlyphicon);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _reactBootstrapLibModal = __webpack_require__(441);
+	var _reactBootstrapLibModal = __webpack_require__(442);
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactBootstrapLibPanel = __webpack_require__(426);
+	var _reactBootstrapLibPanel = __webpack_require__(433);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
-	var _reactBootstrapLibRow = __webpack_require__(427);
+	var _reactBootstrapLibRow = __webpack_require__(434);
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
@@ -35826,7 +36268,7 @@
 	    this.submit = this.submit.bind(this);
 
 	    this.state = {
-	      showModal: false
+	      open: false
 	    };
 	  }
 
@@ -35834,14 +36276,14 @@
 	    key: 'open',
 	    value: function open() {
 	      this.setState({
-	        showModal: true
+	        open: true
 	      });
 	    }
 	  }, {
 	    key: 'close',
 	    value: function close() {
 	      this.setState({
-	        showModal: false
+	        open: false
 	      });
 	    }
 	  }, {
@@ -35868,7 +36310,7 @@
 
 	      return _react2['default'].createElement(
 	        _reactBootstrapLibModal2['default'],
-	        { show: this.state.showModal, onHide: this.close },
+	        { show: this.state.open, onHide: this.close },
 	        _react2['default'].createElement(
 	          _reactBootstrapLibModal2['default'].Header,
 	          { closeButton: true },
@@ -36039,7 +36481,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 457 */
+/* 459 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36062,27 +36504,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibCol = __webpack_require__(422);
+	var _reactBootstrapLibCol = __webpack_require__(429);
 
 	var _reactBootstrapLibCol2 = _interopRequireDefault(_reactBootstrapLibCol);
 
-	var _reactBootstrapLibGrid = __webpack_require__(423);
+	var _reactBootstrapLibGrid = __webpack_require__(430);
 
 	var _reactBootstrapLibGrid2 = _interopRequireDefault(_reactBootstrapLibGrid);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _reactBootstrapLibPanel = __webpack_require__(426);
+	var _reactBootstrapLibPanel = __webpack_require__(433);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
-	var _reactBootstrapLibRow = __webpack_require__(427);
+	var _reactBootstrapLibRow = __webpack_require__(434);
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
@@ -36205,7 +36647,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 458 */
+/* 460 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36230,23 +36672,23 @@
 
 	__webpack_require__(364);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibButtonGroup = __webpack_require__(459);
+	var _reactBootstrapLibButtonGroup = __webpack_require__(461);
 
 	var _reactBootstrapLibButtonGroup2 = _interopRequireDefault(_reactBootstrapLibButtonGroup);
 
-	var _reactBootstrapLibButtonToolbar = __webpack_require__(460);
+	var _reactBootstrapLibButtonToolbar = __webpack_require__(462);
 
 	var _reactBootstrapLibButtonToolbar2 = _interopRequireDefault(_reactBootstrapLibButtonToolbar);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _createAccount = __webpack_require__(461);
+	var _createAccount = __webpack_require__(463);
 
 	var _createAccount2 = _interopRequireDefault(_createAccount);
 
@@ -36361,7 +36803,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 459 */
+/* 461 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36436,7 +36878,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 460 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36487,7 +36929,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 461 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36510,19 +36952,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactBootstrapLibButton = __webpack_require__(429);
+	var _reactBootstrapLibButton = __webpack_require__(423);
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibInput = __webpack_require__(435);
+	var _reactBootstrapLibInput = __webpack_require__(436);
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _reactBootstrapLibModal = __webpack_require__(441);
+	var _reactBootstrapLibModal = __webpack_require__(442);
 
 	var _reactBootstrapLibModal2 = _interopRequireDefault(_reactBootstrapLibModal);
 
-	var _reactBootstrapLibPanel = __webpack_require__(426);
+	var _reactBootstrapLibPanel = __webpack_require__(433);
 
 	var _reactBootstrapLibPanel2 = _interopRequireDefault(_reactBootstrapLibPanel);
 
