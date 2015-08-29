@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "name": "茉莉綠茶 M",
+    "category": "找好茶",
+    "price": 20
+  },
+  {
+    "id": 1,
+    "name": "茉莉綠茶 L",
+    "category": "找好茶",
+    "price": 25
+  },
+  {
+    "id": 2,
+    "name": "阿薩姆奶茶 M",
+    "category": "找好茶",
+    "price": 15
+  },
+  {
+    "id": 3,
+    "name": "阿薩姆奶茶 L",
+    "category": "找好茶",
+    "price": 25
+  },
+  {
+    "id": 4,
+    "name": "四季春茶",
+    "category": "找好茶",
+    "price": 15
+  },
+  {
+    "id": 5,
+    "name": "奶茶",
+    "category": "找好茶",
+    "price": 30
+  },
+  {
+    "id": 6,
+    "name": "焦糖奶茶",
+    "category": "找口感",
+    "price": 35
+  },
+  {
+    "id": 7,
+    "name": "紅茶拿鐵",
+    "category": "找口感",
+    "price": 40
+  },
+  {
+    "id": 8,
+    "name": "珍珠紅茶",
+    "category": "找口感",
+    "price": 25
+  },
+  {
+    "id": 9,
+    "name": "珍珠奶茶",
+    "category": "找口感",
+    "price": 30
+  },
+  {
+    "id": 10,
+    "name": "波霸紅茶拿鐵",
+    "category": "找口感",
+    "price": 40
+  },
+  {
+    "id": 11,
+    "name": "檸檬汁",
+    "category": "找新鮮",
+    "price": 40
+  },
+  {
+    "id": 12,
+    "name": "金桔檸檬",
+    "category": "找新鮮",
+    "price": 40
+  },
+  {
+    "id": 13,
+    "name": "8 冰茶",
+    "category": "找新鮮",
+    "price": 30
+  }
+]
