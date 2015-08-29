@@ -36139,10 +36139,13 @@
 	    _get(Object.getPrototypeOf(Store.prototype), 'constructor', this).call(this, props);
 
 	    this.state = {
+	      searchText: '',
 	      stores: [],
 	      user: {}
 	    };
 
+	    this._handleSearch = this._handleSearch.bind(this);
+	    this._handleSearchTextChange = this._handleSearchTextChange.bind(this);
 	    this._handleCreateStore = this._handleCreateStore.bind(this);
 	    this._handleCreateEvent = this._handleCreateEvent.bind(this);
 	    this._handleAddFavorite = this._handleAddFavorite.bind(this);
@@ -36175,6 +36178,29 @@
 	      });
 	    }
 	  }, {
+	    key: '_handleSearch',
+	    value: function _handleSearch() {
+	      var _this3 = this;
+
+	      var searchText = this.state.searchText;
+	      if (searchText === '') return;
+
+	      fetch('api/search-stores.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this3.setState({
+	          stores: res
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_handleSearchTextChange',
+	    value: function _handleSearchTextChange(event) {
+	      this.setState({
+	        searchText: event.target.value
+	      });
+	    }
+	  }, {
 	    key: '_handleCreateEvent',
 	    value: function _handleCreateEvent(storeId) {
 	      var store = this.state.stores.find(function (store) {
@@ -36190,7 +36216,7 @@
 	  }, {
 	    key: '_handleAddFavorite',
 	    value: function _handleAddFavorite(storeId) {
-	      var _this3 = this;
+	      var _this4 = this;
 
 	      fetch('api/userAddFavorite', {
 	        method: 'post',
@@ -36205,7 +36231,7 @@
 	      }).then(function (res) {
 	        // TODO: update new user data from server
 	        if (res.ok) {
-	          _this3.setState({
+	          _this4.setState({
 	            user: res
 	          });
 	        }
@@ -36220,7 +36246,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      var style = {
 	        container: {
@@ -36251,7 +36277,7 @@
 	              {
 	                style: style.tableButton,
 	                bsSize: 'small',
-	                onClick: _this4._handleAddFavorite.bind(_this4, store.id) },
+	                onClick: _this5._handleAddFavorite.bind(_this5, store.id) },
 	              _react2['default'].createElement(_reactBootstrapLibGlyphicon2['default'], { glyph: star })
 	            )
 	          ),
@@ -36263,7 +36289,7 @@
 	              {
 	                bsSize: 'small',
 	                style: style.tableButton,
-	                onClick: _this4._handleCreateEvent.bind(_this4, store.id) },
+	                onClick: _this5._handleCreateEvent.bind(_this5, store.id) },
 	              _react2['default'].createElement(_reactBootstrapLibGlyphicon2['default'], { glyph: 'shopping-cart' })
 	            )
 	          ),
@@ -36291,9 +36317,16 @@
 	        _react2['default'].createElement(
 	          _reactBootstrapLibCol2['default'],
 	          { md: 4, mdOffset: 4 },
-	          _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', buttonAfter: _react2['default'].createElement(
+	          _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	            type: 'text',
+	            value: this.state.searchText,
+	            onChange: this._handleSearchTextChange,
+	            buttonAfter: _react2['default'].createElement(
 	              _reactBootstrapLibButton2['default'],
-	              { bsStyle: 'info', placeholder: '請輸入店家名稱' },
+	              {
+	                bsStyle: 'info',
+	                placeholder: '請輸入店家名稱',
+	                onClick: this._handleSearch },
 	              '搜尋'
 	            ) })
 	        ),
