@@ -35687,19 +35687,19 @@
 	        }
 	      };
 	      var store = this.state.store;
-	      var products = this.state.products.map(function (product) {
+	      var products = this.state.products.map(function (prod) {
 	        return _react2['default'].createElement(
 	          'tr',
-	          null,
+	          { key: prod.id },
 	          _react2['default'].createElement(
 	            'td',
 	            null,
-	            product.name
+	            prod.name
 	          ),
 	          _react2['default'].createElement(
 	            'td',
 	            null,
-	            product.price
+	            prod.price
 	          )
 	        );
 	      });
