@@ -17,7 +17,7 @@ export default class Store extends React.Component {
 
     this.state = {
       stores: [],
-      selectedIndex: undefined
+      user: {}
     };
 
     this._handleCreateStore = this._handleCreateStore.bind(this);
@@ -35,6 +35,16 @@ export default class Store extends React.Component {
     });
   }
 
+  _fetchUser() {
+    fetch(`api/user.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        user: res
+      });
+    });
+  }
+
   _handleCreateEvent(storeId) {
     let store = this.state.stores.find(store => {
       return store.id === storeId;
@@ -46,12 +56,30 @@ export default class Store extends React.Component {
     this.refs.createStore.open();
   }
 
-  _handleAddFavorite() {
-
+  _handleAddFavorite(storeId) {
+    fetch(`api/userAddFavorite`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: 'user-token',
+        storeId: storeId
+      })
+    }).then(res => {
+      // TODO: update new user data from server
+      if (res.ok) {
+        this.setState({
+          user: res
+        });
+      }
+    });
   }
 
   componentDidMount() {
     this._fetchStores();
+    this._fetchUser();
   }
 
   render() {
@@ -68,13 +96,19 @@ export default class Store extends React.Component {
         transparent: true
       }
     };
+    let favorites = this.state.user.favoriteStores || [];
 
     let stores = this.state.stores.map(store => {
+      let star = favorites.indexOf(store.id) !== -1 ? 'star' : 'star-empty';
+
       return (
         <tr key={store.id}>
           <td>
-            <Button bsSize='small' style={style.tableButton}>
-              <Glyphicon glyph='star-empty' />
+            <Button
+              style={style.tableButton}
+              bsSize='small'
+              onClick={this._handleAddFavorite.bind(this, store.id)}>
+                <Glyphicon glyph={star} />
             </Button>
           </td>
           <td>
