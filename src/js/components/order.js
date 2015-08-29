@@ -90,29 +90,31 @@ export default class Order extends React.Component {
       categories[product.category] = categories[product.category] || [];
       categories[product.category].push(product);
     });
-
+    let order = this.state.order || {};
+    let orderProducts = order.products || [];
     let panels = [];
     for (let key in categories) {
       let products = categories[key];
+      let amount ='0';
       let panelItems = products.map(product => {
+        orderProducts.forEach(prod => {
+          amount = (prod.id === product.id) ? prod.amount : '0';
+        });
+
         return (
           <tr key={product.id}>
-            <td>{product.name}</td>
-            <td>{product.price}</td>
-            <td>
-                <Input
-                  type='text'
-                  style={{ textAlign: 'center' }}
-                  bsSize='small'
-                  defaultValue='0'
-                  buttonBefore={
-                    <Button>-</Button>
-                  }
-                  buttonAfter={
-                    <Button>+</Button>
-                  }/>
+            <td style={{width: '35%'}}>{product.name}</td>
+            <td style={{width: '15%'}}>$ {product.price}</td>
+            <td style={{width: '15%'}}>
+              <Input
+                type='text'
+                style={{ textAlign: 'center' }}
+                bsSize='small'
+                defaultValue={amount}
+                buttonBefore={<Button>-</Button>}
+                buttonAfter={<Button>+</Button>}/>
             </td>
-            <td>
+            <td style={{width: '35%'}}>
               <Input type='text' bsSize='small' placeholder='備註' />
             </td>
           </tr>
@@ -122,14 +124,6 @@ export default class Order extends React.Component {
       panels.push(
         <Panel key={products[0].category} header={products[0].category}>
           <Table fill responsive>
-            <thead>
-              <tr>
-                <th style={{width: '40%'}}>名稱</th>
-                <th style={{width: '15%'}}>價錢</th>
-                <th style={{width: '15%'}}>數量</th>
-                <th style={{width: '30%'}}>備註說明</th>
-              </tr>
-            </thead>
             <tbody>
               {panelItems}
             </tbody>
