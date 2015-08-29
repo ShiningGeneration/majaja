@@ -29,7 +29,7 @@ export default class Dashboard extends React.Component {
   }
 
   _fetchOrdereds() {
-    fetch(`/api/ordereds.json`).then(res => {
+    fetch(`api/ordereds.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
@@ -39,7 +39,7 @@ export default class Dashboard extends React.Component {
   }
 
   _fetchOrderings() {
-    fetch(`/api/orderings.json`).then(res => {
+    fetch(`api/orderings.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
@@ -49,7 +49,7 @@ export default class Dashboard extends React.Component {
   }
 
   _fetchStores() {
-    fetch(`/api/my-stores.json`).then(res => {
+    fetch(`api/my-stores.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({

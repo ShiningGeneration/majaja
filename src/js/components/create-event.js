@@ -44,7 +44,7 @@ export default class CreateEvent extends React.Component {
   }
 
   _fetchProducts() {
-    fetch(`/api/products.json`).then(res => {
+    fetch(`api/products.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({

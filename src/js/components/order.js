@@ -45,7 +45,7 @@ export default class Order extends React.Component {
   }
 
   _fetchProducts() {
-    fetch(`/api/products2.json`).then(res => {
+    fetch(`api/products2.json`).then(res => {
       return res.json();
     }).then(res => {
       this.setState({
