@@ -73,9 +73,9 @@ export default class CreateEvent extends React.Component {
       }
     };
     let store = this.state.store;
-    let products = this.state.products.map(product => {
+    let products = this.state.products.map(prod => {
       return (
-        <tr><td>{product.name}</td><td>{product.price}</td></tr>
+        <tr key={prod.id}><td>{prod.name}</td><td>{prod.price}</td></tr>
       );
     });
 
