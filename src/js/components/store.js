@@ -16,10 +16,13 @@ export default class Store extends React.Component {
     super(props);
 
     this.state = {
+      searchText: '',
       stores: [],
       user: {}
     };
 
+    this._handleSearch = this._handleSearch.bind(this);
+    this._handleSearchTextChange = this._handleSearchTextChange.bind(this);
     this._handleCreateStore = this._handleCreateStore.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
     this._handleAddFavorite = this._handleAddFavorite.bind(this);
@@ -42,6 +45,25 @@ export default class Store extends React.Component {
       this.setState({
         user: res
       });
+    });
+  }
+
+  _handleSearch() {
+    let searchText = this.state.searchText;
+    if (searchText === '') return;
+
+    fetch(`api/search-stores.json`).then(res => {
+      return res.json();
+    }).then(res => {
+      this.setState({
+        stores: res
+      });
+    });
+  }
+
+  _handleSearchTextChange(event) {
+    this.setState({
+      searchText: event.target.value
     });
   }
 
@@ -129,9 +151,18 @@ export default class Store extends React.Component {
     return (
       <Row>
         <Col md={4} mdOffset={4}>
-          <Input type='text' buttonAfter={
-            <Button bsStyle='info' placeholder='請輸入店家名稱'>搜尋</Button>
-          } />
+          <Input
+            type='text'
+            value={this.state.searchText}
+            onChange={this._handleSearchTextChange}
+            buttonAfter={
+              <Button
+                bsStyle='info'
+                placeholder='請輸入店家名稱'
+                onClick={this._handleSearch}>
+                  搜尋
+              </Button>
+            } />
         </Col>
         <div style={style.container}>
           <Col md={10} mdOffset={1}>
