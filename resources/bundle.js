@@ -31483,7 +31483,7 @@
 	    value: function _fetchOrdereds() {
 	      var _this = this;
 
-	      fetch('/api/ordereds.json').then(function (res) {
+	      fetch('api/ordereds.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this.setState({
@@ -31496,7 +31496,7 @@
 	    value: function _fetchOrderings() {
 	      var _this2 = this;
 
-	      fetch('/api/orderings.json').then(function (res) {
+	      fetch('api/orderings.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this2.setState({
@@ -31509,7 +31509,7 @@
 	    value: function _fetchStores() {
 	      var _this3 = this;
 
-	      fetch('/api/my-stores.json').then(function (res) {
+	      fetch('api/my-stores.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this3.setState({
@@ -33601,7 +33601,7 @@
 	    value: function _fetchProducts() {
 	      var _this = this;
 
-	      fetch('/api/products2.json').then(function (res) {
+	      fetch('api/products2.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this.setState({
@@ -35656,7 +35656,7 @@
 	    value: function _fetchProducts() {
 	      var _this = this;
 
-	      fetch('/api/products.json').then(function (res) {
+	      fetch('api/products.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this.setState({
@@ -36025,7 +36025,7 @@
 	    value: function _fetchStores() {
 	      var _this = this;
 
-	      fetch('/api/stores.json').then(function (res) {
+	      fetch('api/stores.json').then(function (res) {
 	        return res.json();
 	      }).then(function (res) {
 	        _this.setState({
