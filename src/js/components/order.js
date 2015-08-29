@@ -10,6 +10,8 @@ import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Row from 'react-bootstrap/lib/Row';
 import Table from 'react-bootstrap/lib/Table';
 
+import NumberInput from './number-input';
+
 export default class Order extends React.Component {
 
   constructor(props) {
@@ -86,33 +88,30 @@ export default class Order extends React.Component {
     };
 
     let categories = {};
+    let order = this.state.order || {};
+    let orderProducts = order.products || [];
+    let panels = [];
+
     this.state.products.forEach(product => {
       categories[product.category] = categories[product.category] || [];
       categories[product.category].push(product);
     });
-    let order = this.state.order || {};
-    let orderProducts = order.products || [];
-    let panels = [];
+
     for (let key in categories) {
       let products = categories[key];
-      let amount ='0';
+      let amount = 0;
       let panelItems = products.map(product => {
         orderProducts.forEach(prod => {
-          amount = (prod.id === product.id) ? prod.amount : '0';
+          amount = (prod.id === product.id) ? prod.amount : 0;
         });
 
         return (
           <tr key={product.id}>
-            <td style={{width: '35%'}}>{product.name}</td>
-            <td style={{width: '15%'}}>$ {product.price}</td>
+            <td style={{width: '30%'}}>{product.name}</td>
+            <td style={{width: '10%'}}>{product.option}</td>
+            <td style={{width: '10%'}}>$ {product.price}</td>
             <td style={{width: '15%'}}>
-              <Input
-                type='text'
-                style={{ textAlign: 'center' }}
-                bsSize='small'
-                defaultValue={amount}
-                buttonBefore={<Button>-</Button>}
-                buttonAfter={<Button>+</Button>}/>
+              <NumberInput value={amount} />
             </td>
             <td style={{width: '35%'}}>
               <Input type='text' bsSize='small' placeholder='備註' />

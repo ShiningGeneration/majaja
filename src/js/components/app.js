@@ -1,6 +1,7 @@
 import React from 'react';
 import RouteHandler from 'react-router/lib/components/RouteHandler';
 import 'bootstrap/dist/css/bootstrap.css';
+import '../../css/main.css'
 
 import CollapsibleNav from 'react-bootstrap/lib/CollapsibleNav';
 import Navbar from 'react-bootstrap/lib/Navbar';
