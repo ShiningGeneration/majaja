@@ -113,7 +113,7 @@ export default class Order extends React.Component {
                   }/>
             </td>
             <td>
-              <Input type='text' placeholder='備註' />
+              <Input type='text' bsSize='small' placeholder='備註' />
             </td>
           </tr>
         );

@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "title": "08/06 (星期四) Mon. 丁媽 虱目魚店",
-    "storeName": "丁媽 虱目魚店",
+    "title": "08/06 (星期四) Mon. 五十嵐",
+    "storeName": "五十嵐",
     "products": [
       {
         "id": 1,
-        "name": "香煎魚肚",
+        "name": "茉莉綠茶 L",
         "amount": 1,
-        "price": 100
+        "price": 25
       }
     ]
   }
