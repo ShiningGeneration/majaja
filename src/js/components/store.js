@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/lib/Col';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Input from 'react-bootstrap/lib/Input';
 import Row from 'react-bootstrap/lib/Row';
+import Pagination from 'react-bootstrap/lib/Pagination';
 import Table from 'react-bootstrap/lib/Table';
 
 import CreateEvent from './create-event';
@@ -18,11 +19,13 @@ export default class Store extends React.Component {
     this.state = {
       searchText: '',
       stores: [],
-      user: {}
+      user: {},
+      activePage: 1
     };
 
     this._handleSearch = this._handleSearch.bind(this);
     this._handleSearchTextChange = this._handleSearchTextChange.bind(this);
+    this._handlePageSelect = this._handlePageSelect.bind(this);
     this._handleCreateStore = this._handleCreateStore.bind(this);
     this._handleCreateEvent = this._handleCreateEvent.bind(this);
     this._handleAddFavorite = this._handleAddFavorite.bind(this);
@@ -64,6 +67,12 @@ export default class Store extends React.Component {
   _handleSearchTextChange(event) {
     this.setState({
       searchText: event.target.value
+    });
+  }
+
+  _handlePageSelect(event, selectedEvent) {
+    this.setState({
+      activePage: selectedEvent.eventKey
     });
   }
 
@@ -180,6 +189,19 @@ export default class Store extends React.Component {
                 {stores}
               </tbody>
             </Table>
+            <Col md={6} mdOffset={4}>
+              <Pagination
+                prev
+                next
+                first
+                last
+                ellipsis
+                items={20}
+                maxButtons={4}
+                activePage={this.state.activePage}
+                onSelect={this._handlePageSelect} />
+            </Col>
+            <br />
             <Col md={2} mdOffset={5}>
               <Button
                 block
