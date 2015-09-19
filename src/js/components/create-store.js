@@ -35,7 +35,47 @@ export default class CreateOrder extends React.Component {
   }
 
   submit() {
+    let data = {
+      name: this.refs.name.getValue(),
+      brief: this.refs.brief.getValue(),
+      phone: this.refs.phone.getValue(),
+      address: this.refs.address.getValue(),
+      website: this.refs.website.getValue(),
+      details: this.refs.details.getValue(),
+      productFormat: this.refs.productFormat.getValue(),
+      bendon: this.refs.bendon.getChecked(),
+      noodle: this.refs.noodle.getChecked(),
+      vegetarian: this.refs.vegetarian.getChecked(),
+      drink: this.refs.drink.getChecked(),
+      ices: this.refs.ices.getChecked(),
+      delicacy: this.refs.delicacy.getChecked(),
+      chinese: this.refs.chinese.getChecked(),
+      japanese: this.refs.japanese.getChecked(),
+      western: this.refs.western.getChecked(),
+      southEastern: this.refs.southEastern.getChecked(),
+      cookie: this.refs.cookie.getChecked(),
+      cake: this.refs.cake.getChecked(),
+      bread: this.refs.bread.getChecked(),
+      breakfast: this.refs.breakfast.getChecked(),
+      gift: this.refs.gift.getChecked(),
+      dessert: this.refs.dessert.getChecked()
+    };
 
+    fetch(`api/createStore`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: 'user-token',
+        data: data
+      })
+    }).then(res => {
+      if (res.ok) {
+        // TODO: Notify update successfully
+      }
+    });
   }
 
   render() {
@@ -43,7 +83,7 @@ export default class CreateOrder extends React.Component {
       info: {
         padding: '3% 4% 3% 4%'
       },
-      detials: {
+      details: {
         height: '140px'
       },
       productFormat: {
@@ -74,85 +114,116 @@ export default class CreateOrder extends React.Component {
         </Modal.Header>
         <Modal.Body style={style.info}>
           <Panel header='基本資料'>
-            <Input type='text' label='名稱' placeholder='店家名稱' />
-            <Input type='text' label='簡介' placeholder='店家簡介' />
-            <Input type='text' label='電話' placeholder='店家電話' />
-            <Input type='text' label='地址' placeholder='店家地址' />
-            <Input type='text' label='網址' placeholder='店家網站或專屬粉絲頁網址' />
-            <Input type='textarea' label='訂購說明' placeholder='訂購規則說明'
-              style={style.detials} />
+            <Input
+              ref='name'
+              type='text'
+              label='名稱'
+              placeholder='店家名稱' />
+            <Input
+              ref='brief'
+              type='text'
+              label='簡介'
+              placeholder='店家簡介' />
+            <Input
+              ref='phone'
+              type='text'
+              label='電話'
+              placeholder='店家電話' />
+            <Input
+              ref='address'
+              type='text'
+              label='地址'
+              placeholder='店家地址' />
+            <Input
+              ref='website'
+              type='text'
+              label='網址'
+              placeholder='店家網站或專屬粉絲頁網址' />
+            <Input
+              ref='details'
+              type='textarea'
+              label='訂購說明'
+              placeholder='訂購規則說明'
+              style={style.details} />
           </Panel>
-          
+
           <Panel header='產品資料'>
             <Row>
               <Col md={6}>
-                <Input type='textarea' label='產品' style={style.productFormat}/>
+                <Input
+                  ref='productFormat'
+                  type='textarea'
+                  label='產品'
+                  style={style.productFormat} />
               </Col>
               <Col md={6}>
-                <Input type='textarea' label='參考格式' disabled
-                  value={productFormat} style={style.productFormat} />
+                <Input
+                  type='textarea'
+                  label='參考格式'
+                  disabled
+                  style={style.productFormat}
+                  value={productFormat} />
               </Col>
             </Row>
           </Panel>
 
           <Panel header='產品圖片上傳'>
             <Col xs={6} xsOffset={3} md={6} mdOffset={3}>
-              <Input type='file'/>
+              <Input
+                ref='images'
+                type='file' />
             </Col>
           </Panel>
 
           <Panel header='服務種類'>
             <Row>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='便當' />
+                <Input ref='bendon' type='checkbox' label='便當' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='麵食' />
+                <Input ref='noodle' type='checkbox' label='麵食' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='素食' />
+                <Input ref='vegetarian' type='checkbox' label='素食' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='飲料' />
+                <Input ref='drink' type='checkbox' label='飲料' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='冰品' />
+                <Input ref='ices' type='checkbox' label='冰品' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='小吃' />
+                <Input ref='delicacy' type='checkbox' label='小吃' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='中式' />
+                <Input ref='chinese' type='checkbox' label='中式' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='日式' />
+                <Input ref='japanese' type='checkbox' label='日式' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='西式' />
+                <Input ref='western' type='checkbox' label='西式' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='南洋' />
+                <Input ref='southEastern' type='checkbox' label='南洋' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='餅類' />
+                <Input ref='cookie' type='checkbox' label='餅類' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='蛋糕' />
+                <Input ref='cake' type='checkbox' label='蛋糕' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='麵包' />
+                <Input ref='bread' type='checkbox' label='麵包' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='早點' />
+                <Input ref='breakfast' type='checkbox' label='早餐' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='禮品' />
+                <Input ref='gift' type='checkbox' label='禮品' />
               </Col>
               <Col md={2} xs={3}>
-                <Input type='checkbox' label='甜點' />
-              </Col>
-              <Col md={2} xs={3}>
-                <Input type='checkbox' label='其他' />
+                <Input ref='dessert' type='checkbox' label='甜點' />
               </Col>
             </Row>
           </Panel>
