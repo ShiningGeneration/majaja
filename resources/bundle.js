@@ -36794,7 +36794,7 @@
 /* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -36875,7 +36875,49 @@
 	    }
 	  }, {
 	    key: 'submit',
-	    value: function submit() {}
+	    value: function submit() {
+	      var data = {
+	        name: this.refs.name.getValue(),
+	        brief: this.refs.brief.getValue(),
+	        phone: this.refs.phone.getValue(),
+	        address: this.refs.address.getValue(),
+	        website: this.refs.website.getValue(),
+	        details: this.refs.details.getValue(),
+	        productFormat: this.refs.productFormat.getValue(),
+	        bendon: this.refs.bendon.getChecked(),
+	        noodle: this.refs.noodle.getChecked(),
+	        vegetarian: this.refs.vegetarian.getChecked(),
+	        drink: this.refs.drink.getChecked(),
+	        ices: this.refs.ices.getChecked(),
+	        delicacy: this.refs.delicacy.getChecked(),
+	        chinese: this.refs.chinese.getChecked(),
+	        japanese: this.refs.japanese.getChecked(),
+	        western: this.refs.western.getChecked(),
+	        southEastern: this.refs.southEastern.getChecked(),
+	        cookie: this.refs.cookie.getChecked(),
+	        cake: this.refs.cake.getChecked(),
+	        bread: this.refs.bread.getChecked(),
+	        breakfast: this.refs.breakfast.getChecked(),
+	        gift: this.refs.gift.getChecked(),
+	        dessert: this.refs.dessert.getChecked()
+	      };
+
+	      fetch('api/createStore', {
+	        method: 'post',
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({
+	          token: 'user-token',
+	          data: data
+	        })
+	      }).then(function (res) {
+	        if (res.ok) {
+	          // TODO: Notify update successfully
+	        }
+	      });
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -36883,7 +36925,7 @@
 	        info: {
 	          padding: '3% 4% 3% 4%'
 	        },
-	        detials: {
+	        details: {
 	          height: '140px'
 	        },
 	        productFormat: {
@@ -36913,13 +36955,37 @@
 	          _react2['default'].createElement(
 	            _reactBootstrapLibPanel2['default'],
 	            { header: '基本資料' },
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '名稱', placeholder: '店家名稱' }),
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '簡介', placeholder: '店家簡介' }),
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '電話', placeholder: '店家電話' }),
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '地址', placeholder: '店家地址' }),
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '網址', placeholder: '店家網站或專屬粉絲頁網址' }),
-	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'textarea', label: '訂購說明', placeholder: '訂購規則說明',
-	              style: style.detials })
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'name',
+	              type: 'text',
+	              label: '名稱',
+	              placeholder: '店家名稱' }),
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'brief',
+	              type: 'text',
+	              label: '簡介',
+	              placeholder: '店家簡介' }),
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'phone',
+	              type: 'text',
+	              label: '電話',
+	              placeholder: '店家電話' }),
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'address',
+	              type: 'text',
+	              label: '地址',
+	              placeholder: '店家地址' }),
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'website',
+	              type: 'text',
+	              label: '網址',
+	              placeholder: '店家網站或專屬粉絲頁網址' }),
+	            _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	              ref: 'details',
+	              type: 'textarea',
+	              label: '訂購說明',
+	              placeholder: '訂購規則說明',
+	              style: style.details })
 	          ),
 	          _react2['default'].createElement(
 	            _reactBootstrapLibPanel2['default'],
@@ -36930,13 +36996,21 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 6 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'textarea', label: '產品', style: style.productFormat })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                  ref: 'productFormat',
+	                  type: 'textarea',
+	                  label: '產品',
+	                  style: style.productFormat })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 6 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'textarea', label: '參考格式', disabled: true,
-	                  value: productFormat, style: style.productFormat })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                  type: 'textarea',
+	                  label: '參考格式',
+	                  disabled: true,
+	                  style: style.productFormat,
+	                  value: productFormat })
 	              )
 	            )
 	          ),
@@ -36946,7 +37020,9 @@
 	            _react2['default'].createElement(
 	              _reactBootstrapLibCol2['default'],
 	              { xs: 6, xsOffset: 3, md: 6, mdOffset: 3 },
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'file' })
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                ref: 'images',
+	                type: 'file' })
 	            )
 	          ),
 	          _react2['default'].createElement(
@@ -36958,87 +37034,82 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '便當' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'bendon', type: 'checkbox', label: '便當' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '麵食' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'noodle', type: 'checkbox', label: '麵食' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '素食' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'vegetarian', type: 'checkbox', label: '素食' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '飲料' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'drink', type: 'checkbox', label: '飲料' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '冰品' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'ices', type: 'checkbox', label: '冰品' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '小吃' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'delicacy', type: 'checkbox', label: '小吃' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '中式' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'chinese', type: 'checkbox', label: '中式' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '日式' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'japanese', type: 'checkbox', label: '日式' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '西式' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'western', type: 'checkbox', label: '西式' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '南洋' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'southEastern', type: 'checkbox', label: '南洋' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '餅類' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'cookie', type: 'checkbox', label: '餅類' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '蛋糕' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'cake', type: 'checkbox', label: '蛋糕' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '麵包' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'bread', type: 'checkbox', label: '麵包' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '早點' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'breakfast', type: 'checkbox', label: '早餐' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '禮品' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'gift', type: 'checkbox', label: '禮品' })
 	              ),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibCol2['default'],
 	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '甜點' })
-	              ),
-	              _react2['default'].createElement(
-	                _reactBootstrapLibCol2['default'],
-	                { md: 2, xs: 3 },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'checkbox', label: '其他' })
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { ref: 'dessert', type: 'checkbox', label: '甜點' })
 	              )
 	            )
 	          )
@@ -37066,6 +37137,7 @@
 
 	exports['default'] = CreateOrder;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(424)))
 
 /***/ },
 /* 465 */
