@@ -28256,11 +28256,11 @@
 
 	var _componentsStore2 = _interopRequireDefault(_componentsStore);
 
-	var _componentsPreference = __webpack_require__(462);
+	var _componentsPreference = __webpack_require__(465);
 
 	var _componentsPreference2 = _interopRequireDefault(_componentsPreference);
 
-	var _componentsLogin = __webpack_require__(463);
+	var _componentsLogin = __webpack_require__(466);
 
 	var _componentsLogin2 = _interopRequireDefault(_componentsLogin);
 
@@ -36118,6 +36118,10 @@
 
 	var _reactBootstrapLibRow2 = _interopRequireDefault(_reactBootstrapLibRow);
 
+	var _reactBootstrapLibPagination = __webpack_require__(461);
+
+	var _reactBootstrapLibPagination2 = _interopRequireDefault(_reactBootstrapLibPagination);
+
 	var _reactBootstrapLibTable = __webpack_require__(456);
 
 	var _reactBootstrapLibTable2 = _interopRequireDefault(_reactBootstrapLibTable);
@@ -36126,7 +36130,7 @@
 
 	var _createEvent2 = _interopRequireDefault(_createEvent);
 
-	var _createStore = __webpack_require__(461);
+	var _createStore = __webpack_require__(464);
 
 	var _createStore2 = _interopRequireDefault(_createStore);
 
@@ -36141,11 +36145,13 @@
 	    this.state = {
 	      searchText: '',
 	      stores: [],
-	      user: {}
+	      user: {},
+	      activePage: 1
 	    };
 
 	    this._handleSearch = this._handleSearch.bind(this);
 	    this._handleSearchTextChange = this._handleSearchTextChange.bind(this);
+	    this._handlePageSelect = this._handlePageSelect.bind(this);
 	    this._handleCreateStore = this._handleCreateStore.bind(this);
 	    this._handleCreateEvent = this._handleCreateEvent.bind(this);
 	    this._handleAddFavorite = this._handleAddFavorite.bind(this);
@@ -36198,6 +36204,13 @@
 	    value: function _handleSearchTextChange(event) {
 	      this.setState({
 	        searchText: event.target.value
+	      });
+	    }
+	  }, {
+	    key: '_handlePageSelect',
+	    value: function _handlePageSelect(event, selectedEvent) {
+	      this.setState({
+	        activePage: selectedEvent.eventKey
 	      });
 	    }
 	  }, {
@@ -36380,6 +36393,21 @@
 	            ),
 	            _react2['default'].createElement(
 	              _reactBootstrapLibCol2['default'],
+	              { md: 6, mdOffset: 4 },
+	              _react2['default'].createElement(_reactBootstrapLibPagination2['default'], {
+	                prev: true,
+	                next: true,
+	                first: true,
+	                last: true,
+	                ellipsis: true,
+	                items: 20,
+	                maxButtons: 4,
+	                activePage: this.state.activePage,
+	                onSelect: this._handlePageSelect })
+	            ),
+	            _react2['default'].createElement('br', null),
+	            _react2['default'].createElement(
+	              _reactBootstrapLibCol2['default'],
 	              { md: 2, mdOffset: 5 },
 	              _react2['default'].createElement(
 	                _reactBootstrapLibButton2['default'],
@@ -36407,6 +36435,363 @@
 
 /***/ },
 /* 461 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(405)['default'];
+
+	var _interopRequireDefault = __webpack_require__(376)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(414);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _BootstrapMixin = __webpack_require__(377);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _PaginationButton = __webpack_require__(462);
+
+	var _PaginationButton2 = _interopRequireDefault(_PaginationButton);
+
+	var _utilsCustomPropTypes = __webpack_require__(379);
+
+	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
+
+	var _SafeAnchor = __webpack_require__(421);
+
+	var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
+
+	var Pagination = _react2['default'].createClass({
+	  displayName: 'Pagination',
+
+	  mixins: [_BootstrapMixin2['default']],
+
+	  propTypes: {
+	    activePage: _react2['default'].PropTypes.number,
+	    items: _react2['default'].PropTypes.number,
+	    maxButtons: _react2['default'].PropTypes.number,
+	    ellipsis: _react2['default'].PropTypes.bool,
+	    first: _react2['default'].PropTypes.bool,
+	    last: _react2['default'].PropTypes.bool,
+	    prev: _react2['default'].PropTypes.bool,
+	    next: _react2['default'].PropTypes.bool,
+	    onSelect: _react2['default'].PropTypes.func,
+	    /**
+	     * You can use a custom element for the buttons
+	     */
+	    buttonComponentClass: _utilsCustomPropTypes2['default'].elementType
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      activePage: 1,
+	      items: 1,
+	      maxButtons: 0,
+	      first: false,
+	      last: false,
+	      prev: false,
+	      next: false,
+	      ellipsis: true,
+	      buttonComponentClass: _SafeAnchor2['default'],
+	      bsClass: 'pagination'
+	    };
+	  },
+
+	  renderPageButtons: function renderPageButtons() {
+	    var pageButtons = [];
+	    var startPage = undefined,
+	        endPage = undefined,
+	        hasHiddenPagesAfter = undefined;
+	    var _props = this.props;
+	    var maxButtons = _props.maxButtons;
+	    var activePage = _props.activePage;
+	    var items = _props.items;
+	    var onSelect = _props.onSelect;
+	    var ellipsis = _props.ellipsis;
+	    var buttonComponentClass = _props.buttonComponentClass;
+
+	    if (maxButtons) {
+	      var hiddenPagesBefore = activePage - parseInt(maxButtons / 2);
+	      startPage = hiddenPagesBefore > 1 ? hiddenPagesBefore : 1;
+	      hasHiddenPagesAfter = startPage + maxButtons <= items;
+
+	      if (!hasHiddenPagesAfter) {
+	        endPage = items;
+	        startPage = items - maxButtons + 1;
+	        if (startPage < 1) {
+	          startPage = 1;
+	        }
+	      } else {
+	        endPage = startPage + maxButtons - 1;
+	      }
+	    } else {
+	      startPage = 1;
+	      endPage = items;
+	    }
+
+	    for (var pagenumber = startPage; pagenumber <= endPage; pagenumber++) {
+	      pageButtons.push(_react2['default'].createElement(
+	        _PaginationButton2['default'],
+	        {
+	          key: pagenumber,
+	          eventKey: pagenumber,
+	          active: pagenumber === activePage,
+	          onSelect: onSelect,
+	          buttonComponentClass: buttonComponentClass },
+	        pagenumber
+	      ));
+	    }
+
+	    if (maxButtons && hasHiddenPagesAfter && ellipsis) {
+	      pageButtons.push(_react2['default'].createElement(
+	        _PaginationButton2['default'],
+	        {
+	          key: 'ellipsis',
+	          disabled: true,
+	          buttonComponentClass: buttonComponentClass },
+	        _react2['default'].createElement(
+	          'span',
+	          { 'aria-label': 'More' },
+	          '...'
+	        )
+	      ));
+	    }
+
+	    return pageButtons;
+	  },
+
+	  renderPrev: function renderPrev() {
+	    if (!this.props.prev) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      _PaginationButton2['default'],
+	      {
+	        key: 'prev',
+	        eventKey: this.props.activePage - 1,
+	        disabled: this.props.activePage === 1,
+	        onSelect: this.props.onSelect,
+	        buttonComponentClass: this.props.buttonComponentClass },
+	      _react2['default'].createElement(
+	        'span',
+	        { 'aria-label': 'Previous' },
+	        '‹'
+	      )
+	    );
+	  },
+
+	  renderNext: function renderNext() {
+	    if (!this.props.next) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      _PaginationButton2['default'],
+	      {
+	        key: 'next',
+	        eventKey: this.props.activePage + 1,
+	        disabled: this.props.activePage >= this.props.items,
+	        onSelect: this.props.onSelect,
+	        buttonComponentClass: this.props.buttonComponentClass },
+	      _react2['default'].createElement(
+	        'span',
+	        { 'aria-label': 'Next' },
+	        '›'
+	      )
+	    );
+	  },
+
+	  renderFirst: function renderFirst() {
+	    if (!this.props.first) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      _PaginationButton2['default'],
+	      {
+	        key: 'first',
+	        eventKey: 1,
+	        disabled: this.props.activePage === 1,
+	        onSelect: this.props.onSelect,
+	        buttonComponentClass: this.props.buttonComponentClass },
+	      _react2['default'].createElement(
+	        'span',
+	        { 'aria-label': 'First' },
+	        '«'
+	      )
+	    );
+	  },
+
+	  renderLast: function renderLast() {
+	    if (!this.props.last) {
+	      return null;
+	    }
+
+	    return _react2['default'].createElement(
+	      _PaginationButton2['default'],
+	      {
+	        key: 'last',
+	        eventKey: this.props.items,
+	        disabled: this.props.activePage >= this.props.items,
+	        onSelect: this.props.onSelect,
+	        buttonComponentClass: this.props.buttonComponentClass },
+	      _react2['default'].createElement(
+	        'span',
+	        { 'aria-label': 'Last' },
+	        '»'
+	      )
+	    );
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'ul',
+	      _extends({}, this.props, {
+	        className: _classnames2['default'](this.props.className, this.getBsClassSet()) }),
+	      this.renderFirst(),
+	      this.renderPrev(),
+	      this.renderPageButtons(),
+	      this.renderNext(),
+	      this.renderLast()
+	    );
+	  }
+	});
+
+	exports['default'] = Pagination;
+	module.exports = exports['default'];
+
+/***/ },
+/* 462 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = __webpack_require__(405)['default'];
+
+	var _objectWithoutProperties = __webpack_require__(412)['default'];
+
+	var _interopRequireDefault = __webpack_require__(376)['default'];
+
+	exports.__esModule = true;
+
+	var _react = __webpack_require__(168);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(414);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _BootstrapMixin = __webpack_require__(377);
+
+	var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
+
+	var _utilsCreateSelectedEvent = __webpack_require__(463);
+
+	var _utilsCreateSelectedEvent2 = _interopRequireDefault(_utilsCreateSelectedEvent);
+
+	var _utilsCustomPropTypes = __webpack_require__(379);
+
+	var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
+
+	var PaginationButton = _react2['default'].createClass({
+	  displayName: 'PaginationButton',
+
+	  mixins: [_BootstrapMixin2['default']],
+
+	  propTypes: {
+	    className: _react2['default'].PropTypes.string,
+	    eventKey: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
+	    onSelect: _react2['default'].PropTypes.func,
+	    disabled: _react2['default'].PropTypes.bool,
+	    active: _react2['default'].PropTypes.bool,
+	    /**
+	     * You can use a custom element for this component
+	     */
+	    buttonComponentClass: _utilsCustomPropTypes2['default'].elementType
+	  },
+
+	  getDefaultProps: function getDefaultProps() {
+	    return {
+	      active: false,
+	      disabled: false
+	    };
+	  },
+
+	  handleClick: function handleClick(event) {
+	    if (this.props.disabled) {
+	      return;
+	    }
+
+	    if (this.props.onSelect) {
+	      var selectedEvent = _utilsCreateSelectedEvent2['default'](this.props.eventKey);
+	      this.props.onSelect(event, selectedEvent);
+	    }
+	  },
+
+	  render: function render() {
+	    var classes = _extends({
+	      active: this.props.active,
+	      disabled: this.props.disabled
+	    }, this.getBsClassSet());
+
+	    var _props = this.props;
+	    var className = _props.className;
+
+	    var anchorProps = _objectWithoutProperties(_props, ['className']);
+
+	    var ButtonComponentClass = this.props.buttonComponentClass;
+
+	    return _react2['default'].createElement(
+	      'li',
+	      { className: _classnames2['default'](className, classes) },
+	      _react2['default'].createElement(ButtonComponentClass, _extends({}, anchorProps, {
+	        onClick: this.handleClick }))
+	    );
+	  }
+	});
+
+	exports['default'] = PaginationButton;
+	module.exports = exports['default'];
+
+/***/ },
+/* 463 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports.__esModule = true;
+	exports["default"] = createSelectedEvent;
+
+	function createSelectedEvent(eventKey) {
+	  var selectionPrevented = false;
+
+	  return {
+	    eventKey: eventKey,
+
+	    preventSelection: function preventSelection() {
+	      selectionPrevented = true;
+	    },
+
+	    isSelectionPrevented: function isSelectionPrevented() {
+	      return selectionPrevented;
+	    }
+	  };
+	}
+
+	module.exports = exports["default"];
+
+/***/ },
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36683,10 +37068,10 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 462 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -36741,8 +37126,23 @@
 	    this.updateProfile = this.updateProfile.bind(this);
 	    this.updatePassword = this.updatePassword.bind(this);
 	    this.updateEmail = this.updateEmail.bind(this);
+	    this._onNameChange = this._onNameChange.bind(this);
+	    this._onDisplayNameChange = this._onDisplayNameChange.bind(this);
+	    this._onCompanyChange = this._onCompanyChange.bind(this);
+	    this._onLocationChange = this._onLocationChange.bind(this);
+	    this._onNewPasswordChange = this._onNewPasswordChange.bind(this);
+	    this._onConfirmPasswordChange = this._onConfirmPasswordChange.bind(this);
+	    this._onEmailChange = this._onEmailChange.bind(this);
 
 	    this.state = {
+	      name: '',
+	      displayName: '',
+	      company: '',
+	      location: '',
+	      oldPassword: '',
+	      newPassword: '',
+	      confirmPassword: '',
+	      confirmPasswordStyle: 'default',
 	      profileIsLoading: false,
 	      passwordIsLoading: false,
 	      emailIsLoading: false
@@ -36755,6 +37155,16 @@
 	      this.setState({
 	        profileIsLoading: true
 	      });
+
+	      var state = this.state;
+	      var data = {
+	        name: state.name,
+	        displayName: state.displayName,
+	        company: state.company,
+	        location: state.location
+	      };
+
+	      this._updatePreference(data, { profileIsLoading: false });
 	    }
 	  }, {
 	    key: 'updatePassword',
@@ -36762,12 +37172,132 @@
 	      this.setState({
 	        passwordIsLoading: true
 	      });
+
+	      var state = this.state;
+	      var data = {
+	        oldPassword: state.oldPassword,
+	        newPassword: state.newPassword
+	      };
+
+	      this._updatePreference(data, { passwordIsLoading: false });
 	    }
 	  }, {
 	    key: 'updateEmail',
 	    value: function updateEmail() {
 	      this.setState({
 	        emailIsLoading: true
+	      });
+
+	      var state = this.state;
+	      var data = {
+	        email: state.email
+	      };
+
+	      this._updatePreference(data, { emailIsLoading: false });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this = this;
+
+	      fetch('api/preference.json').then(function (res) {
+	        return res.json();
+	      }).then(function (res) {
+	        _this.setState({
+	          name: res.name,
+	          displayName: res.displayName,
+	          company: res.company,
+	          location: res.location,
+	          email: res.email
+	        });
+	      });
+	    }
+	  }, {
+	    key: '_updatePreference',
+	    value: function _updatePreference(data, updateState) {
+	      var _this2 = this;
+
+	      fetch('api/updatePreference', {
+	        method: 'post',
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({
+	          token: 'user-token',
+	          data: data
+	        })
+	      }).then(function (res) {
+	        if (res.ok) {
+	          _this2.setState(updateState);
+	        }
+	      });
+	    }
+	  }, {
+	    key: '_onNameChange',
+	    value: function _onNameChange(evt) {
+	      this.setState({
+	        name: evt.target.value
+	      });
+	    }
+	  }, {
+	    key: '_onDisplayNameChange',
+	    value: function _onDisplayNameChange(evt) {
+	      this.setState({
+	        displayName: evt.target.value
+	      });
+	    }
+	  }, {
+	    key: '_onCompanyChange',
+	    value: function _onCompanyChange(evt) {
+	      this.setState({
+	        company: evt.target.value
+	      });
+	    }
+	  }, {
+	    key: '_onLocationChange',
+	    value: function _onLocationChange(evt) {
+	      this.setState({
+	        location: evt.target.value
+	      });
+	    }
+	  }, {
+	    key: '_onNewPasswordChange',
+	    value: function _onNewPasswordChange(evt) {
+	      var newPassword = evt.target.value;
+	      var confirmPassword = this.state.confirmPassword;
+
+	      this.setState({
+	        newPassword: newPassword
+	      });
+
+	      var confirmPasswordStyle = confirmPassword !== '' && newPassword === confirmPassword ? 'success' : 'error';
+
+	      this.setState({
+	        confirmPasswordStyle: confirmPasswordStyle
+	      });
+	    }
+	  }, {
+	    key: '_onConfirmPasswordChange',
+	    value: function _onConfirmPasswordChange(evt) {
+	      var newPassword = this.state.newPassword;
+	      var confirmPassword = evt.target.value;
+
+	      this.setState({
+	        confirmPassword: confirmPassword
+	      });
+
+	      var confirmPasswordStyle = confirmPassword !== '' && newPassword === confirmPassword ? 'success' : 'error';
+
+	      this.setState({
+	        confirmPasswordStyle: confirmPasswordStyle
+	      });
+	    }
+	  }, {
+	    key: '_onEmailChange',
+	    value: function _onEmailChange(evt) {
+	      this.setState({
+	        email: evt.target.value
 	      });
 	    }
 	  }, {
@@ -36792,10 +37322,18 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibPanel2['default'],
 	                { header: '個人資料', bsStyle: 'info' },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '名稱', defaultValue: '林小明' }),
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '訂單顯示名稱', defaultValue: '(12) 林小明' }),
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '公司' }),
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '地點' }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '名稱',
+	                  value: this.state.name,
+	                  onChange: this._onNameChange }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '訂單顯示名稱',
+	                  value: this.state.displayName,
+	                  onChange: this._onDisplayNameChange }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '公司',
+	                  value: this.state.company,
+	                  onChange: this._onCompanyChange }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '地點',
+	                  value: this.state.location,
+	                  onChange: this._onLocationChange }),
 	                _react2['default'].createElement(
 	                  _reactBootstrapLibButton2['default'],
 	                  {
@@ -36808,9 +37346,21 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibPanel2['default'],
 	                { header: '改變密碼', bsStyle: 'info' },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'password', label: '舊密碼' }),
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'password', label: '新密碼' }),
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'password', label: '確認新密碼' }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'password', label: '舊密碼',
+	                  value: this.state.oldPassword }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                  type: 'password',
+	                  label: '新密碼',
+	                  value: this.state.newPassword,
+	                  onChange: this._onNewPasswordChange,
+	                  hasFeedback: true }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                  type: 'password',
+	                  bsStyle: this.state.confirmPasswordStyle,
+	                  label: '確認新密碼',
+	                  value: this.state.confirmPassword,
+	                  onChange: this._onConfirmPasswordChange,
+	                  hasFeedback: true }),
 	                _react2['default'].createElement(
 	                  _reactBootstrapLibButton2['default'],
 	                  {
@@ -36823,8 +37373,12 @@
 	              _react2['default'].createElement(
 	                _reactBootstrapLibPanel2['default'],
 	                { header: '電子信箱', bsStyle: 'info' },
-	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'email', label: '電子信箱地址',
-	                  placeholder: 'uesr@example.com' }),
+	                _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                  type: 'email',
+	                  label: '電子信箱地址',
+	                  value: this.state.email,
+	                  placeholder: 'uesr@example.com',
+	                  onChange: this._onEmailChange }),
 	                _react2['default'].createElement(
 	                  _reactBootstrapLibButton2['default'],
 	                  {
@@ -36847,12 +37401,13 @@
 
 	exports['default'] = Preference;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(424)))
 
 /***/ },
-/* 463 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	  value: true
@@ -36878,11 +37433,11 @@
 
 	var _reactBootstrapLibButton2 = _interopRequireDefault(_reactBootstrapLibButton);
 
-	var _reactBootstrapLibButtonGroup = __webpack_require__(464);
+	var _reactBootstrapLibButtonGroup = __webpack_require__(467);
 
 	var _reactBootstrapLibButtonGroup2 = _interopRequireDefault(_reactBootstrapLibButtonGroup);
 
-	var _reactBootstrapLibButtonToolbar = __webpack_require__(465);
+	var _reactBootstrapLibButtonToolbar = __webpack_require__(468);
 
 	var _reactBootstrapLibButtonToolbar2 = _interopRequireDefault(_reactBootstrapLibButtonToolbar);
 
@@ -36890,7 +37445,7 @@
 
 	var _reactBootstrapLibInput2 = _interopRequireDefault(_reactBootstrapLibInput);
 
-	var _createAccount = __webpack_require__(466);
+	var _createAccount = __webpack_require__(469);
 
 	var _createAccount2 = _interopRequireDefault(_createAccount);
 
@@ -36913,7 +37468,6 @@
 	  }, {
 	    key: '_handleSignIn',
 	    value: function _handleSignIn() {
-	      // this.refs.signIn.open();
 	      var user = document.getElementById('login-user').value;
 	      var pw = document.getElementById('login-password').value;
 	      var accountInfo;
@@ -36938,24 +37492,18 @@
 	        };
 	      }
 
-	      var url = 'http://0.0.0.0:3000/api/Users/login';
-	      var method = 'POST';
-	      var postData = JSON.stringify(accountInfo);
-	      var async = true;
-	      var request = new XMLHttpRequest();
-
-	      request.open(method, url, async);
-	      request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-	      request.onreadystatechange = function () {
-	        if (request.readyState == 4) {
-	          if (request.status == 200) {
-	            alert('Sign in successfully!');
-	          } else {
-	            alert(JSON.parse(request.responseText).error.message);
-	          }
+	      fetch('api/users/login', {
+	        method: 'post',
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify(accountInfo)
+	      }).then(function (res) {
+	        if (res.ok) {
+	          // TODO: login successfully
 	        }
-	      };
-	      request.send(postData);
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -37003,9 +37551,10 @@
 
 	exports['default'] = Login;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(424)))
 
 /***/ },
-/* 464 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37080,7 +37629,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 465 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37131,7 +37680,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 466 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
