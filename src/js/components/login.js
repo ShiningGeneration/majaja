@@ -20,7 +20,6 @@ export default class Login extends React.Component {
   }
 
   _handleSignIn() {
-    // this.refs.signIn.open();
     var user = document.getElementById('login-user').value;
     var pw = document.getElementById('login-password').value;
     var accountInfo;
@@ -45,25 +44,18 @@ export default class Login extends React.Component {
       };
     }
 
-    var url = 'http://0.0.0.0:3000/api/Users/login';
-    var method = 'POST';
-    var postData = JSON.stringify(accountInfo);
-    var async = true;
-    var request = new XMLHttpRequest();
-
-    request.open(method, url, async);
-    request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    request.onreadystatechange = function()
-    {
-      if (request.readyState == 4 ) {
-        if (request.status == 200) {
-          alert('Sign in successfully!');
-        } else {
-          alert(JSON.parse(request.responseText).error.message);
-        }
+    fetch(`api/users/login`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(accountInfo)
+    }).then(res => {
+      if (res.ok) {
+        // TODO: login successfully
       }
-    };
-    request.send(postData);
+    });
   }
 
   render() {
