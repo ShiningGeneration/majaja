@@ -69,7 +69,7 @@ gulp.task('server', function(done) {
   .listen(8080, 'localhost', function(err) {
     if(err) throw new err;
     console.log('[webpack-dev-server]',
-      'http://localhost:8080/webpack-dev-server/index.html');
+      'http://localhost:8080/');
     done();
   });
 });
