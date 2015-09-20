@@ -17,6 +17,6 @@ export default (
     <Route name='home' handler={Home} />
     <Route name='dashboard' handler={Dashboard} />
     <Route name='store' handler={Store} />
-    <Route name='user' handler={Preference} />
+    <Route name='preference' handler={Preference} />
   </Route>
 );
