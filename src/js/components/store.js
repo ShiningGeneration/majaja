@@ -116,7 +116,7 @@ export default class Store extends React.Component {
   render() {
     let style = {
       container: {
-        marginTop: '50px',
+        margin: '50px 0 0 0',
         padding: '3% 0 3% 0'
       },
       table: {
