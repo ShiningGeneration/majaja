@@ -1,3 +1,4 @@
+import Cookie from 'react-cookie';
 import React from 'react';
 import RouteHandler from 'react-router/lib/components/RouteHandler';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,37 +12,42 @@ import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
 
+import AnonymousNavbar from './anonymous-navbar';
+import MemberNavbar from './member-navbar';
+
 export default class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      userId: Cookie.load('userId')
+    };
+  }
+
   render() {
-    let style ={
+    let style = {
       navbar: {
         opacity: '0.8'
       }
     };
 
+    let navbar;
+
+    if (!this.state.userId) {
+      navbar = <AnonymousNavbar />;
+    } else {
+      navbar = <MemberNavbar />;
+    }
+
     return (
       <div>
         <Navbar
-          brand={<div><Glyphicon glyph='cutlery' /> Majaja</div>}
+          brand={<a href='#home'><Glyphicon glyph='cutlery' /> Majaja</a>}
           toggleNavKey={0}
           style={style.navbar}
           fixedTop>
-          <CollapsibleNav eventKey={0}>
-            <Nav navbar right>
-              <NavItem eventKey={1} href='#dashboard'>Dashboard</NavItem>
-              <NavItem eventKey={2} href='#store'>Store</NavItem>
-              <NavItem eventKey={3} href='#user'>User</NavItem>
-              <NavDropdown eventKey={1} title='User'>
-                <MenuItem eventKey='1'>Profile</MenuItem>
-                <MenuItem eventKey='2'>Preference</MenuItem>
-                <MenuItem divider />
-                <MenuItem eventKey='3'>Sign Out</MenuItem>
-              </NavDropdown>
-              <NavItem eventKey={4} href='#signup'>Sign Up</NavItem>
-              <NavItem eventKey={5} href='#signin'>Sign In</NavItem>
-            </Nav>
-          </CollapsibleNav>
+          {navbar}
         </Navbar>
 
         <div>
