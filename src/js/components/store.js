@@ -116,7 +116,8 @@ export default class Store extends React.Component {
   render() {
     let style = {
       container: {
-        padding: '5% 0 5% 0'
+        marginTop: '50px',
+        padding: '3% 0 3% 0'
       },
       table: {
         margin: '2% 0 5% 0'
@@ -158,7 +159,7 @@ export default class Store extends React.Component {
     });
 
     return (
-      <Row>
+      <Row style={style.container}>
         <Col md={4} mdOffset={4}>
           <Input
             type='text'
@@ -173,7 +174,7 @@ export default class Store extends React.Component {
               </Button>
             } />
         </Col>
-        <div style={style.container}>
+        <div>
           <Col md={10} mdOffset={1}>
             <Table hover responsive style={style.table}>
               <thead>
