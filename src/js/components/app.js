@@ -43,7 +43,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Navbar
-          brand={<a href='#home'><Glyphicon glyph='cutlery' /> Majaja</a>}
+          brand={<a href='#home'><Glyphicon glyph='cutlery' /> MAJAJA</a>}
           toggleNavKey={0}
           style={style.navbar}
           fixedTop>

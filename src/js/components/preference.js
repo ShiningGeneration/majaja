@@ -14,14 +14,12 @@ export default class Preference extends React.Component {
 
     this.updateProfile = this.updateProfile.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
-    this.updateEmail = this.updateEmail.bind(this);
     this._onNameChange = this._onNameChange.bind(this);
     this._onDisplayNameChange = this._onDisplayNameChange.bind(this);
     this._onCompanyChange = this._onCompanyChange.bind(this);
     this._onLocationChange = this._onLocationChange.bind(this);
     this._onNewPasswordChange = this._onNewPasswordChange.bind(this);
     this._onConfirmPasswordChange = this._onConfirmPasswordChange.bind(this);
-    this._onEmailChange = this._onEmailChange.bind(this);
 
     this.state = {
       name: '',
@@ -33,8 +31,7 @@ export default class Preference extends React.Component {
       confirmPassword: '',
       confirmPasswordStyle: 'default',
       profileIsLoading: false,
-      passwordIsLoading: false,
-      emailIsLoading: false
+      passwordIsLoading: false
     };
   }
 
@@ -68,19 +65,6 @@ export default class Preference extends React.Component {
     this._updatePreference(data, { passwordIsLoading: false });
   }
 
-  updateEmail() {
-    this.setState({
-      emailIsLoading: true
-    });
-
-    let state = this.state;
-    let data = {
-      email: state.email
-    };
-
-    this._updatePreference(data, { emailIsLoading: false });
-  }
-
   componentDidMount() {
     fetch(`api/preference.json`).then(res => {
       return res.json();
@@ -89,8 +73,7 @@ export default class Preference extends React.Component {
         name: res.name,
         displayName: res.displayName,
         company: res.company,
-        location: res.location,
-        email: res.email
+        location: res.location
       });
     });
   }
@@ -171,85 +154,66 @@ export default class Preference extends React.Component {
     });
   }
 
-  _onEmailChange(evt) {
-    this.setState({
-      email: evt.target.value
-    });
-  }
-
   render() {
+    let style = {
+      container: {
+        marginTop: '50px',
+        paddingTop: '3%'
+      }
+    };
     let profileIsLoading = this.state.profileIsLoading;
     let passwordIsLoading = this.state.passwordIsLoading;
-    let emailIsLoading = this.state.emailIsLoading;
 
     return (
-      <div>
-        <Grid>
-          <Row>
-            <Col md={8} mdOffset={2}>
-              <Panel header='個人資料' bsStyle='info'>
-                <Input type='text' label='名稱'
-                  value={this.state.name}
-                  onChange={this._onNameChange} />
-                <Input type='text' label='訂單顯示名稱'
-                  value={this.state.displayName}
-                  onChange={this._onDisplayNameChange} />
-                <Input type='text' label='公司'
-                  value={this.state.company}
-                  onChange={this._onCompanyChange} />
-                <Input type='text' label='地點'
-                  value={this.state.location}
-                  onChange={this._onLocationChange} />
-                <Button
-                  bsStyle='success'
-                  disabled={profileIsLoading}
-                  onClick={this.updateProfile}>
-                    {profileIsLoading ? '更新...' : '更新'}
-                </Button>
-              </Panel>
-              <Panel header='改變密碼' bsStyle='info'>
-                <Input type='password' label='舊密碼'
-                  value={this.state.oldPassword} />
-                <Input
-                  type='password'
-                  label='新密碼'
-                  value={this.state.newPassword}
-                  onChange={this._onNewPasswordChange}
-                  hasFeedback />
-                <Input
-                  type='password'
-                  bsStyle={this.state.confirmPasswordStyle}
-                  label='確認新密碼'
-                  value={this.state.confirmPassword}
-                  onChange={this._onConfirmPasswordChange}
-                  hasFeedback />
-                <Button
-                  bsStyle='success'
-                  disabled={passwordIsLoading}
-                  onClick={this.updatePassword}>
-                    {passwordIsLoading ? '更新...' : '更新'}
-                </Button>
-              </Panel>
-              <Panel header='電子信箱' bsStyle='info'>
-                <Input
-                  type='email'
-                  label='電子信箱地址'
-                  value={this.state.email}
-                  placeholder='uesr@example.com'
-                  onChange={this._onEmailChange} />
-                <Button
-                  bsStyle='success'
-                  disabled={emailIsLoading}
-                  onClick={this.updateEmail}>
-                    {emailIsLoading ? '更新...' : '更新'}
-                </Button>
-              </Panel>
-            </Col>
-            <Col md={2} mdOffset={5}>
-            </Col>
-          </Row>
-        </Grid>
-      </div>
+      <Grid style={style.container}>
+        <Row>
+          <Col md={8} mdOffset={2}>
+            <Panel header='個人資料' bsStyle='info'>
+              <Input type='text' label='名稱'
+                value={this.state.name}
+                onChange={this._onNameChange} />
+              <Input type='text' label='訂單顯示名稱'
+                value={this.state.displayName}
+                onChange={this._onDisplayNameChange} />
+              <Input type='text' label='公司'
+                value={this.state.company}
+                onChange={this._onCompanyChange} />
+              <Input type='text' label='地點'
+                value={this.state.location}
+                onChange={this._onLocationChange} />
+              <Button
+                bsStyle='success'
+                disabled={profileIsLoading}
+                onClick={this.updateProfile}>
+                  {profileIsLoading ? '更新...' : '更新'}
+              </Button>
+            </Panel>
+            <Panel header='改變密碼' bsStyle='info'>
+              <Input type='password' label='舊密碼'
+                value={this.state.oldPassword} />
+              <Input
+                type='password'
+                label='新密碼'
+                value={this.state.newPassword}
+                onChange={this._onNewPasswordChange}
+                hasFeedback />
+              <Input
+                type='password'
+                bsStyle={this.state.confirmPasswordStyle}
+                label='確認新密碼'
+                value={this.state.confirmPassword}
+                onChange={this._onConfirmPasswordChange}
+                hasFeedback />
+              <Button
+                bsStyle='success'
+                disabled={passwordIsLoading}
+                onClick={this.updatePassword}>
+                  {passwordIsLoading ? '更新...' : '更新'}
+              </Button>
+            </Panel>
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 
