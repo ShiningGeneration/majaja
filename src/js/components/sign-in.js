@@ -5,7 +5,7 @@ import Input from 'react-bootstrap/lib/Input';
 import Modal from 'react-bootstrap/lib/Modal';
 import Panel from 'react-bootstrap/lib/Panel';
 
-export default class CreateOrder extends React.Component {
+export default class SignUp extends React.Component {
 
   constructor(props) {
     super(props);
