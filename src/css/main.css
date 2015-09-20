@@ -9,3 +9,7 @@ input[type=number] {
   -moz-appearance: textfield;
   text-align: right;
 }
+
+body {
+  background-color: #F5F5F5
+}

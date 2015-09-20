@@ -80,13 +80,10 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    let styles = {
-      orderBtn: {
-        float: 'right',
-        margin: '0 0 0 1rem'
-      },
-      orderBtnGroup: {
-        overflow: 'auto'
+    let style = {
+      container: {
+        marginTop: '50px',
+        paddingTop: '3%'
       }
     };
 
@@ -163,7 +160,7 @@ export default class Dashboard extends React.Component {
     });
 
     return (
-      <Grid>
+      <Grid style={style.container}>
         <Row>
           <Col md={4}>
             <Panel header={'已訂過的'} bsStyle='success'>
