@@ -41714,7 +41714,7 @@
 	          display: 'flex',
 	          alignItems: 'center',
 	          justifyContent: 'center',
-	          backgroundImage: 'url("../images/eat.jpg")',
+	          backgroundImage: 'url("images/eat.jpg")',
 	          backgroundSize: 'cover',
 	          width: '100%',
 	          height: '100%'
