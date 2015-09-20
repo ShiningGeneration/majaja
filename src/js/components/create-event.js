@@ -18,6 +18,7 @@ export default class CreateEvent extends React.Component {
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.submit = this.submit.bind(this);
+    this._fetchProducts = this._fetchProducts.bind(this);
 
     this.state = {
       open: false,
@@ -40,7 +41,30 @@ export default class CreateEvent extends React.Component {
   }
 
   submit() {
+    let data = {
+      groups: this.refs.groups.getValue(),
+      endDate: this.refs.endDate.getValue(),
+      endTime: this.refs.endTime.getValue(),
+      limitAmount: this.refs.limitAmount.getValue(),
+      limitPrice: this.refs.limitPrice.getValue(),
+      announce: this.refs.announce.getValue()
+    };
 
+    fetch(`api/createEvent`, {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        token: 'user-token',
+        data: data
+      })
+    }).then(res => {
+      if (res.ok) {
+        // TODO: Notify update successfully
+      }
+    });
   }
 
   _fetchProducts() {
@@ -114,25 +138,46 @@ export default class CreateEvent extends React.Component {
               </Table>
             </Panel>
             <Panel header='訂購資料' eventKey='3'>
-              <label>發起人</label>
-              <p>林小明</p>
               <label>發布群組</label>
               <div style={style.tags}>
                 <Label bsStyle='success'>自己</Label>
                 <Label bsStyle='info'>公司-部門</Label>
               </div>
-              <Input type='text' placeholder='請輸入群組名稱' />
-              <Input type='text' label='截止日期' placeholder='yyyy/mm/dd' />
-              <Input type='text' label='截止時間' placeholder='hh:mm' />
+              <Input
+                ref='groups'
+                type='text'
+                placeholder='請輸入群組名稱' />
+              <Input
+                ref='endDate'
+                type='text'
+                label='截止日期'
+                placeholder='yyyy/mm/dd' />
+              <Input
+                ref='endTime'
+                type='text'
+                label='截止時間'
+                placeholder='hh:mm' />
               <Row>
                 <Col md={6}>
-                  <Input type='text' label='數量截止' placeholder='10' />
+                  <Input
+                    ref='limitAmount'
+                    type='text'
+                    label='數量截止'
+                    placeholder='10' />
                 </Col>
                 <Col md={6}>
-                <Input type='text' label='金額截止' placeholder='5000' />
+                <Input
+                  ref='limitPrice'
+                  type='text'
+                  label='金額截止'
+                  placeholder='5000' />
                 </Col>
               </Row>
-              <Input type='textarea' label='公告事項' style={style.announce} />
+              <Input
+               ref='announce'
+               type='textarea'
+               label='公告事項'
+               style={style.announce} />
             </Panel>
           </PanelGroup>
         </Modal.Body>
