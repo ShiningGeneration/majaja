@@ -35753,6 +35753,7 @@
 	    this.open = this.open.bind(this);
 	    this.close = this.close.bind(this);
 	    this.submit = this.submit.bind(this);
+	    this._fetchProducts = this._fetchProducts.bind(this);
 
 	    this.state = {
 	      open: false,
@@ -35778,7 +35779,32 @@
 	    }
 	  }, {
 	    key: 'submit',
-	    value: function submit() {}
+	    value: function submit() {
+	      var data = {
+	        groups: this.refs.groups.getValue(),
+	        endDate: this.refs.endDate.getValue(),
+	        endTime: this.refs.endTime.getValue(),
+	        limitAmount: this.refs.limitAmount.getValue(),
+	        limitPrice: this.refs.limitPrice.getValue(),
+	        announce: this.refs.announce.getValue()
+	      };
+
+	      fetch('api/createEvent', {
+	        method: 'post',
+	        headers: {
+	          'Accept': 'application/json',
+	          'Content-Type': 'application/json'
+	        },
+	        body: JSON.stringify({
+	          token: 'user-token',
+	          data: data
+	        })
+	      }).then(function (res) {
+	        if (res.ok) {
+	          // TODO: Notify update successfully
+	        }
+	      });
+	    }
 	  }, {
 	    key: '_fetchProducts',
 	    value: function _fetchProducts() {
@@ -36002,16 +36028,6 @@
 	              _react2['default'].createElement(
 	                'label',
 	                null,
-	                '發起人'
-	              ),
-	              _react2['default'].createElement(
-	                'p',
-	                null,
-	                '林小明'
-	              ),
-	              _react2['default'].createElement(
-	                'label',
-	                null,
 	                '發布群組'
 	              ),
 	              _react2['default'].createElement(
@@ -36028,24 +36044,47 @@
 	                  '公司-部門'
 	                )
 	              ),
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', placeholder: '請輸入群組名稱' }),
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '截止日期', placeholder: 'yyyy/mm/dd' }),
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '截止時間', placeholder: 'hh:mm' }),
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                ref: 'groups',
+	                type: 'text',
+	                placeholder: '請輸入群組名稱' }),
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                ref: 'endDate',
+	                type: 'text',
+	                label: '截止日期',
+	                placeholder: 'yyyy/mm/dd' }),
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                ref: 'endTime',
+	                type: 'text',
+	                label: '截止時間',
+	                placeholder: 'hh:mm' }),
 	              _react2['default'].createElement(
 	                _reactBootstrapLibRow2['default'],
 	                null,
 	                _react2['default'].createElement(
 	                  _reactBootstrapLibCol2['default'],
 	                  { md: 6 },
-	                  _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '數量截止', placeholder: '10' })
+	                  _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                    ref: 'limitAmount',
+	                    type: 'text',
+	                    label: '數量截止',
+	                    placeholder: '10' })
 	                ),
 	                _react2['default'].createElement(
 	                  _reactBootstrapLibCol2['default'],
 	                  { md: 6 },
-	                  _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'text', label: '金額截止', placeholder: '5000' })
+	                  _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                    ref: 'limitPrice',
+	                    type: 'text',
+	                    label: '金額截止',
+	                    placeholder: '5000' })
 	                )
 	              ),
-	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], { type: 'textarea', label: '公告事項', style: style.announce })
+	              _react2['default'].createElement(_reactBootstrapLibInput2['default'], {
+	                ref: 'announce',
+	                type: 'textarea',
+	                label: '公告事項',
+	                style: style.announce })
 	            )
 	          )
 	        ),
