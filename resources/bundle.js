@@ -37082,7 +37082,7 @@
 	      // Set login as developer
 	      _reactCookie2['default'].save('userId', 'majaja');
 
-	      var userId = this.refs.uesrname.getValue();
+	      var userId = this.refs.userId.getValue();
 	      var password = this.refs.password.getValue();
 	      var accountInfo = {
 	        userId: userId,
@@ -37157,7 +37157,7 @@
 	            _reactBootstrapLibButton2['default'],
 	            {
 	              bsStyle: 'danger',
-	              href: '/',
+	              href: location.pathname,
 	              block: true,
 	              onClick: this.submit },
 	            'Sign in'
@@ -39180,7 +39180,7 @@
 	            _reactBootstrapLibButton2['default'],
 	            {
 	              bsStyle: 'danger',
-	              href: '/',
+	              href: location.pathname,
 	              block: true,
 	              onClick: this.submit },
 	            'Sign up'
@@ -39303,7 +39303,9 @@
 	            _react2['default'].createElement(_reactBootstrapLibMenuItem2['default'], { divider: true }),
 	            _react2['default'].createElement(
 	              _reactBootstrapLibMenuItem2['default'],
-	              { eventKey: '2', href: '/', onSelect: this._signOut },
+	              { eventKey: '2',
+	                href: location.pathname,
+	                onSelect: this._signOut },
 	              'Sign Out'
 	            )
 	          )
