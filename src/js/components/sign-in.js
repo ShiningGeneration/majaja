@@ -36,7 +36,7 @@ export default class SignUp extends React.Component {
     // Set login as developer
     Cookie.save('userId', 'majaja');
 
-    let userId = this.refs.uesrname.getValue();
+    let userId = this.refs.userId.getValue();
     let password = this.refs.password.getValue();
     let accountInfo = {
       userId: userId,
@@ -95,7 +95,7 @@ export default class SignUp extends React.Component {
         <Modal.Footer style={style.dialogContent}>
           <Button
             bsStyle='danger'
-            href='/'
+            href={location.pathname}
             block
             onClick={this.submit}>
               Sign in

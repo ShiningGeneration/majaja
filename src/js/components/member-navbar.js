@@ -39,7 +39,9 @@ export default class UserNavbar extends React.Component {
           <NavDropdown title={<Glyphicon glyph='user' />}>
             <MenuItem eventKey='1' href='#preference'>Preference</MenuItem>
             <MenuItem divider />
-            <MenuItem eventKey='2' href='/' onSelect={this._signOut}>
+            <MenuItem eventKey='2'
+              href={location.pathname}
+              onSelect={this._signOut}>
               Sign Out
             </MenuItem>
           </NavDropdown>

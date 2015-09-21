@@ -93,7 +93,7 @@ export default class SignUp extends React.Component {
         <Modal.Footer>
           <Button
             bsStyle='danger'
-            href='/'
+            href={location.pathname}
             block
             onClick={this.submit}>Sign up</Button>
         </Modal.Footer>
