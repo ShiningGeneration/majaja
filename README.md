@@ -26,4 +26,4 @@ Rock with live-reload
 $ gulp server
 ```
 
-Open browser with [http://localhost:8080/webpack-dev-server/index.html](http://localhost:8080/webpack-dev-server/index.html)
+Open browser with [http://localhost:8080](http://localhost:8080)
