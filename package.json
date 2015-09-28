@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.5",
+    "moment": "^2.10.6",
     "react": "^0.13.3",
+    "react-bootstrap-datetimepicker": "0.0.20",
     "react-cookie": "^0.3.4",
     "react-router": "^0.13.3",
     "whatwg-fetch": "^0.9.0"
