@@ -10,6 +10,10 @@ import PanelGroup from 'react-bootstrap/lib/PanelGroup';
 import Row from 'react-bootstrap/lib/Row';
 import Table from 'react-bootstrap/lib/Table';
 
+import 'react-bootstrap-datetimepicker/css/bootstrap-datetimepicker.css';
+import DateTimeField from 'react-bootstrap-datetimepicker';
+import Moment from 'moment';
+
 export default class CreateEvent extends React.Component {
 
   constructor(props) {
@@ -147,16 +151,12 @@ export default class CreateEvent extends React.Component {
                 ref='groups'
                 type='text'
                 placeholder='請輸入群組名稱' />
-              <Input
-                ref='endDate'
-                type='text'
-                label='截止日期'
-                placeholder='yyyy/mm/dd' />
-              <Input
-                ref='endTime'
-                type='text'
-                label='截止時間'
-                placeholder='hh:mm' />
+              <label>截止時間</label>
+              <div style={style.tags}>
+                <DateTimeField
+                  inputFormat='YYYY/MM/DD h:mm A'
+                  minDate={Moment()}/>
+              </div>
               <Row>
                 <Col md={6}>
                   <Input
